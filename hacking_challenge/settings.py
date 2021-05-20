@@ -27,7 +27,7 @@ SECRET_KEY = '^4r)j(iwa$21&+pd3yc)e3d(np@(az6a2&(pwrr2j#^nyg9d=f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'aggiectf.tk', '206.189.210.78']
 
 
 # Application definition
