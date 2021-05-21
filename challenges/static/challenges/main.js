@@ -6,21 +6,28 @@ const app = Vue.createApp({
     data() {
         return {
             someText: "This is a test",
-            textFromDatabase: null,
+            challengesFromDatabase: null,
+            databaseChallengesLocation: 'getChallenges/'
+
         }
 
     },
 
     created() {
-
+        this.challengesFromDatabase = this.getChallenges();
 
 
     },
 
 
     methods: {
-
-
+        getChallenges() {
+            fetch(this.databaseChallengesLocation)
+                .then(response => response.json())
+                .then(json => {
+                    this.challengesFromDatabase = json;
+                });
+        },
 
     },
 

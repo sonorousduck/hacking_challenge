@@ -8,7 +8,7 @@
         <title> Challenges </title>
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
-        <script defer async src="{% static 'challenges/main.js' %}"></script>
+        <script defer src="{% static 'challenges/main.js' %}"></script>
     </head> 
 
 
@@ -18,9 +18,13 @@
         <div id="challenges">
 
             <h1> [% someText %] </h1>
-
-
-
+            
+            <div v-if="challengesFromDatabase === null"> Loading... </div>
+            <div v-else>
+                <div v-for='challenge in challengesFromDatabase'>
+                    <h5> [% challenge.title %] [% challenge.description %] [% challenge.pointValue %] [% challenge.difficultyIndicator %] </h5>
+                </div>
+            </div>
         </div>
 
 
