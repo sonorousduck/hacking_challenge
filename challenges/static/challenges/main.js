@@ -7,7 +7,9 @@ const app = Vue.createApp({
         return {
             someText: "This is a test",
             challengesFromDatabase: null,
-            databaseChallengesLocation: 'getChallenges/'
+            databaseChallengesLocation: 'getChallenges/',
+            isCompleted: false,
+            isLocked: false,
 
         }
 

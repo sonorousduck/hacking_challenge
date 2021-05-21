@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'challenges.apps.ChallengesConfig',
     'playground.apps.PlaygroundConfig',
+    'homepage.apps.HomepageConfig',
 
 
     ]
