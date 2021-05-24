@@ -5,8 +5,8 @@ from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 # Create your views here.
 
 def index(request):
-    return render(request, 'challenges/index.html')
-
+    challenges = Challenge.objects.order_by('order')
+    return render(request, 'challenges/index.html', {'challenges': challenges})
 
 
 def getChallenges(request):
