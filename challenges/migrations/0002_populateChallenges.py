@@ -8,7 +8,7 @@ def populate_db(apps, schema_editor):
     Hint = apps.get_model('challenges', 'Hint')
 
 
-    challenge_0 = Challenge(flag="JFKDLS$#(*JFAN#R)", title="Level 0", order=0,  hidden=False, description="This level is what we call beginner's luck. You either have it... or ya don't!")
+    challenge_0 = Challenge(flag="password", title="Level 0", order=0,  hidden=False, description="This level is what we call beginner's luck. You either have it... or ya don't!")
     challenge_0.save()
 
 
@@ -43,7 +43,7 @@ def populate_db(apps, schema_editor):
 
 
 
-    challenge_3 = Challenge(flag="%$J321LS@+_FDJK#L", title="Level 3", order=3, hidden=False, description="This time I'm not going to rely on javascript genearting some password for me. I'm keeping this one offsite")
+    challenge_3 = Challenge(flag="%$J321LS@+_FDJK#L", title="Level 3", order=3, hidden=False, description="This time I'm not going to rely on javascript generating some password for me. I'm keeping this one offsite")
     challenge_3.save()
    
 

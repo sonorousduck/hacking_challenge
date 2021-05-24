@@ -28,9 +28,7 @@ def getChallenges(request):
 
     return response
 
-#def navigateToChallenge(request):
-#    print(request)
-#    return render(request, f'challenges/challenge1.html')
+# TODO: Get the information for which challenge to send them to from a database instead of static as I am currently doing. This allows us to easier change the order of the levels and it will correctly point to the html page that it should. Essentially, it will be a dictionary mapping the challenge to a html page (instead of currently the order mapping it strictly to an html page, which makes it if the order changes, then it doesn't update correctly to the new html page
 
 def challengeDetails(request, challenge_id):
     challenge = get_object_or_404(Challenge, order=challenge_id - 1)

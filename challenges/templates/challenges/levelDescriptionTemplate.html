@@ -1,0 +1,33 @@
+{% load static %}
+<html>
+    <head>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script defer src="{% static 'challenges/levelDescription.js' %}"></script>
+    </head>
+    <body>
+        
+        <div class="levelNumber"> Level {{ challenge.order }} </div>
+
+        <div class="levelDescription"> {{challenge.description }} </div>
+
+
+        <div id="formAndHints">
+
+            <div :hidden= "isInvisible" id="hints" >
+                <h1> This is a WIP </h1>
+
+
+            </div>
+
+
+
+            <form id="passcodeForm">
+                <input type="text" id="passcodeValidation" name="passcodeValidation" placeholder="password">
+                <input type="submit" id="submitButton" value="Submit">
+                <button type="button" id="hintButton" @click=getHints()> View Hint </button>
+            </form>
+
+        </div>
+    </body>
+
+</html>
