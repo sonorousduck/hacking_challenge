@@ -7,9 +7,10 @@ const app = Vue.createApp({
         return {
             someText: "This is a test",
             challengesFromDatabase: null,
-            databaseChallengesLocation: 'getChallenges/',
+            databaseChallengesLocation: 'getChallenges',
             isCompleted: false,
             isLocked: false,
+            navigation: 'navigateToChallenge',
 
         }
 
@@ -30,6 +31,15 @@ const app = Vue.createApp({
                     this.challengesFromDatabase = json;
                 });
         },
+
+        goToChallenge(event) {
+            console.log(event.currentTarget.id);
+            fetch(this.navigation, {challenge: 'event.currentTarget.id'})
+
+
+
+        },
+
 
     },
 

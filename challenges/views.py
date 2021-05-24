@@ -28,4 +28,11 @@ def getChallenges(request):
 
     return response
 
+def navigateToChallenge(request):
+    print(request)
+    return render(request, f'challenges/challenge1')
+
+def challenges(request, challenge_id):
+    challenge = get_object_or_404(Challenge, order=challenge_id)
+    return render(request, 'challenges/challenge.html', {'challenge': challenge})
 

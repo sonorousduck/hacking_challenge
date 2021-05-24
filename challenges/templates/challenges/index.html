@@ -35,12 +35,12 @@ Settings </a>
             
             <div v-if="challengesFromDatabase === null"> Loading... </div>
             <div v-else>
-                <div class="card" :class="{card: !isCompleted, completedCard: isCompleted, locked: isLocked, newHover: isCompleted,}" v-for='challenge in challengesFromDatabase'>
+                <div :class="{card: !isCompleted, completedCard: isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="challenge.order" @click="goToChallenge($event)" v-bind:href="{% url 'challenges:challenge' challenge.id %}" v-for='challenge in challengesFromDatabase' >
                     <div class="container">
                         <div class="levelText"> Level [% challenge.order %] </div>
                     </div>
                 </div>
-            </div>;
+            </div>
         </div>
 
 
