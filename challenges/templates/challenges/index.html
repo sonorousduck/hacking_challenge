@@ -16,31 +16,21 @@
 
 
     <body>
-        <div class="navbar" id="myNavbar">
-            <a  href="/"> <i class="fa fa-home" aria-hidden="true"></i>
-Home </a>
-            <a class="active" href=""> <i class="fa fa-code" aria-hidden="true"></i>
-Challenges </a>
-            <a class="settings" href="/settings/"> <i class="fa fa-cog" aria-hidden="true"></i>
-Settings </a>
-            <a class="logout" href="/logout/"> <i class="fa fa-sign-out" aria-hidden="true"> </i>
-            <a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class = "fa fa-bars"> </i> </a>
-        </div>
+        {% include 'challenges/navbar.html' %}
 
 
 
-
-        <div id="challenges">
-
-            <h1> [% someText %] </h1>
+        <div id="challenges" class="challengeContainer">
 
             {% if challenges %}
             {% for challenge in challenges %}
-            <div :class="{card: !isCompleted, completedCard: isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}" @click="goToChallenge($event)">
-                <div class="container">
-                    <div class="levelText"> Level {{ challenge.order }} </div>
+            <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
+                <div :class="{card: !isCompleted, completedCard: isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
+                    <div class="container">
+                        <div class="levelText"> Level {{ challenge.order }} </div>
+                    </div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
             
             {% else %}

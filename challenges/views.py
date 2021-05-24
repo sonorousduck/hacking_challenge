@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Challenge, Hint
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 
@@ -12,9 +12,9 @@ def index(request):
 def getChallenges(request):
     allData = Challenge.objects.all()
     JSONobj = []
-
-
+    
     # Create the JSON object
+
 
 # TODO: Change this to not include any sensitive data, i.e. the flag. That will have to be done in a validation request when an answer is submitted.
 
@@ -28,11 +28,11 @@ def getChallenges(request):
 
     return response
 
-def navigateToChallenge(request):
-    print(request)
-    return render(request, f'challenges/challenge1')
+#def navigateToChallenge(request):
+#    print(request)
+#    return render(request, f'challenges/challenge1.html')
 
-def challenges(request, challenge_id):
-    challenge = get_object_or_404(Challenge, order=challenge_id)
-    return render(request, 'challenges/challenge.html', {'challenge': challenge})
+def challengeDetails(request, challenge_id):
+    challenge = get_object_or_404(Challenge, order=challenge_id - 1)
+    return render(request, f'challenges/challenge{challenge_id - 1}.html', {'challenge': challenge})
 
