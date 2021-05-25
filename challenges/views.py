@@ -9,24 +9,26 @@ def index(request):
     return render(request, 'challenges/index.html', {'challenges': challenges})
 
 
-def getChallenges(request):
-    allData = Challenge.objects.all()
-    JSONobj = []
-    
-    # Create the JSON object
+def validation(request):
+    if (request.method == "POST"):
+        json_response = [] 
 
 
-# TODO: Change this to not include any sensitive data, i.e. the flag. That will have to be done in a validation request when an answer is submitted.
+        challenge = Challenge.objects.get(order=request.POST['challenge_id'])
 
+        print(challenge)
 
-    for obj in allData:
-        JSONobj.append({'title': obj.title, 'description': obj.description, 'order' : obj.order, 'hidden' : obj.hidden, 'pointValue' : obj.hidden, 'optionalChallenge': obj.optionalChallenge, 'difficultyIndicator': obj.difficultyIndicator})
+        # Create the JSON object
 
+        if (challenge.flag == request.POST['passcodeValidation']):
+            json_response.append({'success': True})
+        else:
+            json_response.append({'success': False})
 
-    response = JsonResponse(JSONobj, safe=False)
-    response['Access-Control-Allow-Origin'] = '*'
+        response = JsonResponse(json_response, safe=False)
+        response['Access-Control-Allow-Origin'] = '*'
 
-    return response
+        return response
 
 # TODO: Get the information for which challenge to send them to from a database instead of static as I am currently doing. This allows us to easier change the order of the levels and it will correctly point to the html page that it should. Essentially, it will be a dictionary mapping the challenge to a html page (instead of currently the order mapping it strictly to an html page, which makes it if the order changes, then it doesn't update correctly to the new html page
 

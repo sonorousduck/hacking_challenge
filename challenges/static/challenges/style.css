@@ -165,10 +165,12 @@ body {
 #passcodeValidation {
     align: center;
     padding: 20px;
-    border-style: solid;
     transition-duration: 0.2s;
+    border-style: solid;
     border-radius: 10px;
     width: 33%;
+    margin-right: 8px;
+    outline: none;
 }
 
 #passcodeValidation:focus {
@@ -182,6 +184,7 @@ body {
     background-color: white;
     border-radius: 10px;
     border-style: solid;
+    margin-right: 8px;
 }
 
 

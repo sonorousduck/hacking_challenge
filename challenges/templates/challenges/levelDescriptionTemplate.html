@@ -2,7 +2,8 @@
 <html>
     <head>
         <script src="https://unpkg.com/vue@next"></script>
-        <script defer src="{% static 'challenges/levelDescription.js' %}"></script>
+        <script type="module" defer src="{% static 'challenges/levelDescription.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'challenges/popupStyle.css' %}">
     </head>
     <body>
         
@@ -13,17 +14,27 @@
 
         <div id="formAndHints">
 
-            <div :hidden= "isInvisible" id="hints" >
-                <h1> This is a WIP </h1>
-
-
+            <div :hidden= "isInvisible" id="hints" class="popup_hints">
+                <span class="helper"></span>
+                <div>
+                    <div class="popupCloseButton" @click=getHints()>&times;</div>
+                    <p><strong> Requires Knowledge of: </strong></p>
+                    <ul id="hintsList">
+                        {% for hint in challenge.hint_set.all %}
+                        <li> {{ hint.hint }} </li>
+                        <br> 
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
 
 
 
-            <form id="passcodeForm">
-                <input type="text" id="passcodeValidation" name="passcodeValidation" placeholder="password">
-                <input type="submit" id="submitButton" value="Submit">
+            <form action="../validation/" id="passcodeForm" method="POST" >
+                {% csrf_token %} 
+                <input v-model="passcodeInput" id="passcodeValidation" name="passcodeValidation" placeholder="password">
+                <input type="submit" id="submitButton" name="Submit">  </input>
+                <input hidden name='challenge_id' value = {{ challenge.order }}>
                 <button type="button" id="hintButton" @click=getHints()> View Hint </button>
             </form>
 

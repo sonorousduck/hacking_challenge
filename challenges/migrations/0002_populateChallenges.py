@@ -187,7 +187,7 @@ def populate_db(apps, schema_editor):
     hint_9_8 = Hint(challenge=challenge_9, hint="Cookies")
     hint_9_8.save()
 
-    hint_9_9 = Hint(challenge=challenge_9, hint="Hackers often take advantage of already known vulnerbilities. Have you seen code you haven't used?")
+    hint_9_9 = Hint(challenge=challenge_9, hint="Hackers often take advantage of already known vulnerabilities. Have you seen code you haven't used?")
     hint_9_9.save()
 
 

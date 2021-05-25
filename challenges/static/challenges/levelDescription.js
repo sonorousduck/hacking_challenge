@@ -1,3 +1,4 @@
+
 const app = Vue.createApp({
     delimiters: [ '[%', '%]' ],
 
@@ -5,7 +6,11 @@ const app = Vue.createApp({
     data() {
         return {
             isInvisible: true,
+            validation: '../validation/',
+            correct: false,
+            passcodeInput: '',
         }
+
 
     },
 
@@ -14,10 +19,29 @@ const app = Vue.createApp({
 
     methods: {
         getHints() {
-            this.isVisible = !this.isVisible;
+            this.isInvisible = !this.isInvisible;
         },
 
+        validateInput(csrf_token) {
+            console.log(csrf_token);
+            console.log(this.passcodeInput);
+            fetch(this.validation, {
+                method: "POST",
 
+                body: JSON.stringify({
+                    passcode: this.passcodeInput,
+                }),
+
+                headers: {'X-CSRFToken': csrf_token},
+
+            })
+                .then(response => response.json())
+                .then(json => {
+                    this.correct = json;
+                    console.log(json);
+
+                });
+        },
     },
 
 
