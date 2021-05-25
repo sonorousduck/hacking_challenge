@@ -9,6 +9,9 @@ const app = Vue.createApp({
             validation: '../validation/',
             correct: false,
             passcodeInput: '',
+            isIncorrectHidden: true,
+            isCorrectHidden: true,
+
         }
 
 
@@ -22,23 +25,47 @@ const app = Vue.createApp({
             this.isInvisible = !this.isInvisible;
         },
 
-        validateInput(csrf_token) {
-            console.log(csrf_token);
+        validateInput() {
             console.log(this.passcodeInput);
+            let formData = new FormData();
+            formData.append("passcode", this.passcodeInput);
+            // TODO: Instead of taking out of the form, preferably would be to get it straight from Django. Or instead of making a fetch to an overall validation, when it goes to challenges/1/validation, it auto gets its challenge_id from that instead.
+            //
+            formData.append("challenge_id", document.querySelector('#challenge_id').value);
+
             fetch(this.validation, {
                 method: "POST",
 
-                body: JSON.stringify({
-                    passcode: this.passcodeInput,
-                }),
+                body: formData,
 
-                headers: {'X-CSRFToken': csrf_token},
+                headers: {'X-CSRFToken': document.querySelector('#csrf_token').value},
 
             })
                 .then(response => response.json())
                 .then(json => {
-                    this.correct = json;
-                    console.log(json);
+                    this.correct = json[0]['success'];
+                    console.log(this.correct);
+
+                    // TODO: This is where I will need to update the user database. Shouldn't be hard though. Based on the pk, if true, update in database
+    
+
+                    if (this.correct) {
+                        this.isCorrectHidden = false;
+                        
+                        setTimeout(() => {
+                            this.isCorrectHidden = true; 
+                        }, 5000);
+                    }
+
+                    else if (!this.correct) { 
+                        this.isIncorrectHidden = false;
+                        
+                        setTimeout(() => {
+                            this.isIncorrectHidden = true; 
+                        }, 5000);
+
+                    }
+                    
 
                 });
         },

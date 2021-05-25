@@ -4,6 +4,8 @@
         <script src="https://unpkg.com/vue@next"></script>
         <script type="module" defer src="{% static 'challenges/levelDescription.js' %}"></script>
         <link rel="stylesheet" href="{% static 'challenges/popupStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'challenges/incorrectIndicator.css' %}">
+
     </head>
     <body>
         
@@ -31,12 +33,22 @@
 
 
             <form action="../validation/" id="passcodeForm" method="POST" >
-                {% csrf_token %} 
+                
+
                 <input v-model="passcodeInput" id="passcodeValidation" name="passcodeValidation" placeholder="password">
-                <input type="submit" id="submitButton" name="Submit">  </input>
-                <input hidden name='challenge_id' value = {{ challenge.order }}>
+                <button type="button" id="submitButton" @click=validateInput()> Submit </button>
+                <input hidden id="challenge_id" name='challenge_id' value = {{ challenge.order }}>
+               <input hidden id="csrf_token" value = {{ csrf_token }}>
                 <button type="button" id="hintButton" @click=getHints()> View Hint </button>
+                <br>
+                <div :hidden= "isIncorrectHidden" id="incorrectIndicator">
+                    <div id="incorrectText"> Incorrect! </div>
+                </div>
+                <div :hidden= "isCorrectHidden" id="correctIndicator">
+                    <div id="correctText"> Correct! </div>
+                </div>
             </form>
+
 
         </div>
     </body>

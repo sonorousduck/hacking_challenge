@@ -13,14 +13,13 @@ def validation(request):
     if (request.method == "POST"):
         json_response = [] 
 
-
         challenge = Challenge.objects.get(order=request.POST['challenge_id'])
 
         print(challenge)
 
         # Create the JSON object
 
-        if (challenge.flag == request.POST['passcodeValidation']):
+        if (challenge.flag == request.POST['passcode']):
             json_response.append({'success': True})
         else:
             json_response.append({'success': False})
