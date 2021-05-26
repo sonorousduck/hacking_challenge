@@ -19,6 +19,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 
 
+# TODO: seperate out security and cookieValidation into its own apps
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('challenges/', include('challenges.urls')),

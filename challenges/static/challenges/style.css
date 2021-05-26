@@ -231,9 +231,13 @@ body {
 .bash {
     width: 50%;
     font-size: 16px;
+}
 
-
-
+#theSolution {
+    align: center;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 8px;
 }
 
 

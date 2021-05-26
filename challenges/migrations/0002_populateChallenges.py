@@ -156,7 +156,7 @@ def populate_db(apps, schema_editor):
     hint_8_7.save()
 
 
-    challenge_9 = Challenge(flag="RARW999RKDFJLS", title="Level 9", order=9, hidden=False, description="If you have gotten to this level, you have already seen enough to solve this one. I entrust you with this final gem of knowledge. The Solution")
+    challenge_9 = Challenge(flag="RARW999RKDFJLS", title="Level 9", order=9, hidden=False, description="If you have gotten to this level, you have already seen enough to solve this one. I entrust you with this gem of knowledge.")
     challenge_9.save()
 
     

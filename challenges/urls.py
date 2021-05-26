@@ -11,5 +11,7 @@ urlpatterns = [
         path('validation/', views.validation, name='validation'),
         path('passwordSecurity', views.passwordSecurity, name='passwordSecurity'),
         path('supersecure', views.security, name='supersecure'),
-        path('securityValidation', views.securityValidation, name='securityValidation')
+        path('securityValidation', views.securityValidation, name='securityValidation'),
+        path('secure', views.secure, name='secure'),
+        path('cookieValidation/', views.cookieValidation, name='cookieValidation'),
 ]
