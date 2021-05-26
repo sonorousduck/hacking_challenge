@@ -174,7 +174,7 @@ body {
 }
 
 #passcodeValidation:focus {
-    border-color: lightgreen;
+    border-color: green;
 }
 
 #submitButton {
@@ -209,10 +209,32 @@ body {
     background-color: #b71c1c;
 }
 
+.loginForm {
+    align: center;
+    text-align: center;
+    padding: 16px;
+    margin-top: 24px;
+}
+
+.formEntry {
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 16px;
+    border-radius: 8px;
+    border-style: solid;
+    outline: none;
+}
+.formEntry:focus {
+    border-color: black;
+}
+
+.bash {
+    width: 50%;
+    font-size: 16px;
 
 
 
-
+}
 
 
 

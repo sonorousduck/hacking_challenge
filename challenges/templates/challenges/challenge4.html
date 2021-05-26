@@ -9,7 +9,7 @@
         <script src="https://unpkg.com/vue@next"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
-
+        <script defer src="{% static 'challenges/dp.js' %}"></script>
     </head>
 
     <body>
@@ -18,7 +18,9 @@
 
         {% include 'challenges/levelDescriptionTemplate.html' %}
 
-
+        <div hidden id="passwrd">
+            <div> {{challenge.flag}} </div>
+        </div>
 
 
     </body>

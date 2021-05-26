@@ -29,7 +29,7 @@ def populate_db(apps, schema_editor):
     hint_1_1.save()
 
 
-    challenge_2 = Challenge(flag="%$JDFKLS@+_FDJK#L", title="Level 2", order=2, hidden=False, description="This time, I am going to be better about where I keep my passwords saved. Plus! I just started learning javascript so I am going to use that to beef up my secruity measures")
+    challenge_2 = Challenge(flag="0iL2oV4eH6aC8kI10nG", title="Level 2", order=2, hidden=False, description="This time, I am going to be better about where I keep my passwords saved. Plus! I just started learning javascript so I am going to use that to beef up my secruity measures")
     challenge_2.save()
 
     hint_2_0 = Hint(challenge=challenge_2, hint="HTML")
@@ -52,14 +52,14 @@ def populate_db(apps, schema_editor):
 
 
 
-    challenge_4 = Challenge(flag="A$J321LS@+_F789#L", title="Level 4", order=4, hidden=False, description="I have been learning even more Javascript tricks that I think are going to help me have better security on the site! I think this is much more safe now")
+    challenge_4 = Challenge(flag="T/E))2n-_-0!cj4--H*0? ", title="Level 4", order=4, hidden=False, description="I have been learning even more Javascript tricks that I think are going to help me have better security on the site! I think this is much more safe now")
     challenge_4.save()
 
 
     hint_4_0 = Hint(challenge=challenge_4, hint="Developer Tools")
     hint_4_0.save()
 
-    challenge_5 = Challenge(flag="RARW777RKDFJLS", title="Level 5", order=5, hidden=False, description="Okay... So you figured that out. This time I swear it won't be as easy as hiding it in the html. This time the password uses javascript to hide it better but I'll still be able to find it if I forget. Plus! This time its served by the server and I doubt you'd figure out how to access that.")
+    challenge_5 = Challenge(flag="A0,b,C2,d,E4,f,G6", title="Level 5", order=5, hidden=False, description="Okay... So you figured that out. This time I swear it won't be as easy as hiding it in the html. This time the password uses javascript to hide it better but I'll still be able to find it if I forget. Plus! This time its served by the server and I doubt you'd figure out how to access that.")
     challenge_5.save()
 
     hint_5_0 = Hint(challenge=challenge_5, hint="HTML")
@@ -79,7 +79,7 @@ def populate_db(apps, schema_editor):
     hint_5_4.save()
 
     
-    challenge_6 = Challenge(flag="RARW777RKDFJLS", title="Level 6", order=6, hidden=False, description="Okay... I admit. You are pretty good. Luckily I have a friend that know how to use forms and he showed me some tips on securing my passwords better when I can't remember them.")
+    challenge_6 = Challenge(flag="@U/*D4(DV}wT{F`e", title="Level 6", order=6, hidden=False, description="Okay... I admit. You are pretty good. Luckily I have a friend that know how to use forms and he showed me some tips on securing my passwords better when I can't remember them.")
     challenge_6.save()
 
 

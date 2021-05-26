@@ -25,5 +25,5 @@ urlpatterns = [
     path('playground/', include('playground.urls')),
     path('', include('homepage.urls')),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'))),
-
+    path('security/', include('challenges.urls')),
 ]

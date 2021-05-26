@@ -9,5 +9,7 @@ urlpatterns = [
         path('', views.index, name='challenges'),
         path('<int:challenge_id>/', views.challengeDetails, name='challengeDetails'),
         path('validation/', views.validation, name='validation'),
-
+        path('passwordSecurity', views.passwordSecurity, name='passwordSecurity'),
+        path('supersecure', views.security, name='supersecure'),
+        path('securityValidation', views.securityValidation, name='securityValidation')
 ]

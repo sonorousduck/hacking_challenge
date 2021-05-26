@@ -35,3 +35,45 @@ def challengeDetails(request, challenge_id):
     challenge = get_object_or_404(Challenge, order=challenge_id - 1)
     return render(request, f'challenges/challenge{challenge_id - 1}.html', {'challenge': challenge})
 
+def passwordSecurity(request):
+    return HttpResponse(200);
+
+def security(request):
+    if not request.GET:
+        return HttpResponse("not authorized")
+    elif request.GET['username'] and request.GET['password']:
+        return HttpResponse("@U/*D4(DV}wT{F`e")
+    else:
+        return HttpResponse("username must not be NULL and password must not be NULL")
+
+def securityValidation(request):
+    if not request.GET:
+        return HttpResponse("Not Authorized")
+
+    elif request.GET['password'] == "":
+        return HttpResponse("bash: "": command not found")
+    elif request.GET['password'] == "ls":
+        return HttpResponse("somefile.txt\nsomeotherfile.txt\ncleverlynamedfile.txt")
+    elif request.GET['password'] == "ls -a":
+        return HttpResponse("somefile.txt\nsomeotherfile.txt\ncleverlynamedfile.txt .env")
+    elif request.GET['password'] == "cat .env":
+        return HttpResponse("/D3<]3v34Q3H,tDn")
+    elif request.GET['password'] == "cat somefile.txt":
+        return HttpResponse("Contents of somefile.txt")
+    elif request.GET['password'] == "cat somefile.txt":
+        return HttpResponse("Contents of somefile.txt")
+    elif request.GET['password'] == "cat someotherfile.txt":
+        return HttpResponse("Contents of someotherfile.txt")
+    elif request.GET['password'] == "cat cleverlynamedfile.txt":
+        return HttpResponse("Contents of cleverlynamedfile.txt")
+    elif request.GET['password'] == "pwd":
+        return HttpResponse("../security/dbvalidation")
+    elif request.GET['password'] == "cd":
+        return HttpResponse("This command has been scrubbed and we know what you are trying to do!")
+    elif request.GET['password'].startswith("cat"):
+        return HttpResponse("This file doesn't exist")
+    elif request.GET['password'].startswith("cp") or request.GET['password'].startswith("mv") or request.GET['password'].startswith("touch") or  request.GET['password'].startswith("rm") or  request.GET['password'].startswith("locate") or request.GET['password'].startswith("locate") or  request.GET['password'].startswith("grep"):
+        return HttpResponse("This command has been scrubbed and we know what you are trying to do!")
+    else:
+        return HttpResponse(f"bash: {request.GET['password']}: command not found")
+
