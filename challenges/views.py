@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Challenge, Hint
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse 
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, HttpResponseForbidden 
 
 # Create your views here.
 
@@ -122,6 +122,26 @@ def cookieValidation(request):
     else: 
         return HttpResponse("Not Authorized")
 
+
+def adminLogin(request):
+    # TODO: Fix this one a bit. Right now, it works to do the javascript brute force. however there is a caveat. When you find the 200 response code, if you try double clicking it, you get hit with the CSRF_token missing right now. You can, however, look into the request and pull the password and username from it. Which might actually be a feature instead of a bug, since Django actually protects against this kind of thing specifically, so it takes one extra step to figure it out.
+
+    # TODO: Set this one up too to use a database instead of the hardcoded values
+
+    if request.POST['username'] == 'ShadyVelociraptor@gmail.com' and request.POST['password'] == 'turtle':
+        return HttpResponse("RARW101010RKDFJLS")
+    else:
+        return HttpResponseForbidden("""
+
+            <h1 style="align:center; text-align: center"> 403 Forbidden </h1>
+            <h5 style="align:center; text-align: center"> Leave this page or suffer the consequences </h5>
+
+        """)
+    
+
+
+
+
 cookie_password = "er4w{^a=Z,dGeyF="
 
 leak = """
@@ -234,4 +254,15 @@ def secure(request):
         return HttpResponse("This command has been scrubbed and we know what you are trying to do!")
     else:
         return HttpResponse(f"bash: {request.GET['password']}: command not found")
+
+
+
+    def cookieValidation(request):
+
+        if request.POST['password'] == '':
+            return HttpResponse("Not Authorized")
+        elif request.COOKIES.get('ryansbestta') == 'spamspamspamspamspamspameggsspam':
+            return HttpResponse(cookie_password)
+        else: 
+            return HttpResponse("Not Authorized")
 """

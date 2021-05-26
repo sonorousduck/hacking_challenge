@@ -43,7 +43,7 @@ def populate_db(apps, schema_editor):
 
 
 
-    challenge_3 = Challenge(flag="%$J321LS@+_FDJK#L", title="Level 3", order=3, hidden=False, description="This time I'm not going to rely on javascript generating some password for me. I'm keeping this one offsite")
+    challenge_3 = Challenge(flag="@UK#K3ir3i2dsa", title="Level 3", order=3, hidden=False, description="This time I'm not going to rely on javascript generating some password for me. I'm keeping this one offsite")
     challenge_3.save()
    
 
@@ -52,7 +52,7 @@ def populate_db(apps, schema_editor):
 
 
 
-    challenge_4 = Challenge(flag="T/E))2n-_-0!cj4--H*0? ", title="Level 4", order=4, hidden=False, description="I have been learning even more Javascript tricks that I think are going to help me have better security on the site! I think this is much more safe now")
+    challenge_4 = Challenge(flag="T/E))2n-_-0!cj4--H*0?", title="Level 4", order=4, hidden=False, description="I have been learning even more Javascript tricks that I think are going to help me have better security on the site! I think this is much more safe now")
     challenge_4.save()
 
 
@@ -100,7 +100,7 @@ def populate_db(apps, schema_editor):
     hint_6_3.save()
 
 
-    challenge_7 = Challenge(flag="RARW777RKDFJLS", title="Level 7", order=7, hidden=False, description="This time, I made sure that my server side validation was setup. Plus, I got my server setup where my passwords aren't in the code")
+    challenge_7 = Challenge(flag="/D3<]3v34Q3H,tDn", title="Level 7", order=7, hidden=False, description="This time, I made sure that my server side validation was setup. Plus, I got my server setup where my passwords aren't in the code")
     challenge_7.save()
 
     hint_7_0 = Hint(challenge=challenge_7, hint="HTML")
@@ -128,7 +128,7 @@ def populate_db(apps, schema_editor):
     hint_7_7.save()
 
 
-    challenge_8 = Challenge(flag="RARW888RKDFJLS", title="Level 8", order=8, hidden=False, description="Well if you got here then you found my flaw for the next couple hours because it's gonna take time for my friend to patch that....")
+    challenge_8 = Challenge(flag="1a2s3d4f5g6h7j8k9l", title="Level 8", order=8, hidden=False, description="Well if you got here then you found my flaw for the next couple hours because it's gonna take time for my friend to patch that....")
     challenge_8.save()
 
     hint_8_0 = Hint(challenge=challenge_8, hint="HTML")
@@ -156,7 +156,7 @@ def populate_db(apps, schema_editor):
     hint_8_7.save()
 
 
-    challenge_9 = Challenge(flag="RARW999RKDFJLS", title="Level 9", order=9, hidden=False, description="If you have gotten to this level, you have already seen enough to solve this one. I entrust you with this gem of knowledge.")
+    challenge_9 = Challenge(flag="er4w{^a=Z,dGeyF=", title="Level 9", order=9, hidden=False, description="If you have gotten to this level, you have already seen enough to solve this one. I entrust you with this gem of knowledge.")
     challenge_9.save()
 
     

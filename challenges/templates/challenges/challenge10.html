@@ -18,6 +18,14 @@
         {% include 'challenges/levelDescriptionTemplate.html' %}
 
 
+        <div class="loginForm">
+            <form action="../adminLogin/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <input class="formEntry" type="text" name="username" placeholder="username">
+                <input class="formEntry" type="password" name="password" placeholder="password">
+                <button type="submit"> Submit </button>
+            </form>
+        </div>
 
 
 
