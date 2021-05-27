@@ -1,14 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Challenge, Hint
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, HttpResponseForbidden 
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 
+
+@login_required()
 def index(request):
     challenges = Challenge.objects.order_by('order')
     return render(request, 'challenges/index.html', {'challenges': challenges})
 
 
+@login_required()
 def validation(request):
     if (request.method == "POST"):
         json_response = [] 
@@ -31,13 +34,16 @@ def validation(request):
 
 # TODO: Get the information for which challenge to send them to from a database instead of static as I am currently doing. This allows us to easier change the order of the levels and it will correctly point to the html page that it should. Essentially, it will be a dictionary mapping the challenge to a html page (instead of currently the order mapping it strictly to an html page, which makes it if the order changes, then it doesn't update correctly to the new html page
 
+@login_required()
 def challengeDetails(request, challenge_id):
     challenge = get_object_or_404(Challenge, order=challenge_id - 1)
     return render(request, f'challenges/challenge{challenge_id - 1}.html', {'challenge': challenge})
 
+@login_required()
 def passwordSecurity(request):
     return HttpResponse(200);
 
+@login_required()
 def security(request):
     if not request.GET:
         return HttpResponse("not authorized")
@@ -46,6 +52,7 @@ def security(request):
     else:
         return HttpResponse("username must not be NULL and password must not be NULL")
 
+@login_required()
 def securityValidation(request):
     if not request.GET:
         return HttpResponse("Not Authorized")
@@ -81,6 +88,7 @@ def securityValidation(request):
 # TODO: Add the cookie into the database, then I can just serve this actual file when they cat views.py instead
 # TODO: Beef up the ls. Have it list all of the files instead of just views.py (Have it ls urls.py, etc. etc.
 
+@login_required()
 def secure(request):
     # Just in case I forget the password... Its 1a2s3d4f5g6h7j8k9l
     if not request.GET:
@@ -112,6 +120,7 @@ def secure(request):
     else:
         return HttpResponse(f"bash: {request.GET['password']}: command not found")
 
+@login_required()
 def cookieValidation(request):
     print(request.POST)
 
@@ -123,6 +132,7 @@ def cookieValidation(request):
         return HttpResponse("Not Authorized")
 
 
+@login_required()
 def adminLogin(request):
     # TODO: Fix this one a bit. Right now, it works to do the javascript brute force. however there is a caveat. When you find the 200 response code, if you try double clicking it, you get hit with the CSRF_token missing right now. You can, however, look into the request and pull the password and username from it. Which might actually be a feature instead of a bug, since Django actually protects against this kind of thing specifically, so it takes one extra step to figure it out.
 

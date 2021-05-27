@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        {% load static %}
+        <title> CS2610 Login </title>
+        <meta charset="utf-8">
+        <script src="https://unpkg.com/vue@next"></script>
+        <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'loginSignup/style.css' %}">
+    </head>
+
+    <body>
+        <div class="title"> Welcome to the CS2610 Hacking Challenge </div>
+        
+
+        <div class="signinText"> Sign Up </div>
+
+
+        <div class="loginForm" autocomplete="off">
+            <form action="../login/createAccount/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <input class="formEntry" type="text" name="firstName" placeholder="First Name" required>
+                <input class="formEntry" type="text" name="lastName" placeholder="Last Name" required><br>
+                <input class="formEntry" type="text" name="username" placeholder="Username" required><br>
+                <input class="formEntry" type="email" name="email" placeholder="Email" required><br>
+                <input class="formEntry" type="password" name="password" id="password" placeholder="Password" required><br>
+                <input class="formEntry" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required><br>
+                <button id="submitButton" type="submit"> CREATE ACCOUNT </button>
+            </form>
+        </div>
+        <div class="signUpText">
+            <a class="linkText" href="../"> Sign In  </a>
+        </div>
+
+        {% if form.errors %}
+            {% for errors in form.errors %}
+                <div>
+                    {{ errors }}
+                </div>
+            {% endfor %}
+
+        {% endif %}
+
+    </body>
+
+   <script>
+        var password = document.getElementById("password")
+        var confirm_password = document.getElementById("confirmPassword")
+
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity("");
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+
+
+   </script>
+
+
+
+</html>
+
+

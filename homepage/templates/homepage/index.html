@@ -21,13 +21,23 @@ Home </a>
 Challenges </a>
             <a class="settings" href="/settings/"> <i class="fa fa-cog" aria-hidden="true"></i>
 Settings </a>
-            <a class="logout" href="/logout/"> <i class="fa fa-sign-out" aria-hidden="true"> </i>
+            <a class="logout" href="logoutUser"> <i class="fa fa-sign-out" aria-hidden="true"> </i>
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class = "fa fa-bars"> </i> </a>
         </div>
         
 
 
             <div id="homepage">
+                
+                <div class="loginForm">
+                    <form action="createUser/" method="POST" autocomplete="off">
+                        {% csrf_token %}
+                        <input class="formEntry bash" type="text" name="username" placeholder="username">
+                        <input class="formEntry bash" type="text" name="email" placeholder="email">
+                        <input class="formEntry bash" type="password" name="password" placeholder="password"> <br>
+                        <button type="submit"> Submit </button>
+                    </form>
+                </div>
 
 
             </div>

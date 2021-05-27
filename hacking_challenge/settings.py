@@ -32,6 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'aggiectf.tk', '206.189.210.78']
 
+LOGIN_URL = "loginSignup:login"
 
 # Application definition
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'challenges.apps.ChallengesConfig',
     'playground.apps.PlaygroundConfig',
     'homepage.apps.HomepageConfig',
+    'loginSignup.apps.LoginsignupConfig',
 
 
     ]
