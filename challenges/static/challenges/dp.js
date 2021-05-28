@@ -1,2 +1,2 @@
-let toDelete = document.getElementById('passwrd');
+let toDelete = document.querySelector('#passwrd');
 toDelete.remove();

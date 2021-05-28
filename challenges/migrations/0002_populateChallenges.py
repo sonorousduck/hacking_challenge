@@ -47,7 +47,7 @@ def populate_db(apps, schema_editor):
     challenge_3.save()
    
 
-    hint_3_0 = Hint(challenge=challenge_3, hint="HTML Request Headers")
+    hint_3_0 = Hint(challenge=challenge_3, hint="HTTP Request Headers")
     hint_3_0.save()
 
 
