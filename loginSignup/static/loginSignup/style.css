@@ -55,7 +55,7 @@ body {
     border-radius: 32px;
     border-style: solid;
     margin-right: 8px;
-    margin-top: 16px;
+   margin-top: 16px;
     width: 24%;
     background: #ff3d4a;
     color: white;
@@ -79,3 +79,32 @@ body {
     color: grey;
     text-decoration: none;
 }
+
+.errors {
+    color: red;
+    font-size: 32px;
+    font-style: bold;
+    text-align: center;
+    align: center;
+    padding: 8px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

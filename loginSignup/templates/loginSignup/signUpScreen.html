@@ -17,16 +17,38 @@
 
         <div class="signinText"> Sign Up </div>
 
+        {% if form.errors %}
+            {% for errors in form.errors %}
+                <div class="errors">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ errors }} is required!
+                </div>
+            {% endfor %}
 
+        {% endif %}
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="errors">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }}!
+                </div>
+            {% endfor %}
+
+        {% endif %}
         <div class="loginForm" autocomplete="off">
-            <form action="../login/createAccount/" method="POST" autocomplete="off">
+            <form action="{% url 'loginSignup:signUp' %}" method="POST" autocomplete="off">
                 {% csrf_token %}
-                <input class="formEntry" type="text" name="firstName" placeholder="First Name" required>
-                <input class="formEntry" type="text" name="lastName" placeholder="Last Name" required><br>
-                <input class="formEntry" type="text" name="username" placeholder="Username" required><br>
-                <input class="formEntry" type="email" name="email" placeholder="Email" required><br>
-                <input class="formEntry" type="password" name="password" id="password" placeholder="Password" required><br>
-                <input class="formEntry" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required><br>
+                {{ form.firstName }}
+                {{ form.lastName }} <br>
+                {{ form.username }} <br>
+                {{ form.email }} <br>
+                <div id='password'>
+                    {{ form.password }} <br>
+                </div>
+                <div id='confirmPassword'>
+                    {{ form.confirm_password }} <br>
+                </div>
+                {{ forms.as_p }}
+
                 <button id="submitButton" type="submit"> CREATE ACCOUNT </button>
             </form>
         </div>
@@ -34,20 +56,12 @@
             <a class="linkText" href="../"> Sign In  </a>
         </div>
 
-        {% if form.errors %}
-            {% for errors in form.errors %}
-                <div>
-                    {{ errors }}
-                </div>
-            {% endfor %}
-
-        {% endif %}
 
     </body>
 
    <script>
-        var password = document.getElementById("password")
-        var confirm_password = document.getElementById("confirmPassword")
+        var password = document.querySelector("#password")
+        var confirm_password = document.querySelector("#confirmPassword")
 
         function validatePassword() {
             if (password.value != confirm_password.value) {

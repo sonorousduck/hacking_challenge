@@ -16,26 +16,28 @@ def index(request):
 
 
 def signUp(request):
-    return render(request, 'loginSignup/signUpScreen.html')
-
-
-
-def createAccount(request):
-
     form = RegistrationForm()
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(
-                    username=form.clean_data['username'],
-                    password=form.clean_data['password'],
-                    email=form.clean_data['email']
-                    )
-            user.save()
-            return HttpResponseRedirect('/')
-        
+            if not User.objects.filter(username=form.cleaned_data['username']).exists():
+                if form.cleaned_data['password'] == form.cleaned_data['confirm_password']:
+                    print(form.verify_password)
+                    user = User.objects.create_user(
+                            username=form.cleaned_data['username'],
+                            password=form.cleaned_data['password'],
+                            email=form.cleaned_data['email']
+                            )
+                    user.save()
+                    return HttpResponseRedirect('../..')
+                else:
+                    messages.error(request, message="Passwords do not match")
+            else:
+                messages.error(request, message='Username is already taken. Please use a different username')                
     return render(request, 'loginSignup/signUpScreen.html', {'form': form})
+
+
 
 
 
