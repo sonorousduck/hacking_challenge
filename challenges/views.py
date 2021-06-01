@@ -61,8 +61,9 @@ def challengeDetails(request, challenge_id):
     data = json.loads(customUser.challenges)
 
     challenge.data = data[int(challenge_id) - 1]
-    challenge.nextChallenge = data[int(challenge_id)]['hidden']
-    challenge.nextChallengeID = int(challenge_id) + 1
+    if (challenge_id < Challenge.objects.all().count()):
+        challenge.nextChallenge = data[int(challenge_id)]['hidden']
+        challenge.nextChallengeID = int(challenge_id) + 1
 
     if challenge.data['hidden'] == 'true':
         return HttpResponse(render(request, 'challenges/forbidden.html'))
