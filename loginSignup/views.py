@@ -5,13 +5,26 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from .forms import RegistrationForm
 
 # Create your views here.
 
 def index(request):
     return render(request, 'loginSignup/signinScreen.html')
+
+
+def signIn(request):
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect('../')
+    else:
+        return render(request, 'loginSignup/signinScreen.html', {'error_message': 'Incorrect Login'})
+
 
 
 
@@ -30,7 +43,8 @@ def signUp(request):
                             email=form.cleaned_data['email']
                             )
                     user.save()
-                    return HttpResponseRedirect('../..')
+                    login(request, user)
+                    return HttpResponseRedirect('../../')
                 else:
                     messages.error(request, message="Passwords do not match")
             else:

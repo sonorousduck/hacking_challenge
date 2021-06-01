@@ -18,9 +18,16 @@
         <div class="signinText"> Sign In </div>
 
 
+        {% if error_message %}
+            <div class="errors">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ error_message }}
+            </div>
+        {% endif %}
+
         <div class="loginForm">
-            <form action="login/loginDetails/" method="POST" autocomplete="off">
-                <input class="formEntry" type="email" name="Email" placeholder="Email" required><br>
+            <form action="{% url 'loginSignup:signIn' %}" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <input class="formEntry" type="text" name="username" placeholder="Username" required><br>
                 <input class="formEntry" type="password" name="password" placeholder="Password" required><br>
                 <button id="submitButton" type="submit"> SIGN IN </button>
             </form>
@@ -30,7 +37,7 @@
         </div>
 
 
-    <body>
+
 
     </body>
 
