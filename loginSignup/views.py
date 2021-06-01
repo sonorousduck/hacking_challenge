@@ -7,6 +7,9 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 from .forms import RegistrationForm
+from .models import CustomUser
+from challenges.models import Challenge
+import json
 
 # Create your views here.
 
@@ -37,13 +40,38 @@ def signUp(request):
             if not User.objects.filter(username=form.cleaned_data['username']).exists():
                 if form.cleaned_data['password'] == form.cleaned_data['confirm_password']:
                     print(form.verify_password)
-                    user = User.objects.create_user(
+                    userCreated = User.objects.create_user(
                             username=form.cleaned_data['username'],
                             password=form.cleaned_data['password'],
                             email=form.cleaned_data['email']
                             )
-                    user.save()
-                    login(request, user)
+
+                    print(Challenge.objects.all().count())
+                    print(Challenge.objects.all())
+                    
+                    challengesJSON = []
+
+                    for i in range(Challenge.objects.all().count()):
+                        if i != 0:
+                            challenge = {f'challenge{i}': f'{i}', 'hidden': 'true', 'completed': 'false'}
+                        else:
+                            challenge = {f'challenge{i}': f'{i}', 'hidden': 'false', 'completed': 'false'}
+                        challengesJSON.append(challenge)
+
+                    JSONchallenges = json.dumps(challengesJSON)
+
+
+
+                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, user=userCreated)
+
+
+                    userCreated.save()
+                    customUser.save()
+
+
+
+
+                    login(request, userCreated)
                     return HttpResponseRedirect('../../')
                 else:
                     messages.error(request, message="Passwords do not match")

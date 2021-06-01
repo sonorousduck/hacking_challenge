@@ -1,13 +1,23 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Challenge, Hint
+from loginSignup.models import CustomUser
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, HttpResponseForbidden 
 from django.contrib.auth.decorators import login_required
-
+import json
 
 
 @login_required()
 def index(request):
     challenges = Challenge.objects.order_by('order')
+    customUser = CustomUser.objects.get(user=request.user.id)
+    data = json.loads(customUser.challenges)
+
+    for count, challenge in enumerate(challenges):
+        challenge.hidden = data[count]['hidden']
+        challenge.completed = data[count]['completed']
+        challenge.data = data[count]
+
+
     return render(request, 'challenges/index.html', {'challenges': challenges})
 
 
@@ -17,13 +27,22 @@ def validation(request):
         json_response = [] 
 
         challenge = Challenge.objects.get(order=request.POST['challenge_id'])
-
+        customUser = CustomUser.objects.get(user=request.user.id)
         print(challenge)
+        challenge_id = int(request.POST['challenge_id'])
 
         # Create the JSON object
 
         if (challenge.flag == request.POST['passcode']):
             json_response.append({'success': True})
+            data = json.loads(customUser.challenges)
+            data[challenge_id]['completed'] = 'true'
+            data[challenge_id + 1]['hidden'] = 'false'
+            customUser.challenges = json.dumps(data)
+            customUser.save()
+
+
+
         else:
             json_response.append({'success': False})
 
@@ -37,6 +56,13 @@ def validation(request):
 @login_required()
 def challengeDetails(request, challenge_id):
     challenge = get_object_or_404(Challenge, order=challenge_id - 1)
+
+    customUser = CustomUser.objects.get(user=request.user.id)
+    data = json.loads(customUser.challenges)
+
+    challenge.data = data[int(challenge_id) - 1]
+    challenge.nextChallenge = data[int(challenge_id)]['hidden']
+    challenge.nextChallengeID = int(challenge_id) + 1
     return render(request, f'challenges/challenge{challenge_id - 1}.html', {'challenge': challenge})
 
 @login_required()

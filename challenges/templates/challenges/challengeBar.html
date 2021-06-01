@@ -2,5 +2,13 @@
 
 <div class="navbar" id="myNavbar">
     <a class="active" href="/challenges/"> <i class="fa fa-arrow-left rightSpacing" aria-hidden="true"></i> Challenges </a>
+    
+
+    {% if challenge.nextChallenge == 'false' %}
+    <div class='onTheRight'> <a  href="/challenges/{{challenge.nextChallengeID}}">  Next Challenge  <i class="fa fa-arrow-right leftSpacing" aria-hidden="true"></i></a> </div>
+    {% endif %}
+
+
+
 </div>
 

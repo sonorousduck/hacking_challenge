@@ -81,7 +81,17 @@ body {
     margin-left: 0px;
 }
 
+.onTheRight {
+    align: right;
+    text-align: right;
+    float: right;
 
+}
+
+.leftSpacing {
+    margin-left: 25px;
+    margin-right: 0px;
+}
 
 .navbar {
     background-color: #333;
