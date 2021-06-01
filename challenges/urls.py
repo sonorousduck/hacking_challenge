@@ -15,4 +15,5 @@ urlpatterns = [
         path('secure', views.secure, name='secure'),
         path('cookieValidation/', views.cookieValidation, name='cookieValidation'),
         path('adminLogin/', views.adminLogin, name='adminLogin'),
+
 ]

@@ -63,6 +63,10 @@ def challengeDetails(request, challenge_id):
     challenge.data = data[int(challenge_id) - 1]
     challenge.nextChallenge = data[int(challenge_id)]['hidden']
     challenge.nextChallengeID = int(challenge_id) + 1
+
+    if challenge.data['hidden'] == 'true':
+        return HttpResponse(render(request, 'challenges/forbidden.html'))
+
     return render(request, f'challenges/challenge{challenge_id - 1}.html', {'challenge': challenge})
 
 @login_required()
