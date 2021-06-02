@@ -9,6 +9,7 @@
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
         <script defer src="{% static 'homepage/main.js' %}"></script>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'homepage/style.css' %}">
 
@@ -28,20 +29,22 @@ Settings </a>
 
 
             <div id="homepage">
-                
-                <div class="loginForm">
-                    <form action="createUser/" method="POST" autocomplete="off">
-                        {% csrf_token %}
-                        <input class="formEntry bash" type="text" name="username" placeholder="username">
-                        <input class="formEntry bash" type="text" name="email" placeholder="email">
-                        <input class="formEntry bash" type="password" name="password" placeholder="password"> <br>
-                        <button type="submit"> Submit </button>
-                    </form>
+                <div hidden ref="isAdmin">{{ isAdmin }}</div>
+                <div class="user"> {{ user.first_name }} {{ user.last_name }} </div>
+                <div :class="{isAdmin: isAdmin}">
+                {{ isAdmin }}
                 </div>
 
 
+                <div class="padded">
+                    <div class="w3-light-gray">
+                        <div id="progressBar" class="w3-container w3-green w3-center" style="width:20%">20%</div>
+                    </div>
+                    <div class="challengesCompleted">
+                        <div> You have completed {{ completedChallenges }}/{{ numChallenges }} challenges </div>
+                    </div>
+                </div>
             </div>
-
 
 
     <script>

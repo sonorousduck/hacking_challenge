@@ -62,4 +62,36 @@ body {
 }
 
 
+.user {
+    text-align: center;
+    align: center;
+    font-size: 48px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-style: bold;
+}
+
+.padded {
+    align: center;
+    float: center;
+    position: absolute;
+    margin: 16px;
+    bottom: 5px;
+    width: 97%;
+}
+
+
+.challengesCompleted {
+    font-size: 16px;
+    font-style: bold;
+}
+
+.isAdmin {
+    color: red;
+}
+
+
+
+
+
 

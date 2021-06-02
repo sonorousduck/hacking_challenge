@@ -43,7 +43,9 @@ def signUp(request):
                     userCreated = User.objects.create_user(
                             username=form.cleaned_data['username'],
                             password=form.cleaned_data['password'],
-                            email=form.cleaned_data['email']
+                            email=form.cleaned_data['email'],
+                            first_name=form.cleaned_data['firstName'],
+                            last_name = form.cleaned_data['lastName'],
                             )
 
                     print(Challenge.objects.all().count())
