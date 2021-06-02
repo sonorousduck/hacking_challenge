@@ -5,11 +5,11 @@
         <script type="module" defer src="{% static 'challenges/levelDescription.js' %}"></script>
         <link rel="stylesheet" href="{% static 'challenges/popupStyle.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/incorrectIndicator.css' %}">
-
+        <title> Challenge {{ challenge.order }} </title>
     </head>
     <body>
         
-        <div class="levelNumber"> Level {{ challenge.order }} </div>
+        <div class="levelNumber"> Challenge {{ challenge.order }} </div>
 
         <div class="levelDescription"> {{challenge.description }} </div>
 

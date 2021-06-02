@@ -8,7 +8,6 @@ const app = Vue.createApp({
             someText: "This is a test",
             challengesFromDatabase: null,
             databaseChallengesLocation: 'getChallenges',
-            isCompleted: false,
             isLocked: false,
             navigation: 'navigateToChallenge',
 
@@ -25,7 +24,6 @@ const app = Vue.createApp({
     methods: {
 
         goToChallenge(event) {
-            console.log(event.currentTarget.id);
             fetch(this.navigation, {challenge: 'event.currentTarget.id'})
 
 

@@ -36,10 +36,13 @@ def validation(request):
         if (challenge.flag == request.POST['passcode']):
             json_response.append({'success': True})
             data = json.loads(customUser.challenges)
-            data[challenge_id]['completed'] = 'true'
-            data[challenge_id + 1]['hidden'] = 'false'
-            customUser.challenges = json.dumps(data)
-            customUser.save()
+
+            if data[challenge_id]['completed'] != 'true':
+                customUser.completedChallenges += 1
+                data[challenge_id]['completed'] = 'true'
+                data[challenge_id + 1]['hidden'] = 'false'
+                customUser.challenges = json.dumps(data)
+                customUser.save()
 
 
 

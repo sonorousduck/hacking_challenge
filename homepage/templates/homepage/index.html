@@ -29,22 +29,30 @@ Settings </a>
 
 
             <div id="homepage">
-                <div hidden ref="isAdmin">{{ isAdmin }}</div>
-                <div class="user"> {{ user.first_name }} {{ user.last_name }} </div>
-                <div :class="{isAdmin: isAdmin}">
-                {{ isAdmin }}
-                </div>
+                <div hidden ref="admin">{{ isAdmin }}</div>
+                <div hidden ref="completedChallenges"> {{ completedChallenges }} </div>
+                <div hidden ref="numChallenges"> {{ numChallenges }} </div>
+
+                <div v-if="isNotLoaded"> Loading... </div>
+                <div v-else>
+
+                    <div class="user"> {{ user.first_name }} {{ user.last_name }} </div>
+                    <div class="centered bigger-font" :class="{ admin: isAdmin }">
+                        [% isAdminText %]
+                    </div>
 
 
-                <div class="padded">
-                    <div class="w3-light-gray">
-                        <div id="progressBar" class="w3-container w3-green w3-center" style="width:20%">20%</div>
-                    </div>
-                    <div class="challengesCompleted">
-                        <div> You have completed {{ completedChallenges }}/{{ numChallenges }} challenges </div>
+                    <div class="padded">
+                        <div class="w3-light-gray">
+                            <div id="progressBar" class="w3-container w3-green w3-center" :style="{width: percentComplete}">[% percentComplete %] </div>
+                        </div>
+                        <div class="challengesCompleted">
+                            <div> You have completed [% completedChallenges %]/[% numChallenges %] challenges </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                </div>
 
 
     <script>

@@ -6,8 +6,12 @@ const app = Vue.createApp({
     data() {
         return {
             placeholder: "Text",
-            isAdmin: null,
+            isAdmin: false,
             isAdminText: "Admin: ",
+            isNotLoaded: true,
+            completedChallenges: null,
+            numChallenges: null,
+            percentComplete: null,
         }
         
 
@@ -15,14 +19,20 @@ const app = Vue.createApp({
     },
 
     mounted() {
-        this.isAdmin = this.$refs.isAdmin.firstChild.data.toLowerCase();
+        if (this.$refs.admin.firstChild.data.toLowerCase() === 'false') {
+            this.isAdmin = false;
+            this.isAdminText = "User";
+        } else {
+            this.isAdmin = true;
+            this.isAdminText = "Admin";
+        }
+        this.isNotLoaded = false;
 
-        console.log(this.isAdmin);
+        this.completedChallenges = this.$refs.completedChallenges.firstChild.data;
+        this.numChallenges = this.$refs.numChallenges.firstChild.data;
+        this.percentComplete = '' + ((this.completedChallenges / this.numChallenges) * 100).toFixed(2) + '%';
+
     },
-
-
-
-
 
 
 });
