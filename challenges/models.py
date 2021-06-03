@@ -16,6 +16,13 @@ class Challenge(models.Model):
     difficultyIndicator = models.CharField(max_length=20, default='Easy')
 
 
+    class Meta:
+        ordering = ['order']
+
+
+    def __str__(self):
+        return str(f'Challenge {self.order}')
+
 
 
 # Having hint seperate will allow easier adding of new hints to each specific challenge
@@ -26,6 +33,6 @@ class Hint(models.Model):
 
 
     def __str__(self):
-        return str(self.hint)
+        return str(self.challenge.title)
 
 

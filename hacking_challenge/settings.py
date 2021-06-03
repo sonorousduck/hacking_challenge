@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'playground.apps.PlaygroundConfig',
     'homepage.apps.HomepageConfig',
     'loginSignup.apps.LoginsignupConfig',
-
+    'settings.apps.SettingsConfig',
 
     ]
 

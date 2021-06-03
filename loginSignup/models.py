@@ -11,4 +11,14 @@ class CustomUser(models.Model):
     challenges = models.JSONField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     admin = models.BooleanField(default=False)
+    last_name = models.TextField(default="")
 
+
+    class Meta:
+        ordering = ['last_name']
+
+
+
+
+    def __str__(self):
+        return f" {self.user.first_name} {self.user.last_name} { round(((self.completedChallenges / self.numChallenges) * 100), 2) }%"

@@ -200,6 +200,21 @@ def populate_db(apps, schema_editor):
     hint_10_1 = Hint(challenge=challenge_10, hint="Fetch Commands in Javascript")
     hint_10_1.save()
 
+    challenge_11 = Challenge(flag="mYCaBbagES!", title="Cryptology part i.", description="This is designed to get a little experience with Cryptology. Thus this one is fairly easy. The hash was performed by shifting all letters 4 over", order=11, difficultyIndicator = "Intermediate")
+    challenge_11.save()
+
+    hint_11_0 = Hint(challenge=challenge_11, hint="Basic Effort")
+    hint_11_0.save()
+
+    challenge_12 = Challenge(flag="ToBeCreated", title="Cross Site Scripting", description="This challenge will be using cross-site scripting. Essentially, they will have to go to settings, and turn themselves into an admin before progressing on this one. Maybe an optional challenge. Maybe", order=12, difficultyIndicator = "Advanced")
+    challenge_12.save()
+
+
+    hint_12_0 = Hint(challenge=challenge_12, hint="Cross Site Scripting")
+    hint_12_0.save()
+
+
+
 
 class Migration(migrations.Migration):
 

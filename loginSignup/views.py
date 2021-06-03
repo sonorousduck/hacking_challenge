@@ -55,7 +55,8 @@ def signUp(request):
 
                     for i in range(Challenge.objects.all().count()):
                         if i != 0:
-                            challenge = {f'challenge{i}': f'{i}', 'hidden': 'true', 'completed': 'false'}
+                            #TODO: CHANGE HIDDEN BACK TO TRUE
+                            challenge = {f'challenge{i}': f'{i}', 'hidden': 'false', 'completed': 'false'}
                         else:
                             challenge = {f'challenge{i}': f'{i}', 'hidden': 'false', 'completed': 'false'}
                         challengesJSON.append(challenge)
@@ -64,7 +65,7 @@ def signUp(request):
 
 
 
-                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, user=userCreated)
+                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, user=userCreated, last_name=form.cleaned_data['lastName'])
 
 
                     userCreated.save()
