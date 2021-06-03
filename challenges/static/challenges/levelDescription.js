@@ -30,7 +30,6 @@ const app = Vue.createApp({
             let formData = new FormData();
             formData.append("passcode", this.passcodeInput);
             // TODO: Instead of taking out of the form, preferably would be to get it straight from Django. Or instead of making a fetch to an overall validation, when it goes to challenges/1/validation, it auto gets its challenge_id from that instead.
-            //
             formData.append("challenge_id", document.querySelector('#challenge_id').value);
 
             fetch(this.validation, {
@@ -45,8 +44,6 @@ const app = Vue.createApp({
                 .then(json => {
                     this.correct = json[0]['success'];
                     console.log(this.correct);
-
-                    // TODO: This is where I will need to update the user database. Shouldn't be hard though. Based on the pk, if true, update in database
     
 
                     if (this.correct) {
