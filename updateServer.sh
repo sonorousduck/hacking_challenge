@@ -6,5 +6,5 @@ git merge dev
 git push
 docker-compose down
 docker-compose build
-docker-compose up -g
+docker-compose up -d
 
