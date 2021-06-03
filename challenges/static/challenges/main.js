@@ -10,7 +10,7 @@ const app = Vue.createApp({
             databaseChallengesLocation: 'getChallenges',
             isLocked: false,
             navigation: 'navigateToChallenge',
-
+            isCompleted: false,
         }
 
     },
