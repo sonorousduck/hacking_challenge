@@ -8,48 +8,48 @@
         <title> Challenge {{ challenge.order }} </title>
     </head>
     <body>
-        
-        <div class="levelNumber"> Challenge {{ challenge.order }} </div>
+        <div class="movedDownForChallengeBar">
+            <div class="levelNumber"> Challenge {{ challenge.order }} </div>
 
-        <div class="levelDescription"> {{challenge.description }} </div>
+            <div class="levelDescription"> {{challenge.description }} </div>
 
 
-        <div id="formAndHints">
+            <div id="formAndHints">
 
-            <div :hidden= "isInvisible" id="hints" class="popup_hints">
-                <span class="helper"></span>
-                <div>
-                    <div class="popupCloseButton" @click=getHints()>&times;</div>
-                    <p><strong> Requires Knowledge of: </strong></p>
-                    <ul id="hintsList">
-                        {% for hint in challenge.hint_set.all %}
-                        <li> {{ hint.hint }} </li>
-                        <br> 
-                        {% endfor %}
-                    </ul>
+                <div :hidden= "isInvisible" id="hints" class="popup_hints">
+                    <span class="helper"></span>
+                    <div>
+                        <div class="popupCloseButton" @click=getHints()>&times;</div>
+                        <p><strong> Requires Knowledge of: </strong></p>
+                        <ul id="hintsList">
+                            {% for hint in challenge.hint_set.all %}
+                            <li> {{ hint.hint }} </li>
+                            <br> 
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
+
+
+
+                <form action="../validation/" id="passcodeForm" method="POST" >
+
+
+                    <input v-model="passcodeInput" id="passcodeValidation" name="passcodeValidation" placeholder="password">
+                    <button type="button" id="submitButton" @click=validateInput()> Submit </button>
+                    <input hidden id="challenge_id" name='challenge_id' value = {{ challenge.order }}>
+                    <input hidden id="csrf_token" value = {{ csrf_token }}>
+                    <button type="button" id="hintButton" @click=getHints()> View Hint </button>
+                    <br>
+                    <div :hidden= "isIncorrectHidden" id="incorrectIndicator">
+                        <div id="incorrectText"> Incorrect! </div>
+                    </div>
+                    <div :hidden= "isCorrectHidden" id="correctIndicator">
+                        <div id="correctText"> Correct! </div>
+                    </div>
+                </form>
+
             </div>
-
-
-
-            <form action="../validation/" id="passcodeForm" method="POST" >
-                
-
-                <input v-model="passcodeInput" id="passcodeValidation" name="passcodeValidation" placeholder="password">
-                <button type="button" id="submitButton" @click=validateInput()> Submit </button>
-                <input hidden id="challenge_id" name='challenge_id' value = {{ challenge.order }}>
-               <input hidden id="csrf_token" value = {{ csrf_token }}>
-                <button type="button" id="hintButton" @click=getHints()> View Hint </button>
-                <br>
-                <div :hidden= "isIncorrectHidden" id="incorrectIndicator">
-                    <div id="incorrectText"> Incorrect! </div>
-                </div>
-                <div :hidden= "isCorrectHidden" id="correctIndicator">
-                    <div id="correctText"> Correct! </div>
-                </div>
-            </form>
-
-
         </div>
     </body>
 

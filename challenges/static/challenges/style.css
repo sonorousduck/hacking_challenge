@@ -82,7 +82,7 @@ body {
 }
 
 .onTheRight {
-    align: right;
+     align: right;
     text-align: right;
     float: right;
 
@@ -252,4 +252,8 @@ body {
 
 
 
+.movedDownForChallengeBar {
+    margin-top: 80px;
 
+
+}

@@ -1,21 +1,25 @@
 {% load static %}
 
-
+<head>
 
         <script defer src="{% static 'challenges/challengeBar.js' %}"></script>
-
+        <link rel="stylesheet" href="{% static 'challenges/challengeBar.css' %}">
+</head>
 
     <div id='challengeBar'>
-        <div v-if='isDoneLoading'>
+        <div v-if='loaded'>
         <div class="navbar" id="myNavbar">
             <a class="active" href="/challenges/"> <i class="fa fa-arrow-left rightSpacing" aria-hidden="true"></i> Challenges </a>
 
-            <div v-if="unlocked">
 
-                <div class='onTheRight'> <a  href="/challenges/{{challenge.nextChallengeID}}">  Next Challenge  <i class="fa fa-arrow-right leftSpacing" aria-hidden="true"></i></a> </div>
 
-            </div>
+                <div v-if="locked"> 
+                </div>
+                <div v-else>
 
+                    <div class='onTheRight'> <a  href="/challenges/{{challenge.nextChallengeID}}">  Next Challenge  <i class="fa fa-arrow-right leftSpacing" aria-hidden="true"></i></a> </div>
+
+                </div>
 
             {% if challenge.nextChallenge == 'false' %}
             <div class='onTheRight'> <a  href="/challenges/{{challenge.nextChallengeID}}">  Next Challenge  <i class="fa fa-arrow-right leftSpacing" aria-hidden="true"></i></a> </div>

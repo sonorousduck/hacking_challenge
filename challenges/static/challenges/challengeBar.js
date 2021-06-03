@@ -6,7 +6,8 @@ const app = Vue.createApp({
     data() {
         return {
             isDoneLoading: true,
-            unlocked: false,
+            locked: true,
+            loaded: false,
 
 
         }
@@ -15,6 +16,11 @@ const app = Vue.createApp({
 
     created() {
 
+
+    },
+
+    mounted() {
+        this.loaded = true;
 
     },
 
