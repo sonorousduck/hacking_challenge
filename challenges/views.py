@@ -79,15 +79,21 @@ def passwordSecurity(request):
 
 @login_required()
 def security(request):
+    challenge = Challenge.objects.get(order=6)
+
+
     if not request.GET:
         return HttpResponse("not authorized")
     elif request.GET['username'] and request.GET['password']:
-        return HttpResponse("@U/*D4(DV}wT{F`e")
+        return HttpResponse(challenge.flag)
     else:
         return HttpResponse("username must not be NULL and password must not be NULL")
 
 @login_required()
 def securityValidation(request):
+    challenge = Challenge.objects.get(order=7)
+    
+
     if not request.GET:
         return HttpResponse("Not Authorized")
 
@@ -98,7 +104,7 @@ def securityValidation(request):
     elif request.GET['password'] == "ls -a":
         return HttpResponse("somefile.txt\nsomeotherfile.txt\ncleverlynamedfile.txt .env")
     elif request.GET['password'] == "cat .env":
-        return HttpResponse("/D3<]3v34Q3H,tDn")
+        return HttpResponse(challenge.flag)
     elif request.GET['password'] == "cat somefile.txt":
         return HttpResponse("Contents of somefile.txt")
     elif request.GET['password'] == "cat somefile.txt":
@@ -156,12 +162,11 @@ def secure(request):
 
 @login_required()
 def cookieValidation(request):
-    print(request.POST)
-
+    challenge = Challenge.objects.get(order=9)
     if request.POST['password'] == '':
         return HttpResponse("Not Authorized")
     elif request.COOKIES.get('ryansbestta') == 'spamspamspamspamspamspameggsspam':
-        return HttpResponse(cookie_password)
+        return HttpResponse(challenge.flag)
     else: 
         return HttpResponse("Not Authorized")
 
@@ -173,7 +178,12 @@ def adminLogin(request):
     # TODO: Set this one up too to use a database instead of the hardcoded values
 
     if request.POST['username'] == 'ShadyVelociraptor@gmail.com' and request.POST['password'] == 'turtle':
-        return HttpResponse("RARW101010RKDFJLS")
+    
+        
+        challenge = Challenge.objects.get(order=10)
+        
+        return HttpResponse(challenge.flag)
+
     else:
         return HttpResponseForbidden("""
 
@@ -184,34 +194,55 @@ def adminLogin(request):
     
 
 
-
-
-cookie_password = "er4w{^a=Z,dGeyF="
-
 leak = """
 from django.shortcuts import render, get_object_or_404
 from .models import Challenge, Hint
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
+from loginSignup.models import CustomUser
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, HttpResponseForbidden 
+from django.contrib.auth.decorators import login_required
+import json
 
-# Create your views here.
 
+@login_required()
 def index(request):
     challenges = Challenge.objects.order_by('order')
+    customUser = CustomUser.objects.get(user=request.user.id)
+    data = json.loads(customUser.challenges)
+
+    for count, challenge in enumerate(challenges):
+        challenge.hidden = data[count]['hidden']
+        challenge.completed = data[count]['completed']
+        challenge.data = data[count]
+
+
     return render(request, 'challenges/index.html', {'challenges': challenges})
 
 
+@login_required()
 def validation(request):
     if (request.method == "POST"):
         json_response = [] 
 
         challenge = Challenge.objects.get(order=request.POST['challenge_id'])
-
+        customUser = CustomUser.objects.get(user=request.user.id)
         print(challenge)
+        challenge_id = int(request.POST['challenge_id'])
 
         # Create the JSON object
 
         if (challenge.flag == request.POST['passcode']):
             json_response.append({'success': True})
+            data = json.loads(customUser.challenges)
+
+            if data[challenge_id]['completed'] != 'true':
+                customUser.completedChallenges += 1
+                data[challenge_id]['completed'] = 'true'
+                data[challenge_id + 1]['hidden'] = 'false'
+                customUser.challenges = json.dumps(data)
+                customUser.save()
+
+
+
         else:
             json_response.append({'success': False})
 
@@ -222,22 +253,44 @@ def validation(request):
 
 # TODO: Get the information for which challenge to send them to from a database instead of static as I am currently doing. This allows us to easier change the order of the levels and it will correctly point to the html page that it should. Essentially, it will be a dictionary mapping the challenge to a html page (instead of currently the order mapping it strictly to an html page, which makes it if the order changes, then it doesn't update correctly to the new html page
 
+@login_required()
 def challengeDetails(request, challenge_id):
     challenge = get_object_or_404(Challenge, order=challenge_id - 1)
+
+    customUser = CustomUser.objects.get(user=request.user.id)
+    data = json.loads(customUser.challenges)
+
+    challenge.data = data[int(challenge_id) - 1]
+    if (challenge_id < Challenge.objects.all().count()):
+        challenge.nextChallenge = data[int(challenge_id)]['hidden']
+        challenge.nextChallengeID = int(challenge_id) + 1
+
+    if challenge.data['hidden'] == 'true':
+        return HttpResponse(render(request, 'challenges/forbidden.html'))
+
     return render(request, f'challenges/challenge{challenge_id - 1}.html', {'challenge': challenge})
 
+@login_required()
 def passwordSecurity(request):
     return HttpResponse(200);
 
+@login_required()
 def security(request):
+    challenge = Challenge.objects.get(order=6)
+
+
     if not request.GET:
         return HttpResponse("not authorized")
     elif request.GET['username'] and request.GET['password']:
-        return HttpResponse("@U/*D4(DV}wT{F`e")
+        return HttpResponse(challenge.flag)
     else:
         return HttpResponse("username must not be NULL and password must not be NULL")
 
+@login_required()
 def securityValidation(request):
+    challenge = Challenge.objects.get(order=7)
+    
+
     if not request.GET:
         return HttpResponse("Not Authorized")
 
@@ -248,7 +301,7 @@ def securityValidation(request):
     elif request.GET['password'] == "ls -a":
         return HttpResponse("somefile.txt\nsomeotherfile.txt\ncleverlynamedfile.txt .env")
     elif request.GET['password'] == "cat .env":
-        return HttpResponse("/D3<]3v34Q3H,tDn")
+        return HttpResponse(challenge.flag)
     elif request.GET['password'] == "cat somefile.txt":
         return HttpResponse("Contents of somefile.txt")
     elif request.GET['password'] == "cat somefile.txt":
@@ -268,6 +321,11 @@ def securityValidation(request):
     else:
         return HttpResponse(f"bash: {request.GET['password']}: command not found")
 
+
+# TODO: Add the cookie into the database, then I can just serve this actual file when they cat views.py instead
+# TODO: Beef up the ls. Have it list all of the files instead of just views.py (Have it ls urls.py, etc. etc.
+
+@login_required()
 def secure(request):
     # Just in case I forget the password... Its 1a2s3d4f5g6h7j8k9l
     if not request.GET:
@@ -275,11 +333,11 @@ def secure(request):
     elif request.GET['password'] == "":
         return HttpResponse("Invalid Command") 
     elif request.GET['password'] == "ls":
-        return HttpResponse("__init__.py\n")
+        return HttpResponse("views.py\n")
     elif request.GET['password'] == "ls -a":
-        return HttpResponse("__init__.py\n")
-    elif request.GET['password'] == "cat __init__.py":
-        return HttpResponse(leak)
+        return HttpResponse("views.py\n")
+    elif request.GET['password'] == "cat views.py":
+        return HttpResponse(leak, content_type='text/plain')
     elif request.GET['password'] == "cat somefile.txt":
         return HttpResponse("Contents of somefile.txt")
     elif request.GET['password'] == "cat somefile.txt":
@@ -299,14 +357,13 @@ def secure(request):
     else:
         return HttpResponse(f"bash: {request.GET['password']}: command not found")
 
-
-
-    def cookieValidation(request):
-
-        if request.POST['password'] == '':
-            return HttpResponse("Not Authorized")
-        elif request.COOKIES.get('ryansbestta') == 'spamspamspamspamspamspameggsspam':
-            return HttpResponse(cookie_password)
-        else: 
-            return HttpResponse("Not Authorized")
+@login_required()
+def cookieValidation(request):
+    challenge = Challenge.objects.get(order=9)
+    if request.POST['password'] == '':
+        return HttpResponse("Not Authorized")
+    elif request.COOKIES.get('ryansbestta') == 'spamspamspamspamspamspameggsspam':
+        return HttpResponse(challenge.flag)
+    else: 
+        return HttpResponse("Not Authorized")
 """
