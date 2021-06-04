@@ -25,3 +25,9 @@ def logoutUser(request):
     logout(request)
     return HttpResponseRedirect('login')
 
+def resetFlavorText(request):
+    customUser = CustomUser.objects.get(user=request.user.id)
+    customUser.customText = ""
+    customUser.save()
+
+    return HttpResponseRedirect(reverse("index"))

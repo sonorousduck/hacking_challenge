@@ -12,7 +12,7 @@ class CustomUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     admin = models.BooleanField(default=False)
     last_name = models.TextField(default="")
-
+    customText = models.TextField(default="")
 
     class Meta:
         ordering = ['last_name']

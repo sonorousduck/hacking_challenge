@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
         
     <head>
@@ -15,26 +16,45 @@
 
     </head>
 
-    <div class="navbar" id="myNavbar">
+    <body>
+
+        <div class="navbar" id="myNavbar">
             <a  href="../"> <i class="fa fa-home" aria-hidden="true"></i>
-Home </a>
+                Home </a>
             <a href="/challenges/"> <i class="fa fa-code" aria-hidden="true"></i>
-Challenges </a>
+                Challenges </a>
             <a class="active settings" href=""> <i class="fa fa-cog" aria-hidden="true"></i>
-Settings </a>
-            <a class="logout" href="logoutUser"> <i class="fa fa-sign-out" aria-hidden="true"> </i>
-            <a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class = "fa fa-bars"> </i> </a>
+                Settings </a>
+            <a class="logout" href="../logoutUser"> <i class="fa fa-sign-out" aria-hidden="true"> </i>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class = "fa fa-bars"> </i> </a>
         </div>
 
 
 
+        <div>
+            {{ firstName }} {{ lastName }} <br>
+    
+            {{ username }} <br>
+            
+        {% autoescape off %}
+           
+            
+            {{ customText }} <br>       
+            {{ isAdmin }}
+        </div>
 
-    <body>
-
+        <div>
+            <form action="updateText" method="POST">
+                {% csrf_token %}
+                <input type=text placeholder="Put your own customizable flavor text here!" name="newText"> </input>
+                <input type=submit></input>
+            </form>
+        </div>
 
 
     </body>
 
+        {% endautoescape %}
 
 
 

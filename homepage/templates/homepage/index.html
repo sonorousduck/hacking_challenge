@@ -42,6 +42,13 @@ Settings </a>
                     </div>
 
 
+                    <div class="centered">
+                        <form action="resetFlavorText" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Reset Flavor Text"> (On settings page) </input>
+                        </form>
+
+
                     <div class="padded">
                         <div class="w3-light-gray">
                             <div id="progressBar" class="w3-container w3-green w3-center" :style="{width: percentComplete}">[% percentComplete %] </div>

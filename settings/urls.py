@@ -5,8 +5,6 @@ app_name = "settings"
 
 urlpatterns = [
         path('', views.index, name="settings"),
-
-
-
+        path('updateText', views.updateText, name='updateText'),
         ]
 
