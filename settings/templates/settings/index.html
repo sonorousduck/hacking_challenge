@@ -9,7 +9,6 @@
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
         <script defer src="{% static 'homepage/main.js' %}"></script>
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'settings/style.css' %}">
         <link rel="stylesheet" href="{% static 'homepage/style.css' %}">
@@ -39,8 +38,8 @@
 
 
         {% autoescape off %}
-        <div class="customFlavorText" placeholder="Seems like you don't have any information yet!">    
-        Flavor Text: {{ customText }}        
+        <div class="customFlavorText" placeholder="Seems like you don't have any information yet!"> 
+            Flavor Text: <br> {{ customText }}        
         </div>
 
 

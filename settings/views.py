@@ -2,11 +2,12 @@ from django.shortcuts import render
 from loginSignup.models import CustomUser
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
+@login_required()
 def index(request):
     customUser = CustomUser.objects.get(user=request.user.id)
     if (request.GET):
@@ -24,6 +25,7 @@ def index(request):
     return render(request, 'settings/index.html', {'isAdmin': isAdmin, 'customUser': customUser, 'firstName': firstName, 'lastName': lastName, 'username': username, 'customText': customText})
 
 
+@login_required()
 def updateText(request):
     customUser = CustomUser.objects.get(user=request.user.id)
     

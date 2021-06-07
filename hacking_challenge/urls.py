@@ -29,6 +29,7 @@ urlpatterns = [
     path('security/', include('challenges.urls')),
     path('login/', include('loginSignup.urls')),
     path('settings/', include('settings.urls')),
+    path('LoneWolf/', include('wolfIncorporated.urls')),
 
 
     ]

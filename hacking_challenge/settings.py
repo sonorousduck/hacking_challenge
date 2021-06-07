@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'loginSignup.apps.LoginsignupConfig',
     'settings.apps.SettingsConfig',
+    'wolfIncorporated.apps.WolfincorporatedConfig',
 
     ]
 
