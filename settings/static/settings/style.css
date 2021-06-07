@@ -1,0 +1,46 @@
+.flavorTextForm {
+    position: fixed;
+    bottom: 8px;
+    width: 100%;
+    align: center;
+    text-align: center;
+}
+
+
+.textBox {
+    align: center;
+    padding: 10px;
+    transition-duration: 0.2s;
+    border-style: solid;
+    border-radius: 10px;
+    outline: none;
+    vertical-align: middle;
+}
+
+.textBox:focus {
+    border-color: green;
+}
+
+
+.submitButton {
+    align: center; 
+    padding: 16px 48px;
+    transition-duration: 0.2s;
+    background-color: white;
+    border-radius: 10px;
+    border-style: solid;
+    margin-right: 8px;
+    outline: none;
+    vertical-align: bottom;
+}
+
+.submitButton:hover {
+    background-color: lightgrey;
+}
+
+.customFlavorText {
+    padding: 16px;
+    margin-top: 24px;
+    font-size: 16px;
+
+}

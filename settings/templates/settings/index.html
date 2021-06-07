@@ -11,6 +11,7 @@
         <script defer src="{% static 'homepage/main.js' %}"></script>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'settings/style.css' %}">
         <link rel="stylesheet" href="{% static 'homepage/style.css' %}">
 
 
@@ -32,22 +33,23 @@
 
 
         <div>
-            {{ firstName }} {{ lastName }} <br>
-    
-            {{ username }} <br>
-            
+            <div class="user"> {{ firstName }} {{ lastName }} </div>
+            <div class="centered bigger-font"> {{ username }} </div>
+            <div class="centered bigger-font"> Admin: {{ isAdmin }} </div>
+
+
         {% autoescape off %}
-           
-            
-            {{ customText }} <br>       
-            {{ isAdmin }}
+        <div class="customFlavorText" placeholder="Seems like you don't have any information yet!">    
+        Flavor Text: {{ customText }}        
         </div>
 
-        <div>
-            <form action="updateText" method="POST">
+
+
+        <div class="padded">
+            <form class="flavorTextForm" action="updateText" method="POST">
                 {% csrf_token %}
-                <input type=text placeholder="Put your own customizable flavor text here!" name="newText"> </input>
-                <input type=submit></input>
+                <textarea class="textBox" rows="4" cols="50" name="newText" placeholder="Put your own customizable flavor text here!"></textarea>
+                <input class="submitButton" type=submit value="Submit"></input>
             </form>
         </div>
 

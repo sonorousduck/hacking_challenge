@@ -8,9 +8,12 @@ from django.urls import reverse
 
 
 def index(request):
-    
-
     customUser = CustomUser.objects.get(user=request.user.id)
+    if (request.GET):
+        if ('admin' in request.GET):
+            customUser.admin = request.GET['admin']
+            customUser.save()
+
     isAdmin = customUser.admin
     firstName = request.user.first_name
     lastName = request.user.last_name
@@ -23,8 +26,13 @@ def index(request):
 
 def updateText(request):
     customUser = CustomUser.objects.get(user=request.user.id)
-    customUser.customText = request.POST['newText']
-    customUser.save()
+    
+
+    if (request.POST):
+        customUser.customText = request.POST['newText']
+        customUser.save()
+
+
 
     return HttpResponseRedirect(reverse("settings:settings"))
 
