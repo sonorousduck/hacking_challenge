@@ -81,3 +81,58 @@ body {
     text-align: center;
     align: center;
 }
+
+.usernameText {
+    font-size: 32px;
+
+}
+
+.emailPopup  {
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    position: fixed;
+    padding: 8px;
+    padding-right: 16px;
+    padding-left: 16px;
+    bottom: 0px;
+    right: 0px;
+    background-color: #D3D3D3;
+    box-shadow: 10px, 10px, 60px, #555;
+    z-index: 10000;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.clockInDiv {
+    margin-top: 32px;
+    font-size: 24px;
+    align: center;
+    text-align: center;
+    float: center;
+}
+
+.clock-in {
+    cursor: pointer;
+    border-radius: 32px;
+    margin-top: 16px;
+    border: solid;
+    border-width: 2px;
+    width: 160px;
+    align: center;
+    text-align: center;
+    float: center;
+    margin-left: auto;
+    margin-right: auto;
+    transition-duration: 0.2s;
+}
+
+.clock-in:hover {
+    background-color: #D3D3D3;
+
+
+}
+
+
+
+

@@ -16,18 +16,22 @@
 
             <div id="formAndHints">
 
-                <div :hidden= "isInvisible" id="hints" class="popup_hints">
-                    <span class="helper"></span>
-                    <div>
-                        <div class="popupCloseButton" @click=getHints()>&times;</div>
-                        <p><strong> Requires Knowledge of: </strong></p>
-                        <ul id="hintsList">
-                            {% for hint in challenge.hint_set.all %}
-                            <li> {{ hint.hint }} </li>
-                            <br> 
-                            {% endfor %}
-                        </ul>
+                <div v-if="isLoaded">
+                    <div :hidden= "isInvisible" id="hints" class="popup_hints">
+                        <span class="helper"></span>
+                        <div>
+                            <div class="popupCloseButton" @click=getHints()>&times;</div>
+                            <p><strong> Requires Knowledge of: </strong></p>
+                            <ul id="hintsList">
+                                {% for hint in challenge.hint_set.all %}
+                                <li> {{ hint.hint }} </li>
+                                <br> 
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
+                </div>
+                <div v-else>
                 </div>
 
 

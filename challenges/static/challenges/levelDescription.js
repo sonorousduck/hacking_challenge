@@ -11,12 +11,16 @@ const app = Vue.createApp({
             passcodeInput: '',
             isIncorrectHidden: true,
             isCorrectHidden: true,
-
+            isLoaded: null,
         }
 
 
     },
 
+    mounted() {
+        this.isLoaded = true;
+
+    },
 
 
 

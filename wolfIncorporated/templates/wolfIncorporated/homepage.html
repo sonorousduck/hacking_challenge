@@ -5,8 +5,9 @@
 
     <head>
         {% load static %}
-        <title> Wolf Inc. </title>
+        <title> Lone Wolf </title>
         <script src="https://unpkg.com/vue@next"></script>
+        <script defer src="{% static 'wolfIncorporated/main.js' %}"></script>
         <meta charset="utf-8">
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'wolfIncorporated/style.css' %}">
@@ -25,5 +26,44 @@
 
         <div> Congrats on hacking the first challenge. Your flag: </div>
         <div> Hint: Find a way to elevate your status to admin </div>
+
+
+        {% if first_name %}
+            <div class="centered usernameText"> {{ first_name }} {{ last_name }} </div>
+            {% if admin %}
+                <div class="centered"> Your flag is JFDKLSJLKRULK#$ </div>
+            {% endif %}
+        {% else %}
+            <div class="centered usernameText"> {{ user.firstName }} {{ user.lastName }} </div>
+       {% endif %}
+
+        
+        <div id="mainContent">
+            <div class="centered" v-if="notLoaded">
+                Loading...
+            </div>
+            <div class="clockInDiv" v-else>
+                <div class="centered"> [% date %] </div>
+                <div class="centered"> [% time %] </div>
+                <div class="clock-in"> Clock In </div>
+            </div>
+        </div>
+
+
+        <div id="currentlyWorkingEmployees">
+            {% for employee in employees %}
+                <div> {{ employee.first_name }} {{ employee.last_name }} </div>
+            {% endfor %}
+
+
+
+
+
+
+       <div class="emailPopup">
+            <div class="emailPopupText"> 
+                Email (1 unread message) 
+            </div>
+        </div>
 
 

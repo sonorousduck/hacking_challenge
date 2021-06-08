@@ -20,11 +20,12 @@ def index(request):
 
 
 
-
+@login_required
 def logoutUser(request):
     logout(request)
     return HttpResponseRedirect('login')
 
+@login_required
 def resetFlavorText(request):
     customUser = CustomUser.objects.get(user=request.user.id)
     customUser.customText = ""
