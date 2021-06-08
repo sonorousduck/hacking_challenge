@@ -129,10 +129,17 @@ body {
 
 .clock-in:hover {
     background-color: #D3D3D3;
-
-
 }
 
+#currentlyWorkingEmployees {
+    margin-left: 16px;
+    margin-top: 32px;
+    font-size: 16px;
+}
 
+#underlined {
+    font-size: 24px;
+    text-decoration: underline;
 
+}
 

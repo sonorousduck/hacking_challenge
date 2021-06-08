@@ -51,11 +51,13 @@
 
 
         <div id="currentlyWorkingEmployees">
+            <div id="underlined"> Other Employees Currently Working </div>
+            <div>
             {% for employee in employees %}
                 <div> {{ employee.first_name }} {{ employee.last_name }} </div>
             {% endfor %}
-
-
+            </div>
+        </div>
 
 
 

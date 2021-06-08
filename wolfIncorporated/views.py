@@ -28,14 +28,14 @@ def index(request):
 
                 # Create Fellow Employees
 
-                firstNames = ['John', 'Susan', 'Jeff', 'Taylor', 'David', 'Erik', 'Ryan', 'Justin', 'Lewis', 'Cayde', 'Claire', 'Sophia', 'Abby', 'Emily', 'Eris', 'Luke', 'Anakin', 'Aang', 'Itadori', 'Tanjiro', 'Nezuko', 'Katara']
-                lastNames = ['Smith', 'Anderson', 'Six', 'Skywalker', 'Morn', 'Wayne', 'Woodward', 'Gardner', 'Davis', 'Williams', 'Hamill', 'Jarvis', 'Strange', 'Dixon', 'Ruiz', 'Rowland', 'McCann', 'Santana', 'Waters', 'Dorsey', 'Nash', 'Boyle']
+                firstNames = ['John', 'Cortana', 'Jeff', 'Taylor', 'David', 'Erik', 'Ryan', 'Arthur', 'Steven', 'Cayde', 'Claire', 'Sophia', 'Abby', 'Emily', 'Eris', 'Luke', 'Anakin', 'Aang', 'Itadori', 'Tanjiro', 'Nezuko', 'Katara', 'Doom', 'Stewie', 'James']
+                lastNames = ['Smith', 'Anderson', 'Six', 'Skywalker', 'Morn', 'Bray', 'Woodward', 'Gardner', 'Holliday', 'Williams', 'Hamill', 'Jarvis', 'Strange', 'Dixon', 'Skywalker', 'Kenobi', 'Stark', 'Wayne', 'Banner', 'Morgan', 'Mir', 'Guy', 'Baggins', 'AKA Batman', 'Griffin', 'Bond']
 
                 random.shuffle(firstNames)
                 random.shuffle(lastNames)
 
 
-                for i in range(16):
+                for i in range(12):
                     fellowEmployee = FellowEmployee(username=f"{firstNames[i]}-{lastNames[i]}", loneWolfUser=loneWolfAgent, first_name=firstNames[i], last_name=lastNames[i], cookie=f"AA77{firstNames[i]}&*(FDSIJFSD?__){lastNames[i]}")
                     fellowEmployee.save()
 
@@ -51,7 +51,7 @@ def index(request):
 
 @login_required
 def homepage(request):
-    employees = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user))[:10]
+    employees = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user))
     if request.COOKIES.get('Employee'):
         try:
             employee = FellowEmployee.objects.get(cookie=request.COOKIES.get('Employee'))
