@@ -21,29 +21,35 @@ def index(request):
                 print(f"Welcome {request.GET['username']}")
                 print("Create user, create database stuff, and everything. Instantiate to non-admin")
 
-                loneWolfAgent = LoneWolfUser(admin="False", username=request.GET['username'], user=request.user,  last_name=request.user.last_name)
-
-                loneWolfAgent.save()
-
-
-                # Create Fellow Employees
-
-                firstNames = ['John', 'Cortana', 'Jeff', 'Taylor', 'David', 'Erik', 'Ryan', 'Arthur', 'Steven', 'Cayde', 'Claire', 'Sophia', 'Abby', 'Emily', 'Eris', 'Luke', 'Anakin', 'Aang', 'Itadori', 'Tanjiro', 'Nezuko', 'Katara', 'Doom', 'Stewie', 'James']
-                lastNames = ['Smith', 'Anderson', 'Six', 'Skywalker', 'Morn', 'Bray', 'Woodward', 'Gardner', 'Holliday', 'Williams', 'Hamill', 'Jarvis', 'Strange', 'Dixon', 'Skywalker', 'Kenobi', 'Stark', 'Wayne', 'Banner', 'Morgan', 'Mir', 'Guy', 'Baggins', 'AKA Batman', 'Griffin', 'Bond']
-
-                random.shuffle(firstNames)
-                random.shuffle(lastNames)
+                try:
+                    user = LoneWolfUser.objects.get(user=request.user)
+                    return HttpResponseRedirect('./homepage')
+                except:
 
 
-                for i in range(12):
-                    fellowEmployee = FellowEmployee(username=f"{firstNames[i]}-{lastNames[i]}", loneWolfUser=loneWolfAgent, first_name=firstNames[i], last_name=lastNames[i], cookie=f"AA77{firstNames[i]}&*(FDSIJFSD?__){lastNames[i]}")
-                    fellowEmployee.save()
+                    loneWolfAgent = LoneWolfUser(admin="False", username=request.GET['username'], user=request.user,  last_name=request.user.last_name)
+
+                    loneWolfAgent.save()
 
 
-                adminEmployee = FellowEmployee(admin=True, username="Sauron", loneWolfUser=loneWolfAgent, first_name="Sauron", last_name="", cookie="dOn$eRiAngToRuleTD%7h@emAllSaur*onRu-les")
-                adminEmployee.save()
+                    # Create Fellow Employees
 
-                return HttpResponseRedirect('./homepage')
+                    firstNames = ['John', 'Cortana', 'Jeff', 'Taylor', 'David', 'Erik', 'Ryan', 'Arthur', 'Steven', 'Cayde', 'Claire', 'Sophia', 'Abby', 'Emily', 'Eris', 'Luke', 'Anakin', 'Aang', 'Itadori', 'Tanjiro', 'Nezuko', 'Katara', 'Doom', 'Stewie', 'James']
+                    lastNames = ['Smith', 'Anderson', 'Six', 'Skywalker', 'Morn', 'Bray', 'Woodward', 'Gardner', 'Holliday', 'Williams', 'Hamill', 'Jarvis', 'Strange', 'Dixon', 'Skywalker', 'Kenobi', 'Stark', 'Wayne', 'Banner', 'Morgan', 'Mir', 'Guy', 'Baggins', 'AKA Batman', 'Griffin', 'Bond']
+
+                    random.shuffle(firstNames)
+                    random.shuffle(lastNames)
+
+
+                    for i in range(12):
+                        fellowEmployee = FellowEmployee(username=f"{firstNames[i]}-{lastNames[i]}", loneWolfUser=loneWolfAgent, first_name=firstNames[i], last_name=lastNames[i], cookie=f"AA77{firstNames[i]}&*(FDSIJFSD?__){lastNames[i]}")
+                        fellowEmployee.save()
+
+
+                    adminEmployee = FellowEmployee(admin=True, username="Sauron", loneWolfUser=loneWolfAgent, first_name="Sauron", last_name="", cookie="dOn$eRiAngToRuleTD%7h@emAllSaur*onRu-les")
+                    adminEmployee.save()
+
+                    return HttpResponseRedirect('./homepage')
 
 
 
@@ -51,7 +57,7 @@ def index(request):
 
 @login_required
 def homepage(request):
-    employees = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user))
+    employees = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user))[:7]
     if request.COOKIES.get('Employee'):
         try:
             employee = FellowEmployee.objects.get(cookie=request.COOKIES.get('Employee'))

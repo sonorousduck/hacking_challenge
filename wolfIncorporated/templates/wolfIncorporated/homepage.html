@@ -42,30 +42,70 @@
             <div class="centered" v-if="notLoaded">
                 Loading...
             </div>
-            <div class="clockInDiv" v-else>
-                <div class="centered"> [% date %] </div>
-                <div class="centered"> [% time %] </div>
-                <div class="clock-in"> Clock In </div>
+            <div v-else>
+                <div class="clockInDiv">
+                    <div class="centered"> [% date %] </div>
+                    <div class="centered"> [% time %] </div>
+                    <div class="clock-in" @click="clockIn"> Clock In </div>
+                </div>
+
+
+                <div id="currentlyWorkingEmployees">
+                    <div id="underlined"> Other Employees Currently Working </div>
+                    <div>
+                        {% for employee in employees %}
+                        <div> {{ employee.first_name }} {{ employee.last_name }} </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+                <div :hidden="emailPopupInvisible" class="popup_hints" id="email">
+                    <span class="helper"></span>
+                    <div>
+                        <div class="compose"> <i class="fa fa-edit" aria-hidden="true" @click="composeEmail"></i></div>
+                        <div class="popupCloseButton" @click="email">&times;</div>
+                        <div class="emailItem"> 
+                            <img class="emailProfilePic" src="{% static 'wolfIncorporated/images/sauron.jpeg' %}" alt="BossMan"> 
+                            <div class='emailBlock'>
+                                <div class='emailText'> Sauron </div>
+                                {% autoescape off %}
+                                <div class='emailContent'> Welcome to Lone Wolf, {{user.first_name}}! We are glad to have <div onmouseover="alert(`Yay!`)"> you! </div> </div>
+                                {% endautoescape %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div :hidden="composePopupInvisible" class="popup_hints" id="email">
+                    <span class="helper"></span>
+                    <div>
+                        <div class="popupCloseButton" @click="composeEmail">&times;</div>
+                        <form class="emailForm">                
+                            <input type="text" placeholder="To: (Have a dropdown list, so you select from them, or select everyone"></input><br>
+                            <input type="text" placeholder="Subject Line:"></input><br>
+                            <textarea placeholder="Write something here:"></textarea><br>
+                            <input type="submit" value="Send"></input>
+                        </form>
+                    </div>
+                    
+                </div>
+                
+
+                <div :hidden="clockInPopupInvisible" class="popup_hints" id="clock_in">
+                    <span class="helper"></span>
+                    <div>
+                        <div class="popupCloseButton" @click="clockIn">&times;</div>
+                        <p><strong> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Strange Error... Employee ID is invalid. We will look into this. </strong></p>
+                    </div>
+                </div>
+
+                <div class="emailPopup" @click="email">
+                    <div class="emailPopupText" > 
+                        Email ([% unreadEmails %] unread message) 
+                    </div>
+                </div>
             </div>
         </div>
-
-
-        <div id="currentlyWorkingEmployees">
-            <div id="underlined"> Other Employees Currently Working </div>
-            <div>
-            {% for employee in employees %}
-                <div> {{ employee.first_name }} {{ employee.last_name }} </div>
-            {% endfor %}
-            </div>
-        </div>
-
-
-
-
-       <div class="emailPopup">
-            <div class="emailPopupText"> 
-                Email (1 unread message) 
-            </div>
-        </div>
-
 
