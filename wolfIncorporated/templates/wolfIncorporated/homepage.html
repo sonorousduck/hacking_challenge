@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-
 <html>
 
     <head>
@@ -67,12 +66,15 @@
                         <div class="popupCloseButton" @click="email">&times;</div>
                         <div class="emailItem"> 
                             <img class="emailProfilePic" src="{% static 'wolfIncorporated/images/sauron.jpeg' %}" alt="BossMan"> 
+
+                            {% for email in emails %}
                             <div class='emailBlock'>
-                                <div class='emailText'> Sauron </div>
+                                <div class='emailText'> {{email.sender}} </div>
                                 {% autoescape off %}
-                                <div class='emailContent'> Welcome to Lone Wolf, {{user.first_name}}! We are glad to have <div onmouseover="alert(`Yay!`)"> you! </div> </div>
+                                <div class='emailContent'> {{ email.content }} </div>
                                 {% endautoescape %}
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -82,11 +84,17 @@
                     <span class="helper"></span>
                     <div>
                         <div class="popupCloseButton" @click="composeEmail">&times;</div>
-                        <form class="emailForm">                
-                            <input type="text" placeholder="To: (Have a dropdown list, so you select from them, or select everyone"></input><br>
-                            <input type="text" placeholder="Subject Line:"></input><br>
-                            <textarea placeholder="Write something here:"></textarea><br>
-                            <input type="submit" value="Send"></input>
+                        <form class="emailForm"> 
+                            <select name="recipient" class="formEntry">
+                                {% for employee in everyone %}
+                                <option value="{{employee.first_name}} {{ employee.last_name }}"> {{employee.first_name}} {{ employee.last_name }}</option>
+                                {% endfor %}
+                                <option value="Everyone">Everyone</option>
+                            </select> <br>
+                            <input type="text" class="formEntry" placeholder="Subject Line:"></input><br>
+                            <textarea class="formEntry formEntryTall" placeholder="Write something here:"></textarea><br>
+                            <span><i class="fa fa-paper-plane sendIcon" aria-hidden=`true`></i> 
+                            <input type="submit" id="submitButton" value="Send" />
                         </form>
                     </div>
                     

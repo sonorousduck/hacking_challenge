@@ -35,3 +35,17 @@ class FellowEmployee(models.Model):
     def __str__(self):
         return f"{self.loneWolfUser.user.first_name} {self.loneWolfUser.user.last_name}: {self.first_name} {self.last_name}"
 
+class Email(models.Model):
+    loneWolfUser = models.ForeignKey(LoneWolfUser, on_delete=models.CASCADE)
+    content = models.TextField(default="")
+    sender = models.CharField(max_length=30)
+    image = models.ImageField()
+    subjectLine = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f"{self.loneWolfUser.user.first_name} {self.loneWolfUser.user.last_name} email #{Email.objects.all().count()}"
+
+
+
+
+
