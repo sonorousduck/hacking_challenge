@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        {% load static %}
+        <title> Lone Wolf </title>
+        <script src="https://unpkg.com/vue@next"></script>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'wolfIncorporated/style.css' %}">
+    </head>
+    
+    <body>
+
+        <div id="topBar">
+            <img id="wolfLogo" aria-hidden="true" src="{% static 'wolfIncorporated/images/wolfInc.jpeg' %}" alt="Wolf Majestically Howling Into the Darkness">
+            <div class='wolfBanner'>
+                <div class='wolfBannerText'> Lone Wolf </div>
+                <div class='wolfBannerAdmin'> <a class='wolfBannerAdmin' href=""> Admin </a> </div>
+            </div>
+        </div>
+
+
+        <div>
+            <p> Note: Usually, when you would be trying to get someone's cookie, the best way would be to write a fetch that fetches silently to your own server and you can just collect cookies there. Simulating that would be difficult, as that would require everyone to set up their own server to fetch to. Possible, just difficult. </p>
+        </div>
+
+
+        <div>
+            <form class="deleteEverything" method="POST" action="deleteServer/">
+                {% csrf_token %}
+                <input type="submit" id="deleteButton" value="Delete Server" />
+            </form>
+        </div>
+
+

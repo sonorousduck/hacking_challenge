@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 
     <head>
@@ -14,17 +13,31 @@
     
     <body>
 
+        {% if admin %}
+        <div id="topBar">
+            <img id="wolfLogo" aria-hidden="true" src="{% static 'wolfIncorporated/images/wolfInc.jpeg' %}" alt="Wolf Majestically Howling Into the Darkness">
+            <div class='wolfBanner'>
+                <div class='wolfBannerText'> Lone Wolf </div>
+                <div class='wolfBannerAdmin'> <a class='wolfBannerAdmin' href="admin/"> Admin </a> </div>
+            </div>
+        </div>
 
+
+
+        {% else %}
         <div id="topBar">
             <img id="wolfLogo" aria-hidden="true" src="{% static 'wolfIncorporated/images/wolfInc.jpeg' %}" alt="Wolf Majestically Howling Into the Darkness">
             <div class='wolfBanner'>
                 <div class='wolfBannerText'> Lone Wolf </div>
             </div>
         </div>
+        {% endif %}
 
-
+        {% if not admin %}
         <div> Congrats on hacking the first challenge. Your flag: </div>
         <div> Hint: Find a way to elevate your status to admin </div>
+        <div> Cryptic Hint: When you find what to do, just alert it </div>
+        {% endif %}
 
 
         {% if first_name %}
@@ -55,9 +68,17 @@
                         {% for employee in employees %}
                         <div> {{ employee.first_name }} {{ employee.last_name }} </div>
                         {% endfor %}
+                        {% if first_name %}
+                        <div> {{ request.user.first_name }} {{ request.user.last_name }} </div>
+                        {% endif %}
                     </div>
                 </div>
 
+                
+                {% if cookie != '' %}
+                    <div style="font-weight: bold;"> Stolen Cookies: </div>
+                    <div> Employee: {{ cookie }} </div>
+                {% endif %}
 
                 <div :hidden="emailPopupInvisible" class="popup_hints" id="email">
                     <span class="helper"></span>
@@ -65,15 +86,17 @@
                         <div class="compose"> <i class="fa fa-edit" aria-hidden="true" @click="composeEmail"></i></div>
                         <div class="popupCloseButton" @click="email">&times;</div>
                         <div class="emailItem"> 
-                            <img class="emailProfilePic" src="{% static 'wolfIncorporated/images/sauron.jpeg' %}" alt="BossMan"> 
 
                             {% for email in emails %}
                             <div class='emailBlock'>
+                                {% if email.image != "" %}
+                                <img class="emailProfilePic" src="{% static 'wolfIncorporated/images/sauron.jpeg' %}" alt="BossMan"> 
+                                {% endif %}
                                 <div class='emailText'> {{email.sender}} </div>
                                 {% autoescape off %}
                                 <div class='emailContent'> {{ email.content }} </div>
                                 {% endautoescape %}
-                            </div>
+                            </div> <br>
                             {% endfor %}
                         </div>
                     </div>
@@ -84,15 +107,16 @@
                     <span class="helper"></span>
                     <div>
                         <div class="popupCloseButton" @click="composeEmail">&times;</div>
-                        <form class="emailForm"> 
+                        <form class="emailForm" method="POST" action="../sendEmail/">
+                            {% csrf_token %}
                             <select name="recipient" class="formEntry">
                                 {% for employee in everyone %}
                                 <option value="{{employee.first_name}} {{ employee.last_name }}"> {{employee.first_name}} {{ employee.last_name }}</option>
                                 {% endfor %}
                                 <option value="Everyone">Everyone</option>
                             </select> <br>
-                            <input type="text" class="formEntry" placeholder="Subject Line:"></input><br>
-                            <textarea class="formEntry formEntryTall" placeholder="Write something here:"></textarea><br>
+                            <input name="subjectLine" type="text" class="formEntry" placeholder="Subject Line:"></input><br>
+                            <textarea class="formEntry formEntryTall" name="emailContent" placeholder="Write something here:"></textarea><br>
                             <span><i class="fa fa-paper-plane sendIcon" aria-hidden=`true`></i> 
                             <input type="submit" id="submitButton" value="Send" />
                         </form>

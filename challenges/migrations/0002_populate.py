@@ -62,6 +62,7 @@ def populate_db(apps, schema_editor):
     challenge_5 = Challenge(flag="A0,b,C2,d,E4,f,G6", title="Level 5", order=5, hidden=False, description="Okay... So you figured that out. This time I swear it won't be as easy as hiding it in the html. This time the password uses javascript to hide it better but I'll still be able to find it if I forget. Plus! This time its served by the server and I doubt you'd figure out how to access that.")
     challenge_5.save()
 
+
     hint_5_0 = Hint(challenge=challenge_5, hint="HTML")
     hint_5_0.save()
 
@@ -213,6 +214,23 @@ def populate_db(apps, schema_editor):
     hint_12_0 = Hint(challenge=challenge_12, hint="Cross Site Scripting")
     hint_12_0.save()
 
+
+
+
+
+    challenge_loneWolf_0 = Challenge(flag="#CH**O#SEN_#^%ON--=E", title="Lone Wolf Part 1", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=100, difficultyIndicator = "Intermediate", challengeSeries = "LoneWolf")
+    challenge_loneWolf_0.save()
+
+    challenge_loneWolf_1 = Challenge(flag="G^%OO3#DGOfdO)(D!", title="Lone Wolf Part 2", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=101, difficultyIndicator = "Intermediate", challengeSeries = "LoneWolf")
+    challenge_loneWolf_1.save()
+
+
+    challenge_loneWolf_2 = Challenge(flag="DO!ITSTRI#^KETH445ESE*RV^ERD#@OWN", title="Lone Wolf Part 3", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=102, difficultyIndicator = "Intermediate", challengeSeries = "LoneWolf")
+    challenge_loneWolf_2.save()
+
+
+    challenge_loneWolf_3 = Challenge(flag="Y2OU!@MONSdsTER%^", title="Lone Wolf Part 4", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=103, difficultyIndicator = "Intermediate", challengeSeries = "LoneWolf")
+    challenge_loneWolf_3.save()
 
 
 

@@ -25,27 +25,29 @@
 
             <div class="challengeContainer"> <div class="titleDescription"> Beginner Challenges </div>
                 {% if challenges %}
-                {% for challenge in challenges %}
-                {% if challenge.hidden == 'false'  %}
-                {% if challenge.completed == 'true' %}
-                <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
-                    <div :class="{card: !isCompleted, completedCard: !isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
-                        <div class="container">
-                            <div class="levelText"> Challenge {{ challenge.order }} </div>
-                        </div>
-                    </div>
-                </a>
-                {% else %}
-                <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
-                    <div :class="{card: !isCompleted, completedCard: isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
-                        <div class="container">
-                            <div class="levelText"> Challenge {{ challenge.order }} </div>
-                        </div>
-                    </div>
-                </a>
-                {% endif %}
-                {% endif %} 
-                {% endfor %}
+                    {% for challenge in challenges %}
+                        {% if challenge.hidden == 'false' %}
+                            {% if challenge.completed == 'true' %}
+                                {% if challenge.order <= 100 %}
+                                    <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
+                                    <div :class="{card: !isCompleted, completedCard: !isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
+                                        <div class="container">
+                                            <div class="levelText"> Challenge {{ challenge.order }} </div>
+                                        </div>
+                                    </div>
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
+                                <div :class="{card: !isCompleted, completedCard: isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
+                                    <div class="container">
+                                    <div class="levelText"> Challenge {{ challenge.order }} </div>
+                                </div>
+                                </div>
+                                </a>
+                            {% endif %}
+                        {% endif %} 
+                    {% endfor %}
                 {% else %}
                 <p> No challenges are available </p>
                 {% endif %}
