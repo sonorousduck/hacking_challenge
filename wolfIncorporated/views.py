@@ -18,8 +18,8 @@ def index(request):
     try:
         if LoneWolfUser.objects.get(user=request.user).isServerDeleted:
             return HttpResponseRedirect("/LoneWolf/deleted")
-     except:
-          pass
+    except:
+        pass
 
 
     try:
@@ -125,7 +125,7 @@ def sendEmail(request):
         email = Email(loneWolfUser=LoneWolfUser.objects.get(user=request.user), content=emailContent, sender=f"To: {recipient}", subjectLine=subjectLine)
         email.save()
 
-        while (Email.objects.filter(loneWolfUser = LoneWolfUser.objects.get(user=request.user).count()) > 5):
+        while Email.objects.filter(loneWolfUser = LoneWolfUser.objects.get(user=request.user)).count() > 5:
             Email.objects.first().delete()
 
         
