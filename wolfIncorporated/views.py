@@ -15,9 +15,11 @@ from django.contrib.messages import get_messages
 
 @login_required()
 def index(request):
-    if LoneWolfUser.objects.get(user=request.user).isServerDeleted:
-        return HttpResponseRedirect("/LoneWolf/deleted")
-
+    try:
+        if LoneWolfUser.objects.get(user=request.user).isServerDeleted:
+            return HttpResponseRedirect("/LoneWolf/deleted")
+     except:
+          pass
 
 
     try:
