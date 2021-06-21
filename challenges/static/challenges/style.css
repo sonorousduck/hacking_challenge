@@ -263,3 +263,16 @@ body {
     padding-bottom: 32px;
 }
 
+.wolfLogo {
+    width: auto;
+    height: 100px;
+    text-align: center;
+}
+
+.loneWolfLink {
+    align: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+}

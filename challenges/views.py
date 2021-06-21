@@ -8,17 +8,27 @@ import json
 
 @login_required()
 def index(request):
-    challenges = Challenge.objects.order_by('order')
+    easyChallenges = Challenge.objects.filter(difficultyIndicator="Easy").order_by('order')
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
+    count = 0
 
-    for count, challenge in enumerate(challenges):
+    for challenge in easyChallenges:
         challenge.hidden = data[count]['hidden']
         challenge.completed = data[count]['completed']
         challenge.data = data[count]
+        count += 1
+
+    intermediateChallenges = Challenge.objects.filter(difficultyIndicator="Intermediate").order_by('order')
+
+    for challenge in intermediateChallenges:
+        challenge.hidden = data[count]['hidden']
+        challenge.completed = data[count]['completed']
+        challenge.data = data[count]
+        count += 1
 
 
-    return render(request, 'challenges/index.html', {'challenges': challenges})
+    return render(request, 'challenges/index.html', {'easyChallenges': easyChallenges, 'intermediateChallenges': intermediateChallenges})
 
 
 @login_required()
@@ -58,10 +68,15 @@ def validation(request):
 
 @login_required()
 def challengeDetails(request, challenge_id):
-    challenge = get_object_or_404(Challenge, order=challenge_id - 1)
+    loneWolfID = [14, 15, 16, 17]
+    if challenge_id in loneWolfID:
+        challenge = get_object_or_404(Challenge, order=challenge_id + 86)
+    else:
+        challenge = get_object_or_404(Challenge, order=challenge_id - 1)
 
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
+    print("Yee haw")
 
     challenge.data = data[int(challenge_id) - 1]
     if (challenge_id < Challenge.objects.all().count()):
@@ -70,6 +85,11 @@ def challengeDetails(request, challenge_id):
 
     if challenge.data['hidden'] == 'true':
         return HttpResponse(render(request, 'challenges/forbidden.html'))
+    
+    if challenge.challengeSeries == "LoneWolf":
+        return render(request, f'challenges/loneWolfPart{challenge.title[-1]}.html', {'challenge': challenge})
+
+
 
     return render(request, f'challenges/challenge{challenge_id - 1}.html', {'challenge': challenge})
 
