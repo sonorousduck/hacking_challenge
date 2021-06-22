@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <script src="https://unpkg.com/vue@next"></script>
+        <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
+        <link rel="stylesheet" href="{% static 'whiteBoxHacking/style.css' %}">
+    </head>
+
+    <body>
+
+        {% include 'challenges/challengeBar.html' %} 
+
+        <div class='whiteBoxMainContent'>
+            <div class="whiteBoxLogoContainer">
+                <img class="whiteBoxLogo" src="{% static 'whiteBoxHacking/whitebox.jpeg' %}"/>
+                <div class="whiteBoxLabel"> White Box </div>
+            </div>
+
+            <div id="explanationText"> White Box was recently hit with a hack that exposed their source code to everyone. Ironically, much unlike its name, it relied on tight blackboxing their code to hide their security flaws. <br> Use them to find your next few flags. </div>
+
+        </div>
+
+
+        <div class="loginForm">
+            <form action="giveWhatTheyWant" method="GET" autocomplete="off">
+                <input class="formEntry bash" type="text" name="unix">
+                <button type="submit"> Submit </button>
+            </form>
+        </div>
+
+
+
+
+    </body>
+
+
+</html>

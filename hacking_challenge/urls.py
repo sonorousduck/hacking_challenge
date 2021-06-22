@@ -30,6 +30,7 @@ urlpatterns = [
     path('login/', include('loginSignup.urls')),
     path('settings/', include('settings.urls')),
     path('LoneWolf/', include('wolfIncorporated.urls')),
+    path('WhiteBox/', include('whiteBoxHacking.urls')),
 
 
     ]

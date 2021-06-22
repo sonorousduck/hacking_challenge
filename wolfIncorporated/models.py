@@ -19,9 +19,7 @@ class LoneWolfUser(models.Model):
 
 
     def __str__(self):
-        return f" {self.user.first_name} {self.user.last_name} Is an admin: {self.admin} and has destroyed the company? {self.isServerDeleted}"
-
-
+        return f" {self.user.first_name} {self.user.last_name} has destroyed the company: {self.isServerDeleted}"
 
 
 class FellowEmployee(models.Model):

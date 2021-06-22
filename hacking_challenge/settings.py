@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'loginSignup.apps.LoginsignupConfig',
     'settings.apps.SettingsConfig',
     'wolfIncorporated.apps.WolfincorporatedConfig',
+    'whiteBoxHacking.apps.WhiteboxhackingConfig',
+    'achievements.apps.AchievementsConfig',
+
 
     ]
 
