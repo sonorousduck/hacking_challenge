@@ -13,6 +13,9 @@ class CustomUser(models.Model):
     admin = models.BooleanField(default=False)
     last_name = models.TextField(default="")
     customText = models.TextField(default="")
+    numTotalIncorrectGuesses = models.IntegerField(default=0)
+    incorrectPerChallenge = models.JSONField()
+
 
     class Meta:
         ordering = ['last_name']

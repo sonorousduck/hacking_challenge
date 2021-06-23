@@ -52,6 +52,8 @@ def signUp(request):
                     print(Challenge.objects.all())
                     
                     challengesJSON = []
+                    incorrectPerChallenge = []
+
 
                     for i in range(Challenge.objects.all().count()):
                         if i != 0:
@@ -59,13 +61,18 @@ def signUp(request):
                             challenge = {f'challenge{i}': f'{i}', 'hidden': 'false', 'completed': 'false'}
                         else:
                             challenge = {f'challenge{i}': f'{i}', 'hidden': 'false', 'completed': 'false'}
+                        
+                        incorrectness = {f'challenge{i}': f'{i}', 'numberIncorrect': '0'} 
+
+
                         challengesJSON.append(challenge)
+                        incorrectPerChallenge.append(incorrectness)
 
                     JSONchallenges = json.dumps(challengesJSON)
+                    JSONIncorrect = json.dumps(incorrectPerChallenge)
 
 
-
-                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, user=userCreated, last_name=form.cleaned_data['lastName'])
+                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, incorrectPerChallenge=JSONIncorrect, user=userCreated, last_name=form.cleaned_data['lastName'])
 
 
                     userCreated.save()

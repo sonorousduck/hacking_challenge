@@ -59,6 +59,18 @@ def validation(request):
         else:
             json_response.append({'success': False})
 
+            data = json.loads(customUser.challenges)
+            incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
+
+            if data[challenge_id]['completed'] != 'true':
+                numIncorrect = int(incorrectPerChallengeData[challenge_id]['numberIncorrect'])
+                numIncorrect += 1
+                customUser.numTotalIncorrectGuesses += 1
+                incorrectPerChallengeData[challenge_id]['numberIncorrect'] = str(numIncorrect)
+                customUser.incorrectPerChallenge = json.dumps(incorrectPerChallengeData)
+                customUser.save()
+
+
         response = JsonResponse(json_response, safe=False)
         response['Access-Control-Allow-Origin'] = '*'
 
@@ -76,7 +88,6 @@ def challengeDetails(request, challenge_id):
 
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
-    print("Yee haw")
 
     challenge.data = data[int(challenge_id) - 1]
     if (challenge_id < Challenge.objects.all().count()):
@@ -139,7 +150,7 @@ def securityValidation(request):
         return HttpResponse("This command has been scrubbed and we know what you are trying to do!")
     elif request.GET['password'].startswith("cat"):
         return HttpResponse("This file doesn't exist")
-    elif request.GET['password'].startswith("cp") or request.GET['password'].startswith("mv") or request.GET['password'].startswith("touch") or  request.GET['password'].startswith("rm") or  request.GET['password'].startswith("locate") or request.GET['password'].startswith("locate") or  request.GET['password'].startswith("grep"):
+    elif request.GET['password'].startswith("cp") or request.GET['password'].startswith("mv") or request.GET['password'].startswith("touch") or  request.GET['password'].startswith("rm") or request.GET['password'].startswith("locate") or  request.GET['password'].startswith("grep"):
         return HttpResponse("This command has been scrubbed and we know what you are trying to do!")
     else:
         return HttpResponse(f"bash: {request.GET['password']}: command not found")
