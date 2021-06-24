@@ -4,7 +4,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from loginSignup.models import CustomUser
-
+import json
+from achievements.models import Achievements
 
 # Create your views here.
 
@@ -14,9 +15,14 @@ def index(request):
     completedChallenges = customUser.completedChallenges
     numChallenges = customUser.numChallenges
     isAdmin = customUser.admin
+    achievements = json.loads(customUser.achievements)
+    achievementList = []
+
+    for count, achievement in enumerate(achievements):
+        achievementList.append(Achievements.objects.get(title=achievement))
 
     
-    return render(request, 'homepage/index.html', {'completedChallenges': completedChallenges, 'numChallenges': numChallenges, 'isAdmin': isAdmin})
+    return render(request, 'homepage/index.html', {'completedChallenges': completedChallenges, 'numChallenges': numChallenges, 'isAdmin': isAdmin, 'achievements': achievementList})
 
 
 

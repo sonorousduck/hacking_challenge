@@ -1,6 +1,6 @@
 body {
-    margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0 0 50px;
 }
 
 .navbar {
@@ -65,17 +65,15 @@ body {
     align: center;
     font-size: 48px;
     margin-top: 16px;
-    margin-bottom: 16px;
     font-weight: bold;
 }
 
 .padded {
     align: center;
     float: center;
-    position: absolute;
     margin: 16px;
-    bottom: 5px;
     width: 97%;
+    margin-bottom: 16px;
 }
 
 
@@ -98,6 +96,42 @@ body {
     font-size: 24px;
 }
 
+.achievementHolder {
+    margin: 16px;
+    margin-top: 32px;
+    max-height: 300px;
+}
+
+.achievement {
+    padding: 16px;
+    border-radius: 5px;
+    border: solid;
+    display: inline-block;
+    margin: 8px;
+    
+    background: #D3D3D3; 
+}
+
+.achievementTitle {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+.achievementIcon {
+    width: 100px;
+    height: auto;
+}
 
 
 
+.achievementDescription {
+    font-style: italic;
+    max-width: 175px;
+}
+
+#achievementsLabel {
+    font-weight: bold;
+    font-size: 24px;
+
+}

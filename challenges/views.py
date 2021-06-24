@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Challenge, Hint
 from loginSignup.models import CustomUser
+from achievements.models import Achievements
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, HttpResponseForbidden 
 from django.contrib.auth.decorators import login_required
 import json
@@ -38,7 +39,6 @@ def validation(request):
 
         challenge = Challenge.objects.get(order=request.POST['challenge_id'])
         customUser = CustomUser.objects.get(user=request.user.id)
-        print(challenge)
         challenge_id = int(request.POST['challenge_id'])
 
         # Create the JSON object
@@ -46,11 +46,66 @@ def validation(request):
         if (challenge.flag == request.POST['passcode']):
             json_response.append({'success': True})
             data = json.loads(customUser.challenges)
-
+            incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
+            
             if data[challenge_id]['completed'] != 'true':
                 customUser.completedChallenges += 1
                 data[challenge_id]['completed'] = 'true'
                 data[challenge_id + 1]['hidden'] = 'false'
+
+                flawlessInARow = 0
+
+
+                for i in range(challenge_id, -1, -1):
+                    print(i)
+                    print(type(incorrectPerChallengeData[i]['numberIncorrect']))
+                    if incorrectPerChallengeData[i]['numberIncorrect'] == "0":
+                        flawlessInARow += 1
+                    else:
+                        break
+
+                
+                if flawlessInARow == 2:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('2 down')
+                    customUser.achievements = json.dumps(achievements)
+
+                if flawlessInARow == 3:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('3 down')
+                    customUser.achievements = json.dumps(achievements)
+
+                if flawlessInARow == 4:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Breathtaking')
+                    customUser.achievements = json.dumps(achievements)
+
+                if flawlessInARow == 5:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Phenomenal')
+                    customUser.achievements = json.dumps(achievements)
+
+                if flawlessInARow == 6:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Unstoppable')
+                    customUser.achievements = json.dumps(achievements)
+
+                if flawlessInARow == 7:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Unforgettable')
+                    customUser.achievements = json.dumps(achievements)
+
+                if flawlessInARow == 8:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Ascended')
+                    customUser.achievements = json.dumps(achievements)
+                
+                if flawlessInARow == len(customUser.challenges):
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Flawless')
+                    customUser.achievements = json.dumps(achievements)
+
+
                 customUser.challenges = json.dumps(data)
                 customUser.save()
 

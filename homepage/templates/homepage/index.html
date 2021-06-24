@@ -47,6 +47,7 @@ Settings </a>
                             {% csrf_token %}
                             <input type="submit" value="Reset Flavor Text"> (On settings page) </input>
                         </form>
+                    </div>
 
 
                     <div class="padded">
@@ -57,7 +58,21 @@ Settings </a>
                             <div> You have completed [% completedChallenges %]/[% numChallenges %] challenges </div>
                         </div>
                     </div>
-                </div>
+
+                    <div id="achievementsLabel"> Achievements: </div>
+
+                    <div class="centered">
+                        <div class="achievementHolder">
+                            {% for achievement in achievements %}
+                            <div class="achievement">
+                                <div class="achievementTitle"> {{ achievement.title }} </div>
+                                <div> <img class="achievementIcon" src="{{ achievement.achievementIcon.url }}"> </div>
+                                <div class="achievementDescription"> {{ achievement.description }} </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
 
                 </div>
 

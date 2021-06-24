@@ -70,9 +70,9 @@ def signUp(request):
 
                     JSONchallenges = json.dumps(challengesJSON)
                     JSONIncorrect = json.dumps(incorrectPerChallenge)
+                    JSONAchievements = json.dumps([])
 
-
-                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, incorrectPerChallenge=JSONIncorrect, user=userCreated, last_name=form.cleaned_data['lastName'])
+                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, incorrectPerChallenge=JSONIncorrect, user=userCreated, last_name=form.cleaned_data['lastName'], achievements=JSONAchievements)
 
 
                     userCreated.save()
