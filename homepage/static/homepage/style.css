@@ -108,7 +108,6 @@ body {
     border: solid;
     display: inline-block;
     margin: 8px;
-    
     background: #D3D3D3; 
 }
 
@@ -123,8 +122,6 @@ body {
     height: auto;
 }
 
-
-
 .achievementDescription {
     font-style: italic;
     max-width: 175px;
@@ -133,5 +130,6 @@ body {
 #achievementsLabel {
     font-weight: bold;
     font-size: 24px;
+    padding-left: 16px;
 
 }

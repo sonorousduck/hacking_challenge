@@ -56,11 +56,8 @@ def populate_db(apps, schema_editor):
     achievement_14 = Achievement(title="Golden Eye", description="Complete the assignment with under 10 incorrect guesses")
     achievement_14.save()
 
-    achievement_15 = Achievement(title="Dead Eye", description="Complete the assignment with under 20 incorrect guesses")
+    achievement_15 = Achievement(title="Dead Eye", description="Complete the assignment with under 50 incorrect guesses")
     achievement_15.save()
-
-    achievement_16 = Achievement(title="Sharpshooter", description="Complete the assignment with under 50 incorrect guesses")
-    achievement_16.save()
 
     achievement_17 = Achievement(title="Baby Archer", description="Complete the assignment with under 100 incorrect guesses")
     achievement_17.save()

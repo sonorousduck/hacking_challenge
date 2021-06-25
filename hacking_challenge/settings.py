@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'wolfIncorporated.apps.WolfincorporatedConfig',
     'whiteBoxHacking.apps.WhiteboxhackingConfig',
     'achievements.apps.AchievementsConfig',
-
+    'chroot.apps.ChrootConfig',
 
     ]
 

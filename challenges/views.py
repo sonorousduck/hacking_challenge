@@ -57,45 +57,43 @@ def validation(request):
 
 
                 for i in range(challenge_id, -1, -1):
-                    print(i)
-                    print(type(incorrectPerChallengeData[i]['numberIncorrect']))
                     if incorrectPerChallengeData[i]['numberIncorrect'] == "0":
                         flawlessInARow += 1
                     else:
                         break
 
                 
-                if flawlessInARow == 2:
+                if (flawlessInARow % 8) == 2:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('2 down')
                     customUser.achievements = json.dumps(achievements)
 
-                if flawlessInARow == 3:
+                if (flawlessInARow % 8) == 3:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('3 down')
                     customUser.achievements = json.dumps(achievements)
 
-                if flawlessInARow == 4:
+                if (flawlessInARow % 8) == 4:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Breathtaking')
                     customUser.achievements = json.dumps(achievements)
 
-                if flawlessInARow == 5:
+                if (flawlessInARow % 8) == 5:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Phenomenal')
                     customUser.achievements = json.dumps(achievements)
 
-                if flawlessInARow == 6:
+                if (flawlessInARow % 8) == 6:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Unstoppable')
                     customUser.achievements = json.dumps(achievements)
 
-                if flawlessInARow == 7:
+                if (flawlessInARow % 8) == 7:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Unforgettable')
                     customUser.achievements = json.dumps(achievements)
 
-                if flawlessInARow == 8:
+                if (flawlessInARow % 8) == 0 and flawlessInARow > 0:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Ascended')
                     customUser.achievements = json.dumps(achievements)
