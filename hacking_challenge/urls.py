@@ -31,6 +31,6 @@ urlpatterns = [
     path('settings/', include('settings.urls')),
     path('LoneWolf/', include('wolfIncorporated.urls')),
     path('WhiteBox/', include('whiteBoxHacking.urls')),
-    path('Phenomenal_aeUKzeH.png', RedirectView.as_view(url=staticfiles_storage.url('Phenomenal_aeUKzeH.png'))),
+    path('Phenomenal.png', RedirectView.as_view(url=staticfiles_storage.url('Phenomenal.png'))),
     path('chroot/', include('chroot.urls')),
     ]
