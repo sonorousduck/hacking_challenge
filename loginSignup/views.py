@@ -48,9 +48,6 @@ def signUp(request):
                             last_name = form.cleaned_data['lastName'],
                             )
 
-                    print(Challenge.objects.all().count())
-                    print(Challenge.objects.all())
-                    
                     challengesJSON = []
                     incorrectPerChallenge = []
 

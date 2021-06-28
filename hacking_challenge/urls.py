@@ -44,5 +44,12 @@ urlpatterns = [
     path('Flawless.PNG', RedirectView.as_view(url=staticfiles_storage.url('Flawless.PNG'))),
     path('GoldenEye.PNG', RedirectView.as_view(url=staticfiles_storage.url('GoldenEye.PNG'))),
     path('PlayingWithFire.PNG', RedirectView.as_view(url=staticfiles_storage.url('PlayingWithFire.PNG'))),
+    path('Tenacious.PNG', RedirectView.as_view(url=staticfiles_storage.url('Tenacious.PNG'))),
+    path('Committed.PNG', RedirectView.as_view(url=staticfiles_storage.url('Committed.PNG'))),
+    path('BotStatus.PNG', RedirectView.as_view(url=staticfiles_storage.url('BotStatus.PNG'))),
+    path('UOKBro.PNG', RedirectView.as_view(url=staticfiles_storage.url('UOKBro.PNG'))),
+    path('Unstoppable.PNG', RedirectView.as_view(url=staticfiles_storage.url('Unstoppable.PNG'))),
+    path('Unforgettable.PNG', RedirectView.as_view(url=staticfiles_storage.url('Unforgettable.PNG'))),
+    path('EarlyBird.PNG', RedirectView.as_view(url=staticfiles_storage.url('EarlyBird.PNG'))),
     path('chroot/', include('chroot.urls')),
     ]

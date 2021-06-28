@@ -201,7 +201,7 @@ def populate_db(apps, schema_editor):
     hint_10_1 = Hint(challenge=challenge_10, hint="Fetch Commands in Javascript")
     hint_10_1.save()
 
-    challenge_11 = Challenge(flag="mYCaBbagES!", title="Cryptology part i.", description="This is designed to get a little experience with Cryptology. Thus this one is fairly easy. The hash was performed by shifting all letters 4 over", order=11, difficultyIndicator = "Intermediate")
+    challenge_11 = Challenge(flag="mYCaBbageS!", title="Cryptology part i.", description="This is designed to get a little experience with Cryptology. Thus this one is fairly easy. The hash was performed by shifting all letters 4 over", order=11, difficultyIndicator = "Intermediate")
     challenge_11.save()
 
     hint_11_0 = Hint(challenge=challenge_11, hint="Basic Effort")
