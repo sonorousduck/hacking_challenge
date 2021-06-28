@@ -15,6 +15,8 @@ class Challenge(models.Model):
     optionalChallenge = models.BooleanField(default=False)
     difficultyIndicator = models.CharField(max_length=20, default='Easy')
     challengeSeries = models.CharField(max_length=50, default="Basic")
+    totalIncorrectGuesses = models.IntegerField(default=0)
+    numberOfUsersOnThisChallenge = models.IntegerField(default=0)
 
 
 

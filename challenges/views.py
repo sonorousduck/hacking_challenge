@@ -36,6 +36,7 @@ def index(request):
 def validation(request):
     if (request.method == "POST"):
         json_response = [] 
+        print(request.POST['challenge_id'])
 
         challenge = Challenge.objects.get(order=request.POST['challenge_id'])
         customUser = CustomUser.objects.get(user=request.user.id)
@@ -47,58 +48,52 @@ def validation(request):
             json_response.append({'success': True})
             data = json.loads(customUser.challenges)
             incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
-            
+
+
             if data[challenge_id]['completed'] != 'true':
                 customUser.completedChallenges += 1
+                customUser.correctInARow += 1
                 data[challenge_id]['completed'] = 'true'
                 data[challenge_id + 1]['hidden'] = 'false'
 
-                flawlessInARow = 0
 
 
-                for i in range(challenge_id, -1, -1):
-                    if incorrectPerChallengeData[i]['numberIncorrect'] == "0":
-                        flawlessInARow += 1
-                    else:
-                        break
-
-                
-                if (flawlessInARow % 8) == 2:
+                if (customUser.correctInARow % 8) == 2:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('2 down')
                     customUser.achievements = json.dumps(achievements)
 
-                if (flawlessInARow % 8) == 3:
+                if (customUser.correctInARow % 8) == 3:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('3 down')
                     customUser.achievements = json.dumps(achievements)
 
-                if (flawlessInARow % 8) == 4:
+                if (customUser.correctInARow % 8) == 4:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Breathtaking')
                     customUser.achievements = json.dumps(achievements)
 
-                if (flawlessInARow % 8) == 5:
+                if (customUser.correctInARow % 8) == 5:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Phenomenal')
                     customUser.achievements = json.dumps(achievements)
 
-                if (flawlessInARow % 8) == 6:
+                if (customUser.correctInARow % 8) == 6:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Unstoppable')
                     customUser.achievements = json.dumps(achievements)
 
-                if (flawlessInARow % 8) == 7:
+                if (customUser.correctInARow % 8) == 7:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Unforgettable')
                     customUser.achievements = json.dumps(achievements)
 
-                if (flawlessInARow % 8) == 0 and flawlessInARow > 0:
+                if (customUser.correctInARow % 8) == 0 and flawlessInARow > 0:
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Ascended')
                     customUser.achievements = json.dumps(achievements)
                 
-                if flawlessInARow == len(customUser.challenges):
+                if  customUser.correctInARow == len(customUser.challenges):
                     achievements = json.loads(customUser.achievements)
                     achievements.append('Flawless')
                     customUser.achievements = json.dumps(achievements)
@@ -119,6 +114,7 @@ def validation(request):
                 numIncorrect = int(incorrectPerChallengeData[challenge_id]['numberIncorrect'])
                 numIncorrect += 1
                 customUser.numTotalIncorrectGuesses += 1
+                customUser.correctInARow = 0
                 incorrectPerChallengeData[challenge_id]['numberIncorrect'] = str(numIncorrect)
                 customUser.incorrectPerChallenge = json.dumps(incorrectPerChallengeData)
                 customUser.save()

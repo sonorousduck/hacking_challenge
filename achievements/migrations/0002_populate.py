@@ -8,37 +8,37 @@ from django.db import migrations
 def populate_db(apps, schema_editor):
     Achievement = apps.get_model('achievements', 'Achievements')
 
-    achievement_0 = Achievement(title="Flawless", description="You completed these without a single incorrect answer. That is amazing.")
+    achievement_0 = Achievement(title="Flawless", description="You completed these without a single incorrect answer. That is amazing.", achievementIcon="Flawless.PNG")
     achievement_0.save()
 
-    achievement_1 = Achievement(title="Completion", description="You finished! Congratulations!")
+    achievement_1 = Achievement(title="Completion", description="You finished! Congratulations!", achievementIcon="Completion.PNG")
     achievement_1.save()
 
     achievement_2 = Achievement(title="Early Bird", description="Complete the hacking challenge within 1.5 weeks of the due date.")
     achievement_2.save()
 
-    achievement_3 = Achievement(title="Class First", description="Complete the assignment first in class")
+    achievement_3 = Achievement(title="Class First", description="Complete the assignment first in class", achievementIcon="ClassFirst.PNG")
     achievement_3.save()
 
 
-    achievement_4 = Achievement(title="Class Second", description="Complete the assignment second in class")
+    achievement_4 = Achievement(title="Class Second", description="Complete the assignment second in class", achievementIcon="ClassSecond.PNG")
     achievement_4.save()
 
-    achievement_5 = Achievement(title="Class Third", description="Complete the assignment third in class")
+    achievement_5 = Achievement(title="Class Third", description="Complete the assignment third in class", achievementIcon="ClassThird.PNG")
     achievement_5.save()
 
 
-    achievement_6 = Achievement(title="Playing With Fire", description="Complete the assignment within 3 hours of the due date")
+    achievement_6 = Achievement(title="Playing With Fire", description="Complete the assignment within 3 hours of the due date", achievementIcon="PlayingWithFire.PNG")
     achievement_6.save()
 
 
-    achievement_7 = Achievement(title="2 down", description="Complete 2 in a row without mistake")
+    achievement_7 = Achievement(title="2 down", description="Complete 2 in a row without mistake", achievementIcon="2Down.PNG")
     achievement_7.save()
 
-    achievement_8 = Achievement(title="3 down", description="Complete 3 in a row without mistake")
+    achievement_8 = Achievement(title="3 down", description="Complete 3 in a row without mistake", achievementIcon="3Down.PNG")
     achievement_8.save()
 
-    achievement_9 = Achievement(title="Breathtaking", description="Complete 4 in a row without mistake")
+    achievement_9 = Achievement(title="Breathtaking", description="Complete 4 in a row without mistake", achievementIcon="Breathtaking.PNG")
     achievement_9.save()
 
     achievement_10 = Achievement(title="Phenomenal", description="Complete 5 in a row without mistake", achievementIcon="Phenomenal.png")
@@ -50,13 +50,13 @@ def populate_db(apps, schema_editor):
     achievement_12 = Achievement(title="Unforgettable", description="Complete 7 in a row without mistake")
     achievement_12.save()
 
-    achievement_13 = Achievement(title="Ascended", description="Complete 8 in a row without mistake")
+    achievement_13 = Achievement(title="Ascended", description="Complete 8 in a row without mistake", achievementIcon="Ascended.PNG")
     achievement_13.save()
 
-    achievement_14 = Achievement(title="Golden Eye", description="Complete the assignment with under 10 incorrect guesses")
+    achievement_14 = Achievement(title="Golden Eye", description="Complete the assignment with under 10 incorrect guesses", achievementIcon="GoldenEye.PNG")
     achievement_14.save()
 
-    achievement_15 = Achievement(title="Dead Eye", description="Complete the assignment with under 50 incorrect guesses")
+    achievement_15 = Achievement(title="Dead Eye", description="Complete the assignment with under 50 incorrect guesses", achievementIcon="DeadEye.PNG")
     achievement_15.save()
 
     achievement_17 = Achievement(title="Baby Archer", description="Complete the assignment with under 100 incorrect guesses")
@@ -70,12 +70,6 @@ def populate_db(apps, schema_editor):
 
     achievement_20 = Achievement(title="Bot Status", description="Complete the assignment with over 750 incorrect guesses")
     achievement_20.save()
-
-
-
-
-
-
 
 
 
