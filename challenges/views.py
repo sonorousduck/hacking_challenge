@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Challenge, Hint
 from loginSignup.models import CustomUser
+from customAdmin.models import AssignmentDates
 from achievements.models import Achievements
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, HttpResponseForbidden 
 from django.contrib.auth.decorators import login_required
 import json
+from datetime import datetime
 
 
 @login_required()
@@ -35,105 +37,131 @@ def index(request):
 @login_required()
 def validation(request):
     if (request.method == "POST"):
-        json_response = [] 
-
-        loneWolfID = [100, 101, 102, 103]
-        challenge_id = int(request.POST['challenge_id'])
-        challenge = Challenge.objects.get(order=challenge_id)
         
-        if challenge_id in loneWolfID:
-            challenge_id_CustomUser = challenge_id - 87
+
+        json_response = [] 
+        allGood = True
+
+        if (AssignmentDates.objects.all()):
+            currentTime = datetime.now().time()
+            currentDate = datetime.today().date()
+
+            openDate = AssignmentDates.objects.get(description="open")
+            closeDate = AssignmentDates.objects.get(description="closed")
+            
+
+            if currentDate < openDate.date or currentDate > closeDate.date:
+                allGood = False
+
+            if currentDate > openDate.date and currentDate < closeDate.date:
+                if currentTime > closeDate.time or currentTime < openDate.time:
+                    allGood = False
+
+        if allGood:
+
+            loneWolfID = [100, 101, 102, 103]
+            challenge_id = int(request.POST['challenge_id'])
+            challenge = Challenge.objects.get(order=challenge_id)
+            
+            if challenge_id in loneWolfID:
+                challenge_id_CustomUser = challenge_id - 87
+            else:
+                challenge_id_CustomUser = challenge_id
+
+            customUser = CustomUser.objects.get(user=request.user.id)
+            challenge_id = int(request.POST['challenge_id'])
+
+            # Create the JSON object
+
+            if (challenge.flag == request.POST['passcode']):
+                json_response.append({'success': True})
+                data = json.loads(customUser.challenges)
+                incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
+
+
+                if data[challenge_id_CustomUser]['completed'] != 'true':
+                    customUser.completedChallenges += 1
+                    customUser.correctInARow += 1
+                    data[challenge_id_CustomUser]['completed'] = 'true'
+    #TODO: Add a better catch for you are done
+                    if not challenge_id_CustomUser + 1 > 16:
+
+                        data[challenge_id_CustomUser + 1]['hidden'] = 'false'
+
+
+
+                    if (customUser.correctInARow % 8) == 2:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('2 down')
+                        customUser.achievements = json.dumps(achievements)
+
+                    if (customUser.correctInARow % 8) == 3:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('3 down')
+                        customUser.achievements = json.dumps(achievements)
+
+                    if (customUser.correctInARow % 8) == 4:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Breathtaking')
+                        customUser.achievements = json.dumps(achievements)
+
+                    if (customUser.correctInARow % 8) == 5:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Phenomenal')
+                        customUser.achievements = json.dumps(achievements)
+
+                    if (customUser.correctInARow % 8) == 6:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Unstoppable')
+                        customUser.achievements = json.dumps(achievements)
+
+                    if (customUser.correctInARow % 8) == 7:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Unforgettable')
+                        customUser.achievements = json.dumps(achievements)
+
+                    if (customUser.correctInARow % 8) == 0 and customUser.correctInARow > 0:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Ascended')
+                        customUser.achievements = json.dumps(achievements)
+                    
+                    if  customUser.correctInARow == len(customUser.challenges):
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Flawless')
+                        customUser.achievements = json.dumps(achievements)
+
+
+                    customUser.challenges = json.dumps(data)
+                    customUser.save()
+
+
+
+            else:
+                json_response.append({'success': False})
+
+                data = json.loads(customUser.challenges)
+                incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
+
+                if data[challenge_id_CustomUser]['completed'] != 'true':
+                    numIncorrect = int(incorrectPerChallengeData[challenge_id_CustomUser]['numberIncorrect'])
+                    numIncorrect += 1
+                    customUser.numTotalIncorrectGuesses += 1
+                    customUser.correctInARow = 0
+                    incorrectPerChallengeData[challenge_id_CustomUser]['numberIncorrect'] = str(numIncorrect)
+                    customUser.incorrectPerChallenge = json.dumps(incorrectPerChallengeData)
+                    customUser.save()
+
+
+            response = JsonResponse(json_response, safe=False)
+            response['Access-Control-Allow-Origin'] = '*'
+
+            return response
         else:
-            challenge_id_CustomUser = challenge_id
+            json_response.append({'success': "Assignment is closed"})
+            response = JsonResponse(json_response, safe=False)
+            response['Access-Control-Allow-Origin'] = '*'
+            return response
 
-        customUser = CustomUser.objects.get(user=request.user.id)
-        challenge_id = int(request.POST['challenge_id'])
-
-        # Create the JSON object
-
-        if (challenge.flag == request.POST['passcode']):
-            json_response.append({'success': True})
-            data = json.loads(customUser.challenges)
-            incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
-
-
-            if data[challenge_id_CustomUser]['completed'] != 'true':
-                customUser.completedChallenges += 1
-                customUser.correctInARow += 1
-                data[challenge_id_CustomUser]['completed'] = 'true'
-#TODO: Add a better catch for you are done
-                if not challenge_id_CustomUser + 1 > 16:
-
-                    data[challenge_id_CustomUser + 1]['hidden'] = 'false'
-
-
-
-                if (customUser.correctInARow % 8) == 2:
-                    achievements = json.loads(customUser.achievements)
-                    achievements.append('2 down')
-                    customUser.achievements = json.dumps(achievements)
-
-                if (customUser.correctInARow % 8) == 3:
-                    achievements = json.loads(customUser.achievements)
-                    achievements.append('3 down')
-                    customUser.achievements = json.dumps(achievements)
-
-                if (customUser.correctInARow % 8) == 4:
-                    achievements = json.loads(customUser.achievements)
-                    achievements.append('Breathtaking')
-                    customUser.achievements = json.dumps(achievements)
-
-                if (customUser.correctInARow % 8) == 5:
-                    achievements = json.loads(customUser.achievements)
-                    achievements.append('Phenomenal')
-                    customUser.achievements = json.dumps(achievements)
-
-                if (customUser.correctInARow % 8) == 6:
-                    achievements = json.loads(customUser.achievements)
-                    achievements.append('Unstoppable')
-                    customUser.achievements = json.dumps(achievements)
-
-                if (customUser.correctInARow % 8) == 7:
-                    achievements = json.loads(customUser.achievements)
-                    achievements.append('Unforgettable')
-                    customUser.achievements = json.dumps(achievements)
-
-                if (customUser.correctInARow % 8) == 0 and customUser.correctInARow > 0:
-                    achievements = json.loads(customUser.achievements)
-                    achievements.append('Ascended')
-                    customUser.achievements = json.dumps(achievements)
-                
-                if  customUser.correctInARow == len(customUser.challenges):
-                    achievements = json.loads(customUser.achievements)
-                    achievements.append('Flawless')
-                    customUser.achievements = json.dumps(achievements)
-
-
-                customUser.challenges = json.dumps(data)
-                customUser.save()
-
-
-
-        else:
-            json_response.append({'success': False})
-
-            data = json.loads(customUser.challenges)
-            incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
-
-            if data[challenge_id_CustomUser]['completed'] != 'true':
-                numIncorrect = int(incorrectPerChallengeData[challenge_id_CustomUser]['numberIncorrect'])
-                numIncorrect += 1
-                customUser.numTotalIncorrectGuesses += 1
-                customUser.correctInARow = 0
-                incorrectPerChallengeData[challenge_id_CustomUser]['numberIncorrect'] = str(numIncorrect)
-                customUser.incorrectPerChallenge = json.dumps(incorrectPerChallengeData)
-                customUser.save()
-
-
-        response = JsonResponse(json_response, safe=False)
-        response['Access-Control-Allow-Origin'] = '*'
-
-        return response
 
 # TODO: Get the information for which challenge to send them to from a database instead of static as I am currently doing. This allows us to easier change the order of the levels and it will correctly point to the html page that it should. Essentially, it will be a dictionary mapping the challenge to a html page (instead of currently the order mapping it strictly to an html page, which makes it if the order changes, then it doesn't update correctly to the new html page
 

@@ -52,4 +52,5 @@ urlpatterns = [
     path('Unforgettable.PNG', RedirectView.as_view(url=staticfiles_storage.url('Unforgettable.PNG'))),
     path('EarlyBird.PNG', RedirectView.as_view(url=staticfiles_storage.url('EarlyBird.PNG'))),
     path('chroot/', include('chroot.urls')),
+    path('customAdmin/', include('customAdmin.urls')),
     ]

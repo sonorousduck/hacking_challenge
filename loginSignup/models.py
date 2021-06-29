@@ -12,7 +12,7 @@ class CustomUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     admin = models.BooleanField(default=False)
     last_name = models.TextField(default="")
-    customText = models.TextField(default="")
+    customText = models.TextField(default="", blank=True)
     numTotalIncorrectGuesses = models.IntegerField(default=0)
     incorrectPerChallenge = models.JSONField()
     achievements = models.JSONField()

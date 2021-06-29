@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        {% load static %}
+        <title> Admin </title>
+        <meta charset="utf-8">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script defer src="{% static 'customAdmin/adminPage.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
+        <link rel="stylesheet" href="{% static 'customAdmin/adminStyle.css' %}">
+    </head> 
+
+    <body>
+
+        <div id="adminPage">        
+            
+            <div class="navbar" id="myNavbar">
+                <a  href="/"> <i class="fa fa-home" aria-hidden="true"></i>
+                    Home </a>
+                <a  href="/challenges/"> <i class="fa fa-code" aria-hidden="true"></i>
+                    Challenges </a>
+                <a class="settings" href="/settings/"> <i class="fa fa-cog" aria-hidden="true"></i>
+                    Settings </a>
+                <a class="active" href=""> <i class="fa fa-user" aria-hidden="true"></i> Admin </a>
+                <a class="logout" href="../logoutUser"> <i class="fa fa-sign-out" aria-hidden="true"> </i>
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class = "fa fa-bars"> </i> </a>
+            </div>
+
+            {% if dates %}
+                {% for date in dates %}
+                <div class="dueDates">
+                    {% if date.description == "open" %}
+                        <div> Assignment Opens at: </div>
+                    {% elif date.description == "closed" %}
+                        <div> Assignment Closes at: </div>
+                    {% endif %}
+
+            
+                    {{ date.date }}
+                    {% if date.time %}
+                    @ {{ date.time }}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="dueDates"> No assignment dates are set </div>
+            {% endif %}
+
+            <div v-if="isLoaded">
+            
+                <div class="centered padded" >
+                    <button type="button" class="customButton" @click=showForm()> Change Dates </button>
+                </div>
+
+
+                <div :hidden="!hideChangeForm">
+                    <form action="changeDate/" id="changeDate" method="POST">
+                        {% csrf_token %}
+                        <label for="startDate"> Enter the Date for the Assignment to Open: </label>
+                        <input class="formEntry" type="date" name="startDate" placeholder="Please Select a Start Date"> <br>
+                        <label for="startTime"> Enter the Time for the Assignment to Open: </label>
+                        <input class="formEntry" type="time" name="startTime" placeholder="Please Select a Start Time"> <br>
+                        <label for="endDate"> Enter the Date for the Assignment to Close: </label>
+                        <input class="formEntry" type="date" name="endDate" placeholder="Please Select an End Date"> <br>
+                        <label for="endTime"> Enter the Time for the Assignment to Close: </label>
+                        <input class="formEntry" type="time" name="endTime" placeholder="Please Select an End Time"> <br>
+                        <button class="customButton" type="submit">UPDATE DATES </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+    </body>
+
+
+
+
+
+
+
+
+
+
+
+</html>

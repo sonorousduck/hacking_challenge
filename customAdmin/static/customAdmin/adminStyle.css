@@ -1,0 +1,49 @@
+#changeDate {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+
+.customButton {
+    padding: 16px 48px;
+    background-color: #04AA6D;
+    color: white;
+    border-radius: 10px;
+    border-style: solid;
+    width: 350px;
+    transition-duration: 0.2s;
+}
+
+.customButton:hover {
+    background-color: #02764C;
+}
+
+.centered {
+    text-align: center;
+}
+
+.padded {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    
+
+}
+
+.dueDates {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 48px;
+    margin-top: 24px; 
+
+}
+
+
+
+
+
+
+
+
+

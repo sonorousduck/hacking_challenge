@@ -12,6 +12,8 @@ const app = Vue.createApp({
             isIncorrectHidden: true,
             isCorrectHidden: true,
             isLoaded: null,
+            isAssignmentClosed: false,
+            isAssignmentClosedHidden: true,
         }
 
 
@@ -46,27 +48,43 @@ const app = Vue.createApp({
             })
                 .then(response => response.json())
                 .then(json => {
-                    this.correct = json[0]['success'];
-                    console.log(this.correct);
-    
-
-                    if (this.correct) {
-                        this.isCorrectHidden = false;
-                        
-                        setTimeout(() => {
-                            this.isCorrectHidden = true; 
-                        }, 5000);
-                    }
-
-                    else if (!this.correct) { 
-                        this.isIncorrectHidden = false;
-                        
-                        setTimeout(() => {
-                            this.isIncorrectHidden = true; 
-                        }, 5000);
-
+                    console.log(json[0]['success']);
+                    if (json[0]['success'] === "Assignment is closed") {
+                        this.isAssignmentClosed = true;
+                        this.correct = false;
+                    } else {
+                    
+                        this.correct = json[0]['success'];
+                        console.log(this.correct);
                     }
                     
+                    if (this.isAssignmentClosed) {
+                        this.isAssignmentClosedHidden = false;
+
+                        setTimeout(() => {
+                            this.isAssignmentClosedHidden = true;
+                        }, 5000);
+                    }
+
+                    else {
+
+                        if (this.correct) {
+                            this.isCorrectHidden = false;
+                            
+                            setTimeout(() => {
+                                this.isCorrectHidden = true; 
+                            }, 5000);
+                        }
+
+                        else if (!this.correct) { 
+                            this.isIncorrectHidden = false;
+                            
+                            setTimeout(() => {
+                                this.isIncorrectHidden = true; 
+                            }, 5000);
+
+                        }
+                    } 
 
                 });
         },

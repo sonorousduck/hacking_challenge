@@ -105,6 +105,7 @@ def homepage(request):
 
 
 
+@login_required()
 def sendEmail(request):
 
     if LoneWolfUser.objects.get(user=request.user).isServerDeleted:
@@ -151,6 +152,7 @@ def sendEmail(request):
 
     return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
 
+@login_required()
 def admin(request):
     
     if LoneWolfUser.objects.get(user=request.user).isServerDeleted:
@@ -169,6 +171,7 @@ def admin(request):
 
 
 
+@login_required()
 def deleteServer(request):
     if LoneWolfUser.objects.get(user=request.user).isServerDeleted:
         return HttpResponseRedirect("/LoneWolf/deleted")
