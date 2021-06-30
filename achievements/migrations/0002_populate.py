@@ -14,7 +14,7 @@ def populate_db(apps, schema_editor):
     achievement_1 = Achievement(title="Completion", description="You finished! Congratulations!", achievementIcon="Completion.PNG")
     achievement_1.save()
 
-    achievement_2 = Achievement(title="Early Bird", description="Complete the hacking challenge within 1.5 weeks of the due date.", achievementIcon="EarlyBird.PNG")
+    achievement_2 = Achievement(title="Early Bird", description="Start the hacking challenge within 1.5 weeks of the due date.", achievementIcon="EarlyBird.PNG")
     achievement_2.save()
 
     achievement_3 = Achievement(title="Class First", description="Complete the assignment first in class", achievementIcon="ClassFirst.PNG")

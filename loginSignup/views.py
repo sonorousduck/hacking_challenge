@@ -10,8 +10,9 @@ from .forms import RegistrationForm
 from .models import CustomUser
 from challenges.models import Challenge
 import json
+from datetime import datetime, timedelta
+from customAdmin.models import AssignmentDates
 
-# Create your views here.
 
 def index(request):
     return render(request, 'loginSignup/signinScreen.html')
@@ -50,6 +51,20 @@ def signUp(request):
 
                     challengesJSON = []
                     incorrectPerChallenge = []
+                    JSONAchievements = json.dumps([])
+
+
+                    try:
+                        openTime = AssignmentDates.objects.get(description="open")
+                       
+
+                        if (openTime.date + timedelta(days=3) > datetime.now().date()):
+                            achievements = json.loads(JSONAchievements)
+                            achievements.append('Early Bird')
+                            JSONAchievements = json.dumps(achievements)
+
+                    except:
+                        print("No assignment open has been specified")
 
 
                     for i in range(Challenge.objects.all().count()):
@@ -65,17 +80,16 @@ def signUp(request):
                         challengesJSON.append(challenge)
                         incorrectPerChallenge.append(incorrectness)
 
+
                     JSONchallenges = json.dumps(challengesJSON)
                     JSONIncorrect = json.dumps(incorrectPerChallenge)
-                    JSONAchievements = json.dumps([])
+
 
                     customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, incorrectPerChallenge=JSONIncorrect, user=userCreated, last_name=form.cleaned_data['lastName'], achievements=JSONAchievements)
 
 
                     userCreated.save()
                     customUser.save()
-
-
 
 
                     login(request, userCreated)

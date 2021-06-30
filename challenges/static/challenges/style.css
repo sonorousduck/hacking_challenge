@@ -283,3 +283,15 @@ body {
     text-align: center;
     margin-top: 8px;
 }
+
+.centered {
+    text-align: center;
+}
+
+.small-text {
+    font-size: 12px;
+    font-style: italic;
+}
+
+
+

@@ -6,7 +6,7 @@ from achievements.models import Achievements
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, HttpResponseForbidden 
 from django.contrib.auth.decorators import login_required
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 @login_required()
