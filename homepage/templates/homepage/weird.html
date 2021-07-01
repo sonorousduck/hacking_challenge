@@ -9,6 +9,7 @@
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
         <script defer src="{% static 'homepage/main.js' %}"></script>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'homepage/style.css' %}">
 
@@ -31,6 +32,15 @@
 
 
 
+        <div id="homepage">
+            <div hidden ref="admin">{{ isAdmin }}</div>
+            <div hidden ref="completedChallenges"> {{ completedChallenges }} </div>
+            <div hidden ref="numChallenges"> {{ numChallenges }} </div>
+
+            <div v-if="isNotLoaded"> Loading... </div>
+            <div v-else>
+            </div>
+        </div>
                 <div>
                     <div class="namePlacard">
                         <div class="profileCircle" >
@@ -49,9 +59,7 @@
 
                         <div class="adminAndButtons">
                             <div class="theButtons">
-                                <form action="resetFlavorText" method="POST">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Reset Flavor Text" class="buttons"/>
+                                <div class="buttons"> Reset Flavor Text </div>
                                 <div class="flavorTextNote"> *On Settings page </div>
                             </div>
                         </div>
@@ -61,23 +69,12 @@
 
                <hr class="pageEnder">
 
-                
-               <div id="homepage">
-                   <div hidden ref="admin">{{ isAdmin }}</div>
-                   <div hidden ref="completedChallenges"> {{ completedChallenges }} </div>
-                   <div hidden ref="numChallenges"> {{ numChallenges }} </div>
-
-                   <div v-if="isNotLoaded"> Loading... </div>
-                   <div class="completedChallenges" v-else>
-                       <div class="challengesCompleted">
-                           <div> Challenge Progress: [% completedChallenges %] / [% numChallenges %] </div>
-                       </div>
-                        <div id="progressBar">
-                            <div id="progressText"> [% percentComplete %] </div>
-                            <div id="completeBar" :style="{width: percentComplete}"> </div>
-                        </div>
-                   </div>
-               </div>
+                <!-- <div class="centered">
+                    <form action="resetFlavorText" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Reset Flavor Text"> (On settings page) </input>
+                    </form>
+                    </div> -->
 
 
                     <!-- <div class="padded">
@@ -90,6 +87,7 @@
                         </div>
                     -->
 
+                    <!--
                         <div class="centered">
                         <div class="achievementHolder">
                         {% for achievement in achievements %}
@@ -101,6 +99,7 @@
                         {% endfor %}
                         </div>
 
+                    -->
 
                         </div>
 

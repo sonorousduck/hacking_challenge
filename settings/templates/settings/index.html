@@ -11,7 +11,6 @@
         <script defer src="{% static 'homepage/main.js' %}"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'settings/style.css' %}">
-        <link rel="stylesheet" href="{% static 'homepage/style.css' %}">
 
 
     </head>
@@ -19,43 +18,69 @@
     <body>
 
         <div class="navbar" id="myNavbar">
-            <a  href="../"> <i class="fa fa-home" aria-hidden="true"></i>
+            <a  href="../"> <i class="fa fa-home" aria-hidden="true" id="homeIcon"></i>
                 Home </a>
-            <a href="/challenges/"> <i class="fa fa-code" aria-hidden="true"></i>
+            <a  href="/challenges/"> <i class="fa fa-code" aria-hidden="true" id="challengesIcon"></i>
                 Challenges </a>
-            <a class="active settings" href=""> <i class="fa fa-cog" aria-hidden="true"></i>
+            <a class="active settings" href="/settings/"> <i class="fa fa-cog" aria-hidden="true" id="settingsIcon"></i>
                 Settings </a>
-            <a class="logout" href="../logoutUser"> <i class="fa fa-sign-out" aria-hidden="true"> </i>
+            <a class="logout" href="../logoutUser"> <i class="fa fa-sign-out" aria-hidden="true" id="logoutIcon"> </i>
                 <a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class = "fa fa-bars"> </i> </a>
         </div>
 
 
-
         <div>
-            <div class="user"> {{ firstName }} {{ lastName }} </div>
-            <div class="centered bigger-font"> {{ username }} </div>
-            <div class="centered bigger-font"> Admin: {{ isAdmin }} </div>
+            <div class="namePlacard">
+                <div class="profileCircle" >
+                    {% if isAdmin == True %}
+                        <div class="profileIndicator"> A </div>
+                    {% else %}
+                        <div class="profileIndicator"> U </div>
+                    {% endif %}
+                </div>
+                <div class="textInformation">
+                    <div class="user"> {{ firstName }} {{ lastName }} </div> <br>
+                    <div class="username"> {{ username }} </div>
+                </div>
+
+                <div class="adminAndButtons">
+                    <div class="adminText"> Admin: <div id="isAdmin"> {{ isAdmin }} </div> </div> <br> 
+                    <div class="theButtons">
+                        <div class="buttons"> Change Flavor Text </div>
+                        <div class="buttons"> Change Password </div>
+                    </div>
+                </div>
+
+            </div>
+
+    </div>
 
 
-        {% autoescape off %}
-        <div class="customFlavorText" placeholder="Seems like you don't have any information yet!"> 
-            Flavor Text: <br> {{ customText }}        
+
+        <div class=test>
+            {% autoescape off %}
+            <div class="customFlavorText"> 
+               {{ customText }}        
+            </div>
+            {% endautoescape %}
+
         </div>
+        
 
+        <hr class="pageEnder">
 
-
-        <div class="padded">
+        <!-- <div class="padded">
             <form class="flavorTextForm" action="updateText" method="POST">
                 {% csrf_token %}
                 <textarea class="textBox" rows="4" cols="50" name="newText" placeholder="Put your own customizable flavor text here!"></textarea>
                 <input class="submitButton" type=submit value="Submit"></input>
             </form>
         </div>
+        -->
 
 
     </body>
 
-        {% endautoescape %}
 
 
 

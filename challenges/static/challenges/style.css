@@ -94,14 +94,14 @@ body {
 }
 
 .navbar {
-    background-color: #333;
+    background-color: #0B0C10;
     overflow: hidden;
 }
 
 .navbar a {
     float: left;
     display: block;
-    color: #f2f2f2;
+    color: #C5C6C7;
     text-align: center;
     padding: 20px 32px;
     text-decoration: none;
@@ -109,13 +109,31 @@ body {
 }
 
 .navbar a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: #1F2833;
+    color: white;
 }
 
 .navbar a.active {
-    background-color: #04AA6D;
+    background-color: #45A29E;
     color: white;
+}
+
+#challengesIcon {
+    color: #66FCF1;
+}
+
+
+#homeIcon {
+    color: #66FCF1;
+}
+
+
+#settingsIcon {
+    color: #66FCF1;
+}
+
+#logoutIcon {
+    color: #66FCF1;
 }
 
 .navbar .icon {

@@ -15,6 +15,10 @@ def index(request):
     completedChallenges = customUser.completedChallenges
     numChallenges = customUser.numChallenges
     isAdmin = customUser.admin
+    firstName = request.user.first_name
+    lastName = request.user.last_name
+    username = request.user.username
+
     achievements = json.loads(customUser.achievements)
     achievementList = []
 
@@ -22,7 +26,9 @@ def index(request):
         achievementList.append(Achievements.objects.get(title=achievement))
 
     
-    return render(request, 'homepage/index.html', {'completedChallenges': completedChallenges, 'numChallenges': numChallenges, 'isAdmin': isAdmin, 'achievements': achievementList})
+
+    
+    return render(request, 'homepage/index.html', {'completedChallenges': completedChallenges, 'numChallenges': numChallenges, 'isAdmin': isAdmin, 'achievements': achievementList, 'firstName': firstName, 'lastName': lastName, 'username': username})
 
 
 
@@ -34,7 +40,7 @@ def logoutUser(request):
 @login_required
 def resetFlavorText(request):
     customUser = CustomUser.objects.get(user=request.user.id)
-    customUser.customText = ""
+    customUser.customText = "Look at who is too cool for flavor text or something! Psh! (Ironically, this is your flavor text)"
     customUser.save()
 
     return HttpResponseRedirect(reverse("index"))
