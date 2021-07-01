@@ -47,7 +47,7 @@ def signUp(request):
                             email=form.cleaned_data['email'],
                             first_name=form.cleaned_data['firstName'],
                             last_name = form.cleaned_data['lastName'],
-                            custom_text="Look at who is too cool for flavor text or something! Psh! (Ironically, this is your flavor text",
+                            customText="Look at who is too cool for flavor text or something! Psh! (Ironically, this is your flavor text",
                             )
 
                     challengesJSON = []
