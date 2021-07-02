@@ -12,11 +12,8 @@
     </head>
 
     <body>
-        <div class="title"> Welcome to the CS2610 Hacking Challenge </div>
+        <div class="title"> CS 2610 <br> <div id="hackingChallengeTitle"> Hacking Challenge </div> </div>
         
-
-        <div class="signinText"> Sign In </div>
-
 
         {% if error_message %}
             <div class="errors">
@@ -24,16 +21,20 @@
             </div>
         {% endif %}
 
-        <div class="loginForm">
-            <form action="{% url 'loginSignup:signIn' %}" method="POST" autocomplete="off">
-                {% csrf_token %}
-                <input class="formEntry" type="text" name="username" placeholder="Username" required><br>
-                <input class="formEntry" type="password" name="password" placeholder="Password" required><br>
-                <button id="submitButton" type="submit"> SIGN IN </button>
-            </form>
+        <div class="wrapperSignin">
+            <div class="signinForm">
+                <div class="createAccountText"> Login </div>
+                <form action="{% url 'loginSignup:signIn' %}" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <input class="formEntry" id="usernameLogin" type="text" name="username" placeholder="Username" required><br>
+                    <input class="formEntry" id="passwordLogin" type="password" name="password" placeholder="Password" required><br>
+                    <button id="submitButtonLogin" type="submit"> SIGN IN </button>
+                </form>
+                <div class="signInText">
+                    <a class="linkText" href="signUp"> Create an Account </a>
+                </div>
+            </div>
         </div>
-        <div class="signUpText">
-            <a class="linkText" href="signUp"> Create an Account </a>
         </div>
 
 

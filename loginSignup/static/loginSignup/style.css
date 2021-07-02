@@ -5,28 +5,31 @@ body {
 
 
 .title {
-    font-size: 32px;
-    align: center;
-    text-align: center;
-    font-style: bold;
-    background: #AB1822;
-    padding: 10px;
-    color: white;
+    font-size: 24px;
+    background: #0B0C10;
+    padding: 8px 32px;
+    color: #66FCF1;
 }
 
-.signinText {
-    font-size: 56px;
-    font-style: bold;
-    text-align: center;
-    margin-top: 48px;
+#hackingChallengeTitle {
+    color: #45A29E;
+    margin-left: 16px;
+
 }
 
 
 .loginForm {
-    align: center;
-    text-align: center;
     padding: 16px;
-    margin-top: 24px;
+    margin-top: 48px;
+    box-shadow: 0 2px 4px 0 #0B0C10;
+    width: 750px;
+    margin-left: 256px;
+    border-radius: 8px;
+    float: left;
+}
+
+.wrapper {
+    float: left;
 }
 
 .formEntry {
@@ -48,35 +51,42 @@ body {
 
 
 #submitButton {
-    align: center;
-    padding: 16px 48px;
-    transition-duration: 0.2s;
-    background-color: white;
-    border-radius: 32px;
-    border-style: solid;
-    margin-right: 8px;
-   margin-top: 16px;
-    width: 24%;
-    background: #ff3d4a;
+    max-width: 200px;
+    width: 200px;
+    background-color: #45A29E;
     color: white;
-    font-size: 24px;
-    font-style: bold;
+    text-align: center;
+    border-radius: 8px;
+    margin: 8px 0px 8px 8px; 
+    height: 42px;
+    vertical-align: middle;
+    line-height: 42px;
+    transition: all 0.2s ease-in-out;
+    float: right;
 }
 
-
 #submitButton:hover {
-    background-color: #AB1822;
+    transform: scale(1.1);
+    background-color: #30716e;
     cursor: pointer;
 }
 
 .signUpText {
-    color: grey;
-    text-align: center;
-    align: center;
+    margin-top: 32px;
+    font-weight: 700;
+    transition: all 0.2s ease-in-out;
+    float: left;
+}
+
+.signUpText:hover {
+    color: #30716e;
+    cursor: pointer;
+    transform: scale(1.1);
+
 }
 
 .linkText {
-    color: grey;
+    color: #45A29E;
     text-decoration: none;
 }
 
@@ -89,22 +99,121 @@ body {
     padding: 8px;
     margin-top: 16px;
     margin-bottom: 16px;
+}
+
+#accountInformation {
+    float: right;
+    margin-right: 20%;
+    margin-top: 10%;
+    padding: 8px;    
+
+}
+
+#name {
+    width: 1000px;
+    float: left;
+}
+
+#username {
+    width: 2150px;
+    float: left;
+}
+
+#usernameLogin {
+    width: 750px;
+    margin-top: 16px;
+}
+
+#password {
+    width: 1000px;
+    margin-bottom: 300px;
+}
+
+#passwordLogin {
+    width: 750px;
+    margin-bottom: 300px;
 
 
 }
 
+#email {
+    width: 2150px;
+    float: left;
+}
+
+
+.signinForm {
+    padding: 16px;
+    margin-top: 24px;
+    box-shadow: 0 2px 4px 0 #0B0C10;
+    width: 50%;
+    border-radius: 8px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.wrapperSignin {
+    margin-left: auto;
+    position: relative;
+    margin-right: auto;
+}
+
+.createAccountText {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    margin-top: 24px;
+}
+
+.entry {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.bottomLeft {
 
 
 
+}
 
+#submitButtonLogin {
+    max-width: 200px;
+    width: 200px;
+    background-color: #45A29E;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    margin: 8px 0px 8px 8px; 
+    height: 42px;
+    vertical-align: middle;
+    line-height: 42px;
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    bottom: 8px;
+    right: 500px;
+}
 
+#submitButtonLogin:hover {
+    transform: scale(1.1);
+    background-color: #30716e;
+    cursor: pointer;
+}
 
+.signInText {
+    margin-top: 32px;
+    font-weight: 700;
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    bottom: 16px;
+    left: 500px;
+}
 
+.signInText:hover {
+    color: #30716e;
+    cursor: pointer;
+    transform: scale(1.1);
 
-
-
-
-
-
-
-
+}

@@ -4,7 +4,7 @@
 
     <head>
         {% load static %}
-        <title> CS2610 Login </title>
+        <title> CS2610 Create Account </title>
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
@@ -12,10 +12,9 @@
     </head>
 
     <body>
-        <div class="title"> Welcome to the CS2610 Hacking Challenge </div>
+        <div class="title"> CS 2610 <br> <div id="hackingChallengeTitle"> Hacking Challenge </div> </div>
         
 
-        <div class="signinText"> Sign Up </div>
 
         {% if form.errors %}
             {% for errors in form.errors %}
@@ -34,27 +33,38 @@
             {% endfor %}
 
         {% endif %}
-        <div class="loginForm" autocomplete="off">
-            <form action="{% url 'loginSignup:signUp' %}" method="POST" autocomplete="off">
-                {% csrf_token %}
-                {{ form.firstName }}
-                {{ form.lastName }} <br>
-                {{ form.username }} <br>
-                {{ form.email }} <br>
-                <div id='password'>
-                    {{ form.password }} <br>
-                </div>
-                <div id='confirmPassword'>
-                    {{ form.confirm_password }} <br>
-                </div>
-                {{ forms.as_p }}
 
-                <button id="submitButton" type="submit"> CREATE ACCOUNT </button>
-            </form>
+        <div class="wrapper">
+            <div class="loginForm">
+                <div class="createAccountText"> Create your Account </div>
+                <form action="{% url 'loginSignup:signUp' %}" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="entry" id="name">{{ form.firstName }}
+                        {{ form.lastName }} </div> <br>
+                    <div class="entry" id="username"> {{ form.username }} </div> <br>
+                    <div class="entry" id="email"> {{ form.email }} </div> <br>
+                    <div class="entry" id='password'>
+                        {{ form.password }} 
+                        {{ form.confirm_password }} <br>
+                    </div>
+                    {{ forms.as_p }}
+
+                    <button id="submitButton" type="submit"> CREATE ACCOUNT </button>
+                </form>
+
+                <div class="signUpText">
+                    <a class="linkText" href="../"> Sign In Instead </a>
+                </div>
+            </div>
         </div>
-        <div class="signUpText">
-            <a class="linkText" href="../"> Sign In  </a>
+        <div id="accountInformation">
+            * Use your USU email or Aggiemail <br>
+            * Use your real name. Submissions will be graded on that <br>
+            * Username can be whatever and will be your login <br>
         </div>
+
+
+
 
 
     </body>
