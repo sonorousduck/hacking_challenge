@@ -157,7 +157,7 @@ def populate_db(apps, schema_editor):
     hint_8_7.save()
 
 
-    challenge_9 = Challenge(flag="er4w{^a=Z,dGeyF=", title="Level 9", order=9, hidden=False, description="If you have gotten to this level, you have already seen enough to solve this one. I entrust you with this gem of knowledge.")
+    challenge_9 = Challenge(flag="er4w{^a=Z,dGeyF=", title="Level 9", order=9, hidden=False, description="If you have gotten to this level, you have already seen enough to solve this one. I entrust you with this gem of knowledge.", difficultyIndicator="Moderate")
     challenge_9.save()
 
     
@@ -192,7 +192,7 @@ def populate_db(apps, schema_editor):
     hint_9_9.save()
 
 
-    challenge_10 = Challenge(flag="RARW101010RKDFJLS", title="Level 10", order=10, hidden=False, description="At least I have one more form of security. Admin. That one you can never break into! HA!")
+    challenge_10 = Challenge(flag="RARW101010RKDFJLS", title="Level 10", order=10, hidden=False, description="At least I have one more form of security. Admin. That one you can never break into! HA!", difficultyIndicator="Moderate")
     challenge_10.save()
 
     hint_10_0 = Hint(challenge=challenge_10, hint="Brute Force Attacks")
@@ -201,13 +201,13 @@ def populate_db(apps, schema_editor):
     hint_10_1 = Hint(challenge=challenge_10, hint="Fetch Commands in Javascript")
     hint_10_1.save()
 
-    challenge_11 = Challenge(flag="mYCaBbageS!", title="Cryptology part i.", description="This is designed to get a little experience with Cryptology. Thus this one is fairly easy. The hash was performed by shifting all letters 4 over", order=11, difficultyIndicator = "Intermediate")
+    challenge_11 = Challenge(flag="mYCaBbageS!", title="Cryptology part i.", description="This is designed to get a little experience with Cryptology. Thus this one is fairly easy. The hash was performed by shifting all letters 4 over", order=11, difficultyIndicator = "Hard")
     challenge_11.save()
 
     hint_11_0 = Hint(challenge=challenge_11, hint="Basic Effort")
     hint_11_0.save()
 
-    challenge_12 = Challenge(flag="ToBeCreated", title="Cross Site Scripting", description="This challenge will be using cross-site scripting. Essentially, they will have to go to settings, and turn themselves into an admin before progressing on this one. Maybe an optional challenge. Maybe", order=12, difficultyIndicator = "Intermediate")
+    challenge_12 = Challenge(flag="ToBeCreated", title="Cross Site Scripting", description="This challenge will be using cross-site scripting. Essentially, they will have to go to settings, and turn themselves into an admin before progressing on this one. Maybe an optional challenge. Maybe", order=12, difficultyIndicator = "Hard")
     challenge_12.save()
 
 
@@ -218,18 +218,18 @@ def populate_db(apps, schema_editor):
 
 
 
-    challenge_loneWolf_0 = Challenge(flag="#CH**O#SEN_#^%ON--=E", title="Lone Wolf Part 1", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=100, difficultyIndicator = "Intermediate", challengeSeries = "LoneWolf")
+    challenge_loneWolf_0 = Challenge(flag="#CH**O#SEN_#^%ON--=E", title="Lone Wolf Part 1", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=100, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf")
     challenge_loneWolf_0.save()
 
-    challenge_loneWolf_1 = Challenge(flag="G^%OO3#DGOfdO)(D!", title="Lone Wolf Part 2", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=101, difficultyIndicator = "Intermediate", challengeSeries = "LoneWolf")
+    challenge_loneWolf_1 = Challenge(flag="G^%OO3#DGOfdO)(D!", title="Lone Wolf Part 2", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=101, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf")
     challenge_loneWolf_1.save()
 
 
-    challenge_loneWolf_2 = Challenge(flag="DO!ITSTRI#^KETH445ESE*RV^ERD#@OWN", title="Lone Wolf Part 3", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=102, difficultyIndicator = "Intermediate", challengeSeries = "LoneWolf")
+    challenge_loneWolf_2 = Challenge(flag="DO!ITSTRI#^KETH445ESE*RV^ERD#@OWN", title="Lone Wolf Part 3", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=102, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf")
     challenge_loneWolf_2.save()
 
 
-    challenge_loneWolf_3 = Challenge(flag="Y2OU!@MONSdsTER%^", title="Lone Wolf Part 4", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=103, difficultyIndicator = "Intermediate", challengeSeries = "LoneWolf")
+    challenge_loneWolf_3 = Challenge(flag="Y2OU!@MONSdsTER%^", title="Lone Wolf Part 4", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down", order=103, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf")
     challenge_loneWolf_3.save()
 
 

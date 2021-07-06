@@ -29,6 +29,15 @@ body {
     color: white;
 }
 
+.divider {
+    color: #C5C5C6;
+    background-color: #C5C6C7;
+    float: left;
+    display: block;
+    margin-top: 10px;
+    height: 40px;    
+    width: 1px;
+}
 
 #challengesIcon {
     color: #66FCF1;
@@ -53,6 +62,9 @@ body {
 
 
 .navbar .logout {
+    float: right;
+}
+.navbar .settings {
     float: right;
 }
 

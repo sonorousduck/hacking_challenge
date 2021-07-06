@@ -8,7 +8,7 @@
         <title> Challenges </title>
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
-        <script defer src="{% static 'challenges/main.js' %}"></script>
+        <script defer src="{% static 'challenges/challengesHome.js' %}"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
 
@@ -18,99 +18,51 @@
     <body>
         {% include 'challenges/navbar.html' %}
 
-        <div id="challenges" class="challengeContainer">
 
-
-                {% if easyChallenges %}
-                    <div class="challengeContainer"> <div class="titleDescription"> Beginner Challenges </div>
-                    {% for challenge in easyChallenges %}
-                            {% if challenge.hidden == 'false' %}
-                                {% if challenge.completed == 'true' %}
-                                        <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
-                                        <div :class="{card: !isCompleted, completedCard: !isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
-                                            <div class="container">
-                                                <div class="levelText"> Challenge {{ challenge.order }} </div>
-                                            </div>
-                                        </div>
-                                        </a>
-                                {% else %}
-                                    <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
-                                    <div :class="{card: !isCompleted, completedCard: isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
-                                        <div class="container">
-                                        <div class="levelText"> Challenge {{ challenge.order }} </div>
-                                    </div>
-                                    </div>
-                                    </a>
-                                {% endif %}
-                        {% endif %} 
-                    {% endfor %}
-                {% else %}
-                <p> No challenges are available </p>
-                {% endif %}
-                {% if intermediateChallenges %}
-                    <br><br><br>
-                    <div class="challengeContainer"> <div class="titleDescription"> Intermediate Challenges </div>
-                    {% for challenge in intermediateChallenges %}
-                            {% if challenge.hidden == 'false' %}
-                                {% if challenge.challengeSeries == "LoneWolf" %}
-                                    {% if challenge.completed == 'true' %}
-                                            <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
-                                            <div :class="{card: !isCompleted, completedCard: !isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
-                                                <div class="container">
-                                                    <div class="levelText"> {{ challenge.title }} </div>
-                                                </div>
-                                            </div>
-                                            </a>
-                                    {% else %}
-                                        <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
-                                        <div :class="{card: !isCompleted, completedCard: isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
-                                            <div class="container">
-                                            <div class="levelText"> {{ challenge.title }} </div>
-                                        </div>
-                                        </div>
-                                        </a>
-                                    {% endif %}
-
-
-                                {% else %}
-                                    {% if challenge.completed == 'true' %}
-                                            <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
-                                                <div :class="{card: !isCompleted, completedCard: !isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
-                                                    <div class="container">
-                                                        <div class="levelText"> Challenge {{ challenge.order }} </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                    {% else %}
-                                        <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
-                                            <div :class="{card: !isCompleted, completedCard: isCompleted, locked: isLocked, newHover: isCompleted,}" v-bind:id="{{challenge.order}}">
-                                                <div class="container">
-                                                    <div class="levelText"> Challenge {{ challenge.order }} </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    {% endif %}
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+        <div id="mainContainer">
+            <div class="challengeCard" id="easy">
+                <div class="title"> Easy </div>
+                <hr class="titleBar">
+                <img class="skullImage" src={% static 'challenges/skull.jpg' %} />
+                <div class="completedLevels"> {{ easyCompleted }}/{{ easyChallenges.count }} Completed </div>
+                
+                <a class="link" href={{ currentEasyChallenge }}>
+                    <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>
+                </a>
             </div>
+
+            <div class="challengeCard" id="moderate">
+                <div class="title"> Moderate </div>
+                <hr class="titleBar">
+                <img class="skullImage" src={% static 'challenges/skullAndCrossBones.jpg' %} />
+                <div class="completedLevels"> {{ moderateCompleted }}/{{ moderateChallenges.count }} Completed</div>
+                {% if moderateLocked == 'true' %}
+                    <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked </div>
+                {% else %}
+                    <a class="link" href={{ currentModerateChallenge }}>
+                    <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>
+                    </a>
+                {% endif %}
+            </div>
+
+
+            <div class="challengeCard" id="hard">
+                <div class="title"> Hard </div>
+                <hr class="titleBar">
+                <img class="skullImage" src={% static 'challenges/anonymous.jpg' %} />
+                <div class="completedLevels"> {{ hardCompleted }}/{{ hardChallenges.count }} Completed </div>
+
+                {% if hardLocked == 'true' %}
+                    <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked </div>
+                {% else %}
+                    <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>
+                {% endif %}
+
+            </div>
+
         </div>
 
 
-        {% if advancedChallenges %}
-        <div class="challengeContainer"> <div class="titleDescription"> Advanced Challenges </div> 
-        {% endif %}
-
-
-
-
-
-
-
-
-
-        </div>
 
     </body>
 

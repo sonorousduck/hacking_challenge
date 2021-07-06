@@ -22,9 +22,21 @@
                 Home </a>
             <a  href="/challenges/"> <i class="fa fa-code" aria-hidden="true" id="challengesIcon"></i>
                 Challenges </a>
+            <div class="divider"></div>
+
+            {% if request.user.is_superuser %}
+                <a href="../customAdmin"> <i class="fa fa-user" aria-hidden="true"></i> Admin </a>
+                <div class="divider"></div>
+            {% endif %}
+            <a class="logout" href="logoutUser"> <i class="fa fa-sign-out" aria-hidden="true" id="logoutIcon"> </i> </a>
+            <div class="divider" style="float: right;"> </div>
+
             <a class="settings" href="/settings/"> <i class="fa fa-cog" aria-hidden="true" id="settingsIcon"></i>
-                Settings </a>
-            <a class="logout" href="logoutUser"> <i class="fa fa-sign-out" aria-hidden="true" id="logoutIcon"> </i>
+                Settings 
+            </a>
+
+            <div class="divider" style="float: right;"> </div>
+
                 <a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class = "fa fa-bars"> </i> </a>
         </div>
 
