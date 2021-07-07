@@ -4,7 +4,21 @@
     text-align: center;
 }
 
+#homeIcon {
+    color: #66FCF1;
+}
 
+#settingsIcon {
+    color: #66FCF1;
+}
+
+#logoutIcon {
+    color: #66FCF1;
+}
+
+#adminIcon {
+    color: #66FCF1;
+}
 
 
 .centered {

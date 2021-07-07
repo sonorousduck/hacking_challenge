@@ -16,5 +16,6 @@ urlpatterns = [
         path('cookieValidation/', views.cookieValidation, name='cookieValidation'),
         path('adminLogin/', views.adminLogin, name='adminLogin'),
         path('completed/', views.completed, name='completed'),
+        path('allChallenges/', views.allChallenges, name='allChallenges'),
 
 ]

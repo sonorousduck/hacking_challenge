@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        {% load static %}
+        <title> All Challenges </title>
+        <meta charset="utf-8">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script defer src="{% static 'challenges/main.js' %}"></script>
+        <script defer src="{% static 'challenges/challengeBar.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
+
+    </head> 
+
+
+    <body>
+        <div id='challengeBar'>
+            <div v-if='loaded'>
+                <div class="navbar" id="myNavbar">
+                    <a href="/challenges/"> <i class="fa fa-arrow-left rightSpacing" aria-hidden="true"></i> Challenges </a>
+                </div>
+            </div>
+        </div>
+
+
+            {% if completedChallenges %}
+            
+            <div id="challenges" class="challengeContainer">
+                <div class="titleDescription"> Completed Challenges </div>
+                {% for challenge in completedChallenges %}
+                <a class="linkText" href={% url 'challenges:challengeDetails' challenge.id %}>
+                    <div class="completedCard newHover" v-bind:id="{{challenge.order}}">
+                        <div class="container">
+                            <div class="levelText"> Challenge {{ challenge.order }} </div>
+                        </div>
+                  </div>
+                </a>
+            </div>
+    
+                    {% endfor %}
+
+            {% else %}
+            <p> No challenges are available </p>
+            {% endif %}
+
+    </body>
+</html>

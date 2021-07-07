@@ -245,6 +245,28 @@ def challengeDetails(request, challenge_id):
 def completed(request):
     return HttpResponse("Congrats! You have finished this level of difficulty!", request)
 
+@login_required()
+def allChallenges(request):
+
+    challenges = Challenge.objects.all()
+    customUser = CustomUser.objects.get(user=request.user.id)
+    data = json.loads(customUser.challenges)
+    completedChallenges = []
+
+
+    for count, challenge in enumerate(challenges):
+        challenge.completed = data[count]['completed']
+        if data[count]['completed'] == 'true':
+            completedChallenges.append(challenge)
+
+    print(completedChallenges)
+
+
+    return render(request, 'challenges/allChallenges.html', {'completedChallenges': completedChallenges})
+
+
+
+
 
 
 @login_required()

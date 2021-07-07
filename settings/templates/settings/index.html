@@ -26,7 +26,7 @@
             <div class="divider"></div>
             
             {% if request.user.is_superuser %}
-                <a href="../customAdmin"> <i class="fa fa-user" aria-hidden="true"></i> Admin </a>
+                <a href="../customAdmin" > <i class="fa fa-user" id="adminIcon" aria-hidden="true"></i> Admin </a>
                 <div class="divider"></div>
             {% endif %}
             <a class="logout" href="../logoutUser"> <i class="fa fa-sign-out" aria-hidden="true" id="logoutIcon"> </i>
