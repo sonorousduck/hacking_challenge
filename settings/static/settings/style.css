@@ -97,28 +97,29 @@ body {
 }
 
 
+.padded {
+    padding: 16px;
+
+}
 
 .flavorTextForm {
-    position: fixed;
-    bottom: 8px;
     width: 100%;
-    align: center;
     text-align: center;
 }
 
 
 .textBox {
     align: center;
-    padding: 10px;
+    padding: 16px;
+    height: 250px;
     transition-duration: 0.2s;
     border-style: solid;
     border-radius: 10px;
     outline: none;
-    vertical-align: middle;
 }
 
 .textBox:focus {
-    border-color: green;
+    border-color: #45A29E;
 }
 
 
@@ -252,9 +253,76 @@ body {
 
 }
 
+.popup {
+    background: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+}
 
+.popup .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
 
+.popup > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    border-radius: 8px;
+    padding: 15px 5%;
+}
 
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+
+.formEntry {
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 16px;
+    border-radius: 8px;
+    border-style: solid;
+    outline: none;
+    min-width: 5%;
+    width: 75%;
+    font-size: 16px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+.formEntry:focus {
+    border-color: #66FCF1;
+}
 
 
 

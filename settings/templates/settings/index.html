@@ -8,6 +8,7 @@
         <title> Hacking Challenge </title>
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
+        <script defer src="{% static 'settings/settings.js' %}"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'settings/style.css' %}">
 
@@ -36,6 +37,44 @@
                 <a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class = "fa fa-bars"> </i> </a>
         </div>
 
+        
+        <div id="changePopup">
+            <div v-if="isLoaded">
+                <div :hidden= "isInvisible" class="popup">
+                    <span class="helper"></span>
+                    <div>
+                        <div class="popupCloseButton" @click=changeText()>&times;</div>
+
+                        <div class="padded">
+                            <form class="flavorTextForm" action="updateText" method="POST">
+                                {% csrf_token %}
+                                <textarea class="textBox" rows="4" cols="50" name="newText" placeholder="Put your own customizable flavor text here!"></textarea>
+                                <input @click=changeText() class="buttons" type=submit value="Submit"></input>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div :hidden= "passwordIsInvisible" class="popup">
+                    <span class="helper"></span>
+                    <div>
+                        <div class="popupCloseButton" @click=changePassword()>&times;</div>
+                        <div class="padded">
+                            <form class="flavorTextForm" action="updatePassword" method="POST">
+                                {% csrf_token %}
+                                <input class="formEntry" type="password" name="password" id="password" placeholder="New Password"><br>
+                                <input class="formEntry" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm New Password"><br>
+                                <input @click=changePassword() class="buttons" type=submit value="Submit"></input>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
 
         <div>
             <div class="namePlacard">
@@ -54,11 +93,12 @@
                 <div class="adminAndButtons">
                     <div class="adminText"> Admin: <div id="isAdmin"> {{ isAdmin }} </div> </div> <br> 
                     <div class="theButtons">
-                        <div class="buttons"> Change Flavor Text </div>
-                        <div class="buttons"> Change Password </div>
+                        <div class="buttons" @click=changeText()> Change Flavor Text </div>
+                        <div class="buttons" @click=changePassword()> Change Password </div>
                     </div>
                 </div>
 
+        </div>
             </div>
 
     </div>
@@ -77,14 +117,6 @@
 
         <hr class="pageEnder">
 
-        <!-- <div class="padded">
-            <form class="flavorTextForm" action="updateText" method="POST">
-                {% csrf_token %}
-                <textarea class="textBox" rows="4" cols="50" name="newText" placeholder="Put your own customizable flavor text here!"></textarea>
-                <input class="submitButton" type=submit value="Submit"></input>
-            </form>
-        </div>
-        -->
 
 
     </body>

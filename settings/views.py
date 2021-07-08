@@ -39,6 +39,20 @@ def updateText(request):
     return HttpResponseRedirect(reverse("settings:settings"))
 
 
+@login_required()
+def updatePassword(request):
+    user = request.user
+
+
+    if (request.POST):
+        if (request.POST['password'] == request.POST['confirmPassword']):
+            user.set_password(request.POST['password'])
+            user.save()
+
+            return HttpResponseRedirect(reverse("settings:settings"), {"message": "success!"})
+        else:
+            return HttpResponseRedirect(reverse("settings:settings"), {"message": "Failed!"})
+
 
 
 

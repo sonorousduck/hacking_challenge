@@ -5,12 +5,12 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class RegistrationForm(forms.Form):
-    firstName = forms.CharField(label="firstName", max_length=30, widget=forms.TextInput (attrs={'placeholder': 'First Name', 'class': 'formEntry'}))
-    lastName = forms.CharField(label="lastName", max_length=30, widget= forms.TextInput (attrs={'placeholder': 'Last Name', 'class': 'formEntry'}))
-    username = forms.CharField(label="Username", max_length=30, widget=forms.TextInput (attrs={'placeholder': 'Username', 'class': 'formEntry'}))
-    email = forms.EmailField(label="Email", widget=forms.EmailInput (attrs={'placeholder': 'Email', 'class': 'formEntry'}))
-    password = forms.CharField(label="Password", widget=forms.PasswordInput (attrs={'placeholder': 'Password', 'class': 'formEntry'}))
-    confirm_password = forms.CharField(label="Confirm Password", widget=forms.PasswordInput (attrs={'placeholder': 'Confirm Password', 'class': 'formEntry'}))
+    firstName = forms.CharField(label="firstName", max_length=30, widget=forms.TextInput (attrs={'placeholder': 'First Name', 'class': 'formEntryLogin split'}))
+    lastName = forms.CharField(label="lastName", max_length=30, widget= forms.TextInput (attrs={'placeholder': 'Last Name', 'class': 'formEntryLogin split'}))
+    username = forms.CharField(label="Username", max_length=30, widget=forms.TextInput (attrs={'placeholder': 'Username', 'class': 'formEntryLogin entry'}))
+    email = forms.EmailField(label="Email", widget=forms.EmailInput (attrs={'placeholder': 'Email', 'class': 'formEntryLogin entry'}))
+    password = forms.CharField(label="Password", widget=forms.PasswordInput (attrs={'placeholder': 'Password', 'class': 'formEntryLogin split'}))
+    confirm_password = forms.CharField(label="Confirm Password", widget=forms.PasswordInput (attrs={'placeholder': 'Confirm Password', 'class': 'formEntryLogin split' }))
 
 
     def __init__(self, *args, **kwargs):

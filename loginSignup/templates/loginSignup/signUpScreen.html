@@ -40,14 +40,14 @@
                 <form action="{% url 'loginSignup:signUp' %}" method="POST" autocomplete="off">
                     {% csrf_token %}
                     <div class='sameLine'>
-                        <div class="split"> {{ form.firstName }} </div>
-                        <div class="split">  {{ form.lastName }} </div> <br>
+                        {{ form.firstName }} 
+                         {{ form.lastName }} 
                     </div>
-                    <div class="entry" id="username"> {{ form.username }} </div> <br>
-                    <div class="entry" id="email"> {{ form.email }} </div> <br>
+                    {{ form.username }} 
+                    {{ form.email }} 
                     <div class="sameLine" id='password'>
-                        <div class="split"> {{ form.password }} </div> 
-                        <div class="split"> {{ form.confirm_password }} </div> <br>
+                        {{ form.password }}  
+                        {{ form.confirm_password }}  
                     </div>
                     {{ forms.as_p }}
 
@@ -56,7 +56,7 @@
                     <div class="signUpText">
                         <a class="linkText" href="../"> Sign In Instead </a>
                     </div>
-                    <div class="whiteSpace"> </div>
+                    <div class="whiteSpaceCreate"> </div>
                     <button id="submitButton" type="submit"> CREATE ACCOUNT </button>
                 </div>
                 </form>
