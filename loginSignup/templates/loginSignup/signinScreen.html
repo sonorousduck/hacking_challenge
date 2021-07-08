@@ -21,20 +21,23 @@
             </div>
         {% endif %}
 
-        <div class="wrapperSignin">
+        <div class="wrapper">
             <div class="signinForm">
                 <div class="createAccountText"> Login </div>
                 <form action="{% url 'loginSignup:signIn' %}" method="POST" autocomplete="off">
                     {% csrf_token %}
-                    <input class="formEntry" id="usernameLogin" type="text" name="username" placeholder="Username" required><br>
-                    <input class="formEntry" id="passwordLogin" type="password" name="password" placeholder="Password" required><br>
-                    <button id="submitButtonLogin" type="submit"> SIGN IN </button>
+                    <input class="formEntryLogin" id="usernameLogin" type="text" name="username" placeholder="Username" required><br>
+                    <input class="formEntryLogin" id="passwordLogin" type="password" name="password" placeholder="Password" required><br>
+
+                    <div class="bottomButtonHolder">
+                        <div class="signInText">
+                            <a class="linkText" href="signUp"> Create an Account </a>
+                        </div>
+                        <div class="whiteSpace"> </div>
+                        <button id="submitButtonLogin" type="submit"> SIGN IN </button>
+                    </div>
                 </form>
-                <div class="signInText">
-                    <a class="linkText" href="signUp"> Create an Account </a>
-                </div>
             </div>
-        </div>
         </div>
 
 
