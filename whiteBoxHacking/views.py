@@ -3,14 +3,17 @@ from django.http import HttpResponse
 import os
 import subprocess
 import re
+from django.contrib.auth.decorators import login_required
 
-
+@login_required()
 def index(request):
     return render(request, 'whiteBoxHacking/index.html')
 
+@login_required()
 def showViews(request):
     return render(request, 'views.py')
 
+@login_required()
 def unix(request):
 
     if request.GET:

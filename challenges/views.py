@@ -237,7 +237,6 @@ def challengeDetails(request, challenge_id):
         return render(request, f'challenges/loneWolfPart{challenge.title[-1]}.html', {'challenge': challenge})
 
 
-
     return render(request, f'challenges/challenge{challenge_id - 1}.html', {'challenge': challenge})
 
 
