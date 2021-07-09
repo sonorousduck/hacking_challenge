@@ -17,7 +17,7 @@ function generatePassword(material){
   });
   return goodPasswordMaterial.toString();
 }
-document.cookie = `${generatePassword(goodPasswordMaterial)};expires=none; SameSite=None; Secure`
+document.cookie = `${generatePassword(goodPasswordMaterial)};expires=none; SameSite=Lax; Secure`
 
 
 

@@ -118,6 +118,20 @@
         <hr class="pageEnder">
 
 
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "error" %}  
+                <div class="errors">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message  }}
+                </div>
+                {% elif message.tags == "success" %}
+                <div class="success">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }} 
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% endif %}
 
     </body>
 

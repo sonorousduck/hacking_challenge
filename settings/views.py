@@ -3,6 +3,8 @@ from loginSignup.models import CustomUser
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 # Create your views here.
 
@@ -45,16 +47,17 @@ def updatePassword(request):
 
 
     if (request.POST):
-        if (request.POST['password'] == request.POST['confirmPassword']):
+        if (request.POST['password'] == request.POST['confirmPassword'] and request.POST['password'] != ''):
             user.set_password(request.POST['password'])
             user.save()
 
-            return HttpResponseRedirect(reverse("settings:settings"), {"message": "success!"})
+            newUser = authenticate(request, username=user.username, password=request.POST['password'])
+            if newUser is not None:
+                login(request, newUser)
+                messages.success(request, "Password successfully changed!")
+                return HttpResponseRedirect(reverse("settings:settings"))
         else:
-            return HttpResponseRedirect(reverse("settings:settings"), {"message": "Failed!"})
-
-
-
-
+            messages.error(request, "Passwords do not match")
+            return HttpResponseRedirect(reverse("settings:settings"))
 
 
