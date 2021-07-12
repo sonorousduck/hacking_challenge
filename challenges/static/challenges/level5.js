@@ -1,23 +1,29 @@
 goodPasswordMaterial = [
-  "a",
-  "b",
-  "c",
   "d",
-  "e",
+  "g",
+  "i",
+  "q",
   "f",
-  "g"
+  "a",
+  "o"
 ];
 function generatePassword(material){
   goodPasswordMaterial.forEach((item, i) => {
-
     if (i % 2 == 0){
       goodPasswordMaterial[i] = item.toUpperCase() + i;
     }
 
   });
-  return goodPasswordMaterial.toString();
+
+  password = ''
+  for (i of goodPasswordMaterial) {
+    password += i
+  }
+
+  console.log(password)
+  return password;
 }
-document.cookie = `${generatePassword(goodPasswordMaterial)};expires=none; SameSite=Lax; Secure`
+document.cookie = `${generatePassword(goodPasswordMaterial)};expires=none; SameSite=Lax;`
 
 
 

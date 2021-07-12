@@ -59,7 +59,7 @@ def populate_db(apps, schema_editor):
     hint_4_0 = Hint(challenge=challenge_4, hint="Developer Tools")
     hint_4_0.save()
 
-    challenge_5 = Challenge(flag="A0,b,C2,d,E4,f,G6", title="Level 5", order=5, hidden=False, description="Okay... So you figured that out. This time I swear it won't be as easy as hiding it in the html. This time the password uses javascript to hide it better but I'll still be able to find it if I forget. Plus! This time its served by the server and I doubt you'd figure out how to access that.")
+    challenge_5 = Challenge(flag="D0gI2qF4aO6", title="Level 5", order=5, hidden=False, description="Okay... So you figured that out. This time I swear it won't be as easy as hiding it in the html. This time the password uses javascript to hide it better but I'll still be able to find it if I forget. Plus! This time its served by the server and I doubt you'd figure out how to access that.")
     challenge_5.save()
 
 
