@@ -103,8 +103,11 @@ def validation(request):
                 allGood = False
 
             if currentDate > openDate.date and currentDate < closeDate.date:
-                if currentTime > closeDate.time or currentTime < openDate.time:
+                if (currentTime > closeDate.time and currentTime == closeDate.date) or (currentTime < openDate.time and currentTime == openDate.date):
                     allGood = False
+            
+            
+            
 
         if allGood:
 

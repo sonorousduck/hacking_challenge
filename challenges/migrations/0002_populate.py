@@ -207,12 +207,21 @@ def populate_db(apps, schema_editor):
     hint_11_0 = Hint(challenge=challenge_11, hint="Basic Effort")
     hint_11_0.save()
 
-    challenge_12 = Challenge(flag="ToBeCreated", title="Cross Site Scripting", description="This challenge will be using cross-site scripting. Essentially, they will have to go to settings, and turn themselves into an admin before progressing on this one. Maybe an optional challenge. Maybe", order=12, difficultyIndicator = "Hard")
+    challenge_12 = Challenge(flag="YouAreAnAdminNow77@^</>", title="Cross Site Scripting", description="There exists a way on this site to become an admin which is not located on this page. Become one.", order=12, difficultyIndicator = "Hard")
     challenge_12.save()
-
 
     hint_12_0 = Hint(challenge=challenge_12, hint="Cross Site Scripting")
     hint_12_0.save()
+
+
+    challenge_13 = Challenge(flag="CryptologyOrCryptographyWhoKnows", title="Cryptology Challenge", description="Below is a paragraph that has been encrypted. Solve it", order=13, difficultyIndicator="Hard")
+    challenge_13.save()
+
+    hint_12_0 = Hint(challenge=challenge_13, hint="Code Breaking Skills")
+    hint_12_0.save()
+
+    hint_12_1 = Hint(challenge=challenge_13, hint="Tenacity. Probably a little crazy")
+    hint_12_1.save()
 
 
 
