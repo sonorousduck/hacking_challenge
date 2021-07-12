@@ -1,4 +1,3 @@
-
 const app = Vue.createApp({
     delimiters: [ '[%', '%]' ],
 
@@ -14,6 +13,7 @@ const app = Vue.createApp({
             isLoaded: null,
             isAssignmentClosed: false,
             isAssignmentClosedHidden: true,
+            locked: null,
         }
 
 
@@ -21,9 +21,12 @@ const app = Vue.createApp({
 
     mounted() {
         this.isLoaded = true;
-
+        if (document.querySelector('#backend').textContent === 'true') {
+            this.locked = false;
+        } else {
+            this.locked = true;
+        }
     },
-
 
 
     methods: {
@@ -32,10 +35,8 @@ const app = Vue.createApp({
         },
 
         validateInput() {
-            console.log(this.passcodeInput);
             let formData = new FormData();
             formData.append("passcode", this.passcodeInput);
-            // TODO: Instead of taking out of the form, preferably would be to get it straight from Django. Or instead of making a fetch to an overall validation, when it goes to challenges/1/validation, it auto gets its challenge_id from that instead.
             formData.append("challenge_id", document.querySelector('#challenge_id').value);
 
             fetch(this.validation, {
@@ -48,14 +49,12 @@ const app = Vue.createApp({
             })
                 .then(response => response.json())
                 .then(json => {
-                    console.log(json[0]['success']);
                     if (json[0]['success'] === "Assignment is closed") {
                         this.isAssignmentClosed = true;
                         this.correct = false;
                     } else {
                     
                         this.correct = json[0]['success'];
-                        console.log(this.correct);
                     }
                     
                     if (this.isAssignmentClosed) {
@@ -69,6 +68,7 @@ const app = Vue.createApp({
                     else {
 
                         if (this.correct) {
+                            this.locked = false;
                             this.isCorrectHidden = false;
                             
                             setTimeout(() => {

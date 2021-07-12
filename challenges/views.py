@@ -229,6 +229,10 @@ def challengeDetails(request, challenge_id):
     if (challenge_id < Challenge.objects.all().count()):
         challenge.nextChallenge = data[int(challenge_id)]['hidden']
         challenge.nextChallengeID = int(challenge_id) + 1
+        challenge.nextUnlocked = data[int(challenge_id) - 1]['completed']
+    else:
+        challenge.nextUnlocked = 'last'
+
 
     if challenge.data['hidden'] == 'true':
         return HttpResponse(render(request, 'challenges/forbidden.html'))

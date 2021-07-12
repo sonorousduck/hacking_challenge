@@ -20,7 +20,6 @@ function generatePassword(material){
     password += i
   }
 
-  console.log(password)
   return password;
 }
 document.cookie = `${generatePassword(goodPasswordMaterial)};expires=none; SameSite=Lax;`

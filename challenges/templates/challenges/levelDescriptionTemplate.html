@@ -5,6 +5,7 @@
         <script type="module" defer src="{% static 'challenges/levelDescription.js' %}"></script>
         <link rel="stylesheet" href="{% static 'challenges/popupStyle.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/incorrectIndicator.css' %}">
+        <link rel="stylesheet" href="{% static 'challenges/challengeBar.css' %}">
         <title> Challenge {{ challenge.order }} </title>
     </head>
     <body>
@@ -13,10 +14,18 @@
 
             <div class="levelDescription"> {{challenge.description }} </div>
 
-
             <div id="formAndHints">
-
+                <div hidden id="backend">{{ challenge.nextUnlocked }}</div>
                 <div v-if="isLoaded">
+                    <div id='challengeBar'>
+                        <div class="navbar" id="myNavbar">
+                            <a class="active" href="/challenges/"> <i class="fa fa-arrow-left rightSpacing" aria-hidden="true"></i> Challenges </a>
+                            <a href="/challenges/allChallenges/"> <i class="fa fa-archive" aria-hidden="true"></i> All Challenges </a>
+
+                            <div :hidden= "locked" class='onTheRight'> <a  href="/challenges/{{challenge.nextChallengeID}}">  Next Challenge  <i class="fa fa-arrow-right leftSpacing" aria-hidden="true"></i></a> </div>
+                        </div>
+                    </div>
+
                     <div :hidden= "isInvisible" id="hints" class="popup_hints">
                         <span class="helper"></span>
                         <div>
@@ -53,9 +62,7 @@
                         <div id="incorrectText"> Assignment is Currently Closed! </div>
                     </div>
                 </form>
-
             </div>
         </div>
     </body>
-
 </html>
