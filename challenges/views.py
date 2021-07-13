@@ -46,6 +46,7 @@ def index(request):
 
     moderateChallenges = Challenge.objects.filter(difficultyIndicator="Moderate").order_by('order')
     moderateCompleted = 0
+    moderateFound = False
     
     for challenge in moderateChallenges:
         challenge.hidden = data[count]['hidden']
@@ -55,15 +56,14 @@ def index(request):
             moderateCompleted += 1
             if moderateCompleted != len(moderateChallenges):
                 if data[count + 1]['completed'] == 'false':
-                    if moderateChallenges[moderateCompleted + 1].challengeSeries == "LoneWolf":
-                        currentModerateChallenge = moderateChallenges[moderateCompleted + 1].order - 87
-                        pass
-                    else:
-                        currentModerateChallenge = moderateChallenges[count + 1].order + 1
+                    currentModerateChallenge = moderateChallenges[count - easyCompleted + 1].order 
+                    moderateFound = True
+                    pass
             else:
                 currentModerateChallenge = 'completed'
         else:
-            currentModerateChallenge = moderateChallenges[0].order + 1
+            if not moderateFound:
+                currentModerateChallenge = moderateChallenges[0].order + 1
         count += 1
 
     if moderateCompleted == len(moderateChallenges):
@@ -105,10 +105,6 @@ def validation(request):
             if currentDate > openDate.date and currentDate < closeDate.date:
                 if (currentTime > closeDate.time and currentTime == closeDate.date) or (currentTime < openDate.time and currentTime == openDate.date):
                     allGood = False
-            
-            
-            
-
         if allGood:
 
             loneWolfID = [100, 101, 102, 103]
@@ -218,38 +214,42 @@ def validation(request):
 # TODO: Get the information for which challenge to send them to from a database instead of static as I am currently doing. This allows us to easier change the order of the levels and it will correctly point to the html page that it should. Essentially, it will be a dictionary mapping the challenge to a html page (instead of currently the order mapping it strictly to an html page, which makes it if the order changes, then it doesn't update correctly to the new html page
 
 @login_required()
-def challengeDetails(request, challenge_id):
-    loneWolfID = [14, 15, 16, 17]
-    if challenge_id in loneWolfID:
-        challenge = get_object_or_404(Challenge, order=challenge_id + 86)
-    else:
-        challenge = get_object_or_404(Challenge, order=challenge_id - 1)
-
+def challengeDetails(request, order):
+    order = order - 1
+    challengeID = order + 1
+    challenge = get_object_or_404(Challenge, order=order)
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
 
-    challenge.data = data[int(challenge_id) - 1]
-    if (challenge_id < Challenge.objects.all().count()):
-        challenge.nextChallenge = data[int(challenge_id)]['hidden']
-        challenge.nextChallengeID = int(challenge_id) + 1
-        challenge.nextUnlocked = data[int(challenge_id) - 1]['completed']
+    challenge.data = data[order]
+    if (challengeID < Challenge.objects.all().count()):
+        challenge.nextChallenge = data[challengeID]['hidden']
+        challenge.nextChallengeID = challengeID + 1
+        challenge.nextUnlocked = data[challengeID]['completed']
     else:
         challenge.nextUnlocked = 'last'
 
-
     if challenge.data['hidden'] == 'true':
         return HttpResponse(render(request, 'challenges/forbidden.html'))
-    
-    if challenge.challengeSeries == "LoneWolf":
-        return render(request, f'challenges/loneWolfPart{challenge.title[-1]}.html', {'challenge': challenge})
 
+    return render(request, f'challenges/{challenge.templateValue}.html', {'challenge': challenge})
 
-    return render(request, f'challenges/challenge{challenge_id - 1}.html', {'challenge': challenge})
 
 
 @login_required()
 def completed(request):
-    return HttpResponse("Congrats! You have finished this level of difficulty!", request)
+    challenges = Challenge.objects.all()
+    customUser = CustomUser.objects.get(user=request.user.id)
+    data = json.loads(customUser.challenges)
+    completedChallenges = []
+
+    for count, challenge in enumerate(challenges):
+        if data[count]['completed'] == 'true':
+            completedChallenges.append(challenge)
+            print(completedChallenges)
+
+    return render(request, 'challenges/allChallenges.html', {'completedChallenges': completedChallenges})
+    #return HttpResponse("Congrats! You have finished this level of difficulty!", request)
 
 @login_required()
 def allChallenges(request):
@@ -265,7 +265,6 @@ def allChallenges(request):
         if data[count]['completed'] == 'true':
             completedChallenges.append(challenge)
 
-    print(completedChallenges)
 
 
     return render(request, 'challenges/allChallenges.html', {'completedChallenges': completedChallenges})

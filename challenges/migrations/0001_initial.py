@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(default='Level', max_length=20)),
                 ('description', models.CharField(default='A very nice description', max_length=300)),
                 ('order', models.IntegerField()),
+                ('templateValue', models.IntegerField()),
                 ('hidden', models.BooleanField(default=False)),
                 ('pointValue', models.IntegerField(default=10)),
                 ('optionalChallenge', models.BooleanField(default=False)),

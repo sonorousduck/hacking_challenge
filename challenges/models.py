@@ -1,15 +1,12 @@
 from django.db import models
 
-# Create your models here.
-
-
-# This is my thought on this model. We will have a challenge "model" that basically holds all the base information that a challenge may or may not need. We will also have another app called "User" that will contain if the challenge is completed or not for them. This may prove to be tricky, as the user model will then depend on the challenges model. I'm almost 100% certain that kind of thing exists, it will just be research
 
 class Challenge(models.Model):
     flag = models.CharField(max_length=50)
-    title = models.CharField(max_length=20, default='Level')
+    title = models.CharField(max_length=20, default='Challenge')
     description = models.CharField(max_length=300, default='A very nice description')
     order = models.IntegerField()
+    templateValue = models.IntegerField(default=-1)
     hidden = models.BooleanField(default=False)
     pointValue = models.IntegerField(default=10)
     optionalChallenge = models.BooleanField(default=False)
@@ -17,7 +14,6 @@ class Challenge(models.Model):
     challengeSeries = models.CharField(max_length=50, default="Basic")
     totalIncorrectGuesses = models.IntegerField(default=0)
     numberOfUsersOnThisChallenge = models.IntegerField(default=0)
-
 
 
     class Meta:

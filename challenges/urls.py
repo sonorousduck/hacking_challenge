@@ -7,7 +7,7 @@ app_name='challenges'
 
 urlpatterns = [
         path('', views.index, name='challenges'),
-        path('<int:challenge_id>/', views.challengeDetails, name='challengeDetails'),
+        path('<int:order>/', views.challengeDetails, name='challengeDetails'),
         path('validation/', views.validation, name='validation'),
         path('passwordSecurity', views.passwordSecurity, name='passwordSecurity'),
         path('supersecure', views.security, name='supersecure'),
@@ -17,5 +17,4 @@ urlpatterns = [
         path('adminLogin/', views.adminLogin, name='adminLogin'),
         path('completed/', views.completed, name='completed'),
         path('allChallenges/', views.allChallenges, name='allChallenges'),
-
 ]
