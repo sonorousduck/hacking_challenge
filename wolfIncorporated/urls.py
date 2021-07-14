@@ -10,6 +10,6 @@ urlpatterns = [
         path('homepage/admin/', views.admin, name="admin"),
         path('homepage/admin/deleteServer/', views.deleteServer, name="deleteServer"),
         path('deleted', views.deletedServer, name="deletedServer"),
-
+        path('homepage/console/', views.console, name='console'),
 
         ]

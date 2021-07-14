@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        {% load static %}
+        <title> Console </title>
+        <script src="https://unpkg.com/vue@next"></script>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'wolfIncorporated/consoleStyle.css' %}">
+
+
+
+    </head>
+    
+    <body>
+        <div id="topBanner">
+            <div id="entry">
+                <a class="linkText" href="../">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    Return To Lone Wolf
+                </a>
+            </div>
+        </div>
+
+
+        <div id="hint"> *Limited commands. I would recommend starting a server* </div>
+
+        <div class="console">
+            <form class="form" action="" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <!-- <input type="text" id="consoleInput" name="console" autofocus> -->
+                <textarea id="consoleInput" onkeydown="pressed(event)" placeholder="%" autofocus></textArea>
+            </form>
+        </div>
+
+    </body>
+
+        <!-- Simple Script from Stack Overflow that submits the form when enter is pressed -->
+        <script>
+            function pressed(e) {
+                if ( (window.event ? event.keyCode : e.which) == 13) {
+                    document.forms[0].submit();
+                }
+            }
+        </script>
+
+</html>

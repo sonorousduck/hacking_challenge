@@ -3,36 +3,69 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+#topBar {
+    display: flex;
+
+}
 
 #wolfLogo {
     width: auto;
     height: 100px;
-    float: left;
+    flex-basis: 12%;
 }
 
 
 .wolfBanner {
     background-color: black;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    line-height: 100px;
     vertical-align: center;
-    align: center;
+    flex-basis: 88%;
+    justify-content: space-between;
+    white-space: nowrap;
 }
 
 .wolfBannerText {
     font-size: 32px;
     font-weight: bold;
-    float: left;
     color: white;
     vertical-align: center;
     align: center;
+    flex-basis: 10%
 }
 
+.spacer {
+    flex-basis: 500%;
+    background-color: black;
+    line-height: 100px;
+}
+
+
+.consoleText {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    vertical-align: center;
+    flex-basis: 2%;
+    justify-content: flex-end;
+}
+
+.wolfbannerconsole {
+    transition-duration: 0.2s;
+    text-decoration: none;
+    color: white;
+    flex-basis: 20%;
+    text-align: center;
+}
+
+.wolfbannerconsole:hover {
+    cursor: pointer;
+    background-color: #383838;
+    opacity: 75%;
+}
 
 .wolfBannerAdmin {
     font-size: 32px;
     font-weight: bold;
-    float: right;
     margin-right: 16px;
     color: white;
     vertical-align: middle;
@@ -40,8 +73,7 @@ body {
     margin-top: 0px;
     transition-duration: 0.2s;
     text-decoration: none;
-
-
+    flex-basis: 15%;
 }
 .wolfBannerAdmin:hover {
     cursor: pointer;

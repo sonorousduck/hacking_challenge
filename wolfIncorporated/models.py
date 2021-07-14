@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 
 
 class LoneWolfUser(models.Model):
-    admin = models.BooleanField(default=False)
+    serverIsRunning = models.BooleanField(default=False)
     username = models.CharField(max_length=30)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     isServerDeleted = models.BooleanField(default=False)
-    last_name = models.TextField(default="")
+    last_name = models.CharField(max_length=30)
 
 
     class Meta:

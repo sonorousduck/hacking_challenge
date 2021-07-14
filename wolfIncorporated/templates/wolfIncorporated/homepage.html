@@ -18,7 +18,11 @@
             <img id="wolfLogo" aria-hidden="true" src="{% static 'wolfIncorporated/images/wolfInc.jpeg' %}" alt="Wolf Majestically Howling Into the Darkness">
             <div class='wolfBanner'>
                 <div class='wolfBannerText'> Lone Wolf </div>
+                <div class="spacer"></div>
                 <div class='wolfBannerAdmin'> <a class='wolfBannerAdmin' href="admin/"> Admin </a> </div>
+                <div class='wolfBanner'>
+                    <div class='consoleText'> Console </div>
+                </div>
             </div>
         </div>
 
@@ -30,11 +34,17 @@
             <div class='wolfBanner'>
                 <div class='wolfBannerText'> Lone Wolf </div>
             </div>
+            <div class="spacer"></div>
+            <div class='wolfBanner'>
+                <a class="wolfBannerConsole" href="console/"> 
+                    <div class='consoleText'> Console </div>
+                </a>
+            </div>
         </div>
         {% endif %}
 
         {% if not admin %}
-        <div> Congrats on hacking the first challenge. Your flag: </div>
+        <div> Congrats on hacking the first challenge. Your flag: #CH**O#SEN_#^%ON--=E</div>
         <div> Hint: Find a way to elevate your status to admin </div>
         <div> Cryptic Hint: When you find what to do, just alert it </div>
         {% endif %}

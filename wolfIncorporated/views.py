@@ -10,9 +10,6 @@ from django.contrib.messages import get_messages
 
 # Create your views here.
 
-
-#TODO: Somehow redirect here if they don't have a Lone Wolf Account. Else go to home page of Lone Wolf
-
 @login_required()
 def index(request):
     try:
@@ -37,7 +34,7 @@ def index(request):
                 except:
 
 
-                    loneWolfAgent = LoneWolfUser(admin="False", username=request.GET['username'], user=request.user,  last_name=request.user.last_name)
+                    loneWolfAgent = LoneWolfUser(serverIsRunning="False", username=request.GET['username'], user=request.user,  last_name=request.user.last_name)
 
                     loneWolfAgent.save()
 
@@ -190,5 +187,26 @@ def deleteServer(request):
 
     return HttpResponseRedirect(reverse('wolfIncorporated:deletedServer'))
 
+@login_required()
 def deletedServer(request):
     return render(request, 'wolfIncorporated/deletedServer.html')
+
+
+@login_required()
+def console(request):
+    if not request.POST:
+        return render(request, 'wolfIncorporated/console.html')
+
+    else:
+        return HttpResponseRedirect(reverse('wolfIncorporated:console'), request)
+
+
+
+
+
+
+
+
+
+
+
