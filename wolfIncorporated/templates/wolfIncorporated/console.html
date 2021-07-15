@@ -15,24 +15,30 @@
     
     <body>
         <div id="topBanner">
-            <div id="entry">
-                <a class="linkText" href="../">
+            <a class="linkText" href="../">
+                <div id="entry">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     Return To Lone Wolf
-                </a>
-            </div>
+                </div>
+        </a>
         </div>
 
 
-        <div id="hint"> *Limited commands. I would recommend starting a server* </div>
+        <div id="hint"> *Very limited commands* </div>
 
         <div class="console">
             <form class="form" action="" method="POST" autocomplete="off">
                 {% csrf_token %}
                 <!-- <input type="text" id="consoleInput" name="console" autofocus> -->
-                <textarea id="consoleInput" onkeydown="pressed(event)" placeholder="%" autofocus></textArea>
+                <textarea id="consoleInput" onkeydown="pressed(event)" placeholder="%" name="console" autofocus></textArea>
+
+                {% if messages %}
+                        <div class="messages"> {{messages}} </div>
+                {% endif %}
             </form>
         </div>
+        
+
 
     </body>
 
@@ -40,7 +46,7 @@
         <script>
             function pressed(e) {
                 if ( (window.event ? event.keyCode : e.which) == 13) {
-                    document.forms[0].submit();
+                    document.querySelector('form').submit();
                 }
             }
         </script>

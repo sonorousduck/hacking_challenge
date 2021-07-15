@@ -18,10 +18,14 @@
             <img id="wolfLogo" aria-hidden="true" src="{% static 'wolfIncorporated/images/wolfInc.jpeg' %}" alt="Wolf Majestically Howling Into the Darkness">
             <div class='wolfBanner'>
                 <div class='wolfBannerText'> Lone Wolf </div>
-                <div class="spacer"></div>
-                <div class='wolfBannerAdmin'> <a class='wolfBannerAdmin' href="admin/"> Admin </a> </div>
+                <div class="adminSpacer"></div>
                 <div class='wolfBanner'>
-                    <div class='consoleText'> Console </div>
+                    <a class='wolfBannerAdmin' href="admin/"> 
+                        <div class='consoleText'>Admin </div>
+                    </a> 
+                    <a class="wolfBannerConsole" href="console/"> 
+                        <div class='consoleText'> Console </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -52,8 +56,11 @@
 
         {% if first_name %}
             <div class="centered usernameText"> {{ first_name }} {{ last_name }} </div>
+            {% if serverRunning %}
+                <div class="centered">Server is running on 77.165.734.77 </div>
+            {% endif %}
             {% if admin %}
-                <div class="centered"> Your flag is JFDKLSJLKRULK#$ </div>
+            <div class="centered"> Your flag is {{flag}}$ </div>
             {% endif %}
         {% else %}
             <div class="centered usernameText"> {{ user.firstName }} {{ user.lastName }} </div>
@@ -86,8 +93,10 @@
 
                 
                 {% if cookie != '' %}
-                    <div style="font-weight: bold;"> Stolen Cookies: </div>
-                    <div> Employee: {{ cookie }} </div>
+                    <div class="fromServer"> 
+                        <div style="font-weight: bold;"> From Server: </div>
+                        <div> Employee Cookie: {{ cookie }} </div>
+                    </div> 
                 {% endif %}
 
                 <div :hidden="emailPopupInvisible" class="popup_hints" id="email">
@@ -150,4 +159,25 @@
                 </div>
             </div>
         </div>
+    </body>
 
+    <script>
+        // Stack Overflow credit https://stackoverflow.com/questions/51312980/how-to-get-and-set-cookies-in-javascript
+        let cookie = ''
+        let name = "Employee=";
+        let ca = document.cookie.split(';')
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt[0] == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(name) == 0) cookie = c.substring(name.length, c.length);
+        }
+
+        if (cookie != 'FDJLL@KJLF' && cookie != '') {
+        } else {
+            document.cookie = `Employee=&*FDJLL@KJLF;expires=none; SameSite=Lax;`
+        }
+    </script>
+
+
+
+</html>

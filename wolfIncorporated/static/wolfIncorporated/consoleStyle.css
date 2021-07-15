@@ -13,7 +13,8 @@ body {
     text-decoration: none;
     transition-duration: 0.2s;
     color: white;
-    flex-basis: 20%;
+    flex-basis: 12%;
+    white-space: nowrap;
 }
 
 #entry {
@@ -55,3 +56,16 @@ body {
     line-height: 100%;
     padding: 8px;
 }
+
+.messages {
+    width: 100%;
+    color: #00FF00;
+    vertical-align: bottom;
+    line-height; 50%;
+    z-index: 2;
+    position: relative;
+    top: -95%;
+    margin-left: 16px;
+
+}
+

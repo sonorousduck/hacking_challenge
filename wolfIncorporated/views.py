@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import LoneWolfUser, FellowEmployee, Email
+from challenges.models import Challenge
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 import random
@@ -25,8 +26,6 @@ def index(request):
     except:
         if (request.GET):
             if ('EmployeeID' not in request.GET):
-                print(f"Welcome {request.GET['username']}")
-                print("Create user, create database stuff, and everything. Instantiate to non-admin")
 
                 try:
                     user = LoneWolfUser.objects.get(user=request.user)
@@ -74,26 +73,26 @@ def homepage(request):
         employees = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user))[:7]
         emails = reversed(Email.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)))
         everyone = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user))
-
+        serverRunning = LoneWolfUser.objects.get(user=request.user).serverIsRunning
         cookieMessage = ''
+        flag = Challenge.objects.get(templateValue=14).flag
         if get_messages(request):
             for message in get_messages(request):
-                print(message)
                 cookieMessage += str(message) + '\n'
 
         if request.COOKIES.get('Employee'):
-            print("Got Here")
             try:
                 employee = FellowEmployee.objects.get(cookie=request.COOKIES.get('Employee'))
                 admin = employee.admin
                 first_name = employee.first_name
                 last_name = employee.last_name
-                return render(request, 'wolfIncorporated/homepage.html', {'admin': admin, 'first_name': first_name, 'last_name': last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage}) 
+                flag = Challenge.objects.get(templateValue=16).flag
+                return render(request, 'wolfIncorporated/homepage.html', {'admin': admin, 'first_name': first_name, 'last_name': last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage, 'serverRunning': serverRunning, 'flag': flag}) 
             except:
-                return (render(request, 'wolfIncorporated/homepage.html', {'first_name': request.user.first_name, 'last_name': request.user.last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage}))
+                return (render(request, 'wolfIncorporated/homepage.html', {'first_name': request.user.first_name, 'last_name': request.user.last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage, 'serverRunning': serverRunning, 'flag': flag}))
 
         
-        return (render(request, 'wolfIncorporated/homepage.html', {'first_name': request.user.first_name, 'last_name': request.user.last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage}))
+        return (render(request, 'wolfIncorporated/homepage.html', {'first_name': request.user.first_name, 'last_name': request.user.last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage, 'serverRunning': serverRunning, 'flag': flag}))
 
     except (Exception) as e:
         print(e)
@@ -130,7 +129,7 @@ def sendEmail(request):
         if 'document.cookie' in emailContent:
             any_in = lambda a, b: bool(set(emailContent).intersection(cookieGetterPossibilities))
             if '<script>' in emailContent and '</script>' in emailContent or any_in:
-                if 'alert' in emailContent:
+                if 'fetch' in emailContent and '77.165.734.77' in emailContent:
                     if 'Everyone' == recipient:
                         employees = FellowEmployee.objects.filter(loneWolfUser = LoneWolfUser.objects.get(user=request.user))
                         cookieString = ''
@@ -145,8 +144,6 @@ def sendEmail(request):
                         return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
                 
 
-
-
     return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
 
 @login_required()
@@ -158,8 +155,6 @@ def admin(request):
 
     if request.COOKIES.get('Employee') != FellowEmployee.objects.get(first_name="Sauron").cookie:
         return HttpResponseForbidden() 
-                
-    
 
 
 
@@ -189,15 +184,70 @@ def deleteServer(request):
 
 @login_required()
 def deletedServer(request):
-    return render(request, 'wolfIncorporated/deletedServer.html')
+    flag = Challenge.objects.get(templateValue=17).flag
+    return render(request, 'wolfIncorporated/deletedServer.html', {'flag': flag})
 
 
 @login_required()
 def console(request):
     if not request.POST:
+        if get_messages(request):
+            messagesList = ''
+            #messagesList = str(get_messages(request))
+            for message in get_messages(request):
+                messagesList += str(message) +'\t'
+            return render(request, 'wolfIncorporated/console.html', {'messages': messagesList})
         return render(request, 'wolfIncorporated/console.html')
 
     else:
+        validCommands = ['python', 'ls', 'pwd', 'cat']
+        files = 'server.py randomFile.txt anotherRandomFile.txt instructions.txt'
+        instructions = "File Content: Start the server, and maybe try doing something to send a way to log in to the server? Just an idea...?"
+        randomFile = "File Content: These are not the droids you are looking for" 
+        anotherRandomFile = "File Content: Fetch! 'Good dog!', I proclaim, as the dog brings back the toy."
+        server = """
+                if __name__ == '__main__':
+                    server_address = ('localhost', 8000)
+                    print(f'Serving from http://{server_address[0]}:{server_address[1]}')
+                    print('Press Ctrl-C to quit\n')
+                    try:
+                        HTTPServer(server_address, hacking_challenge).serve_forever()
+                    except KeyboardInterrupt:
+                        print('Exiting')
+                        exit(0)
+                """
+        command = request.POST['console']
+        commandList = list(filter(command.startswith, validCommands))
+        isValidCommand = commandList[0] in validCommands 
+
+        if isValidCommand:
+            if commandList[0] == 'python':
+                if command.endswith('server.py'):
+                    loneWolfAgent = LoneWolfUser.objects.get(user=request.user)
+                    
+                    if loneWolfAgent.serverIsRunning:
+                        messages.add_message(request, messages.INFO, "I don't understand... The server is already running on 77.165.734.77")
+                    else:
+                        loneWolfAgent.serverIsRunning = True
+                        loneWolfAgent.save()
+                        messages.add_message(request, messages.INFO, "Server Starting up... \n Server Running on 77.165.734.77")
+
+
+
+            elif commandList[0] == 'ls':
+                messages.add_message(request, messages.INFO, files)
+            elif commandList[0] == 'cat':
+                if command.endswith('randomFile.txt'):
+                    messages.add_message(request, messages.INFO, randomFile)
+                elif command.endswith('anotherRandomFile.txt'):
+                    messages.add_message(request, messages.INFO, anotherRandomFile)
+                elif command.endswith('instructions.txt'):
+                    messages.add_message(request, messages.INFO, instructions)
+                elif command.endswith('server.py'):
+                    messages.add_message(request, messages.INFO, server)
+        else:
+            pass
+        
         return HttpResponseRedirect(reverse('wolfIncorporated:console'), request)
 
 

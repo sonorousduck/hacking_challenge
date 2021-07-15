@@ -56,7 +56,7 @@ def index(request):
             moderateCompleted += 1
             if moderateCompleted != len(moderateChallenges):
                 if data[count + 1]['completed'] == 'false':
-                    currentModerateChallenge = moderateChallenges[count - easyCompleted + 1].order 
+                    currentModerateChallenge = moderateChallenges[count - len(easyChallenges) + 1].order 
                     moderateFound = True
                     pass
             else:
