@@ -6,18 +6,20 @@
         {% load static %}
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
-        <script src="{% static 'challenges/rh.js' %}"></script>
+        <script defer src="{% static 'challenges/rh.js' %}"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
     </head>
 
     <body>
 
-
         {% include 'challenges/levelDescriptionTemplate.html' %}
+
+        <div id="challenge">[% nothingJustForWarning %]</div>
 
 
     </body>
+
 
 
 </html>

@@ -52,14 +52,14 @@ def populate_db(apps, schema_editor):
 
 
 
-    challenge_4 = Challenge(flag="T/E))2n-_-0!cj4--H*0?", title="Level 4", order=4, hidden=False, description="Do you not know who I am!? Leave me and my site alone!", templateValue=4)
+    challenge_4 = Challenge(flag="T/E))2n-_-0!cj4--H*0?", title="Level 4", order=4, hidden=False, description="Do you not know who I am!? Leave me and my site alone! Offsite obviously didn't work. I'm using Javascript again.", templateValue=4)
     challenge_4.save()
 
 
     hint_4_0 = Hint(challenge=challenge_4, hint="Developer Tools")
     hint_4_0.save()
 
-    challenge_5 = Challenge(flag="D0gI2qF4aO6", title="Level 5", order=5, hidden=False, description="I guess I underestimated just who YOU were. You ever think what would happen if I was hacking you at the same time? Mwahaha. Anyways, I moved it out of the html, having it be served by the server instead. Good luck lol.", templateValue=5)
+    challenge_5 = Challenge(flag="D0gI2qF4aO6", title="Level 5", order=5, hidden=False, description="I guess I underestimated just who YOU were. You ever think what would happen if I was hacking you at the same time? Or even just stealing your IP address to find out where you are? Mwahaha. Anyways, I moved it out of the html, having it be served by the server instead. Good luck lol.", templateValue=5)
     challenge_5.save()
 
 
@@ -129,7 +129,7 @@ def populate_db(apps, schema_editor):
     hint_7_7.save()
 
 
-    challenge_8 = Challenge(flag="1a2s3d4f5g6h7j8k9l", title="Level 8", order=8, hidden=False, description="Good. Good. There are more security flaws. Find it.", templateValue=8)
+    challenge_8 = Challenge(flag="1a2s3d4f5g6h7j8k9l", title="Level 8", order=8, hidden=False, description="Good. Good. There are more security flaws. Find them.", templateValue=8)
     challenge_8.save()
 
     hint_8_0 = Hint(challenge=challenge_8, hint="HTML")
@@ -188,7 +188,7 @@ def populate_db(apps, schema_editor):
     hint_9_8 = Hint(challenge=challenge_9, hint="Cookies")
     hint_9_8.save()
 
-    hint_9_9 = Hint(challenge=challenge_9, hint="Hackers often take advantage of already known vulnerabilities. Have you seen code you haven't used?")
+    hint_9_9 = Hint(challenge=challenge_9, hint="Where you make cookies is important")
     hint_9_9.save()
 
 

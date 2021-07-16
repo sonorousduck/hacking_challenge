@@ -13,7 +13,7 @@ const app = Vue.createApp({
             isLoaded: null,
             isAssignmentClosed: false,
             isAssignmentClosedHidden: true,
-            locked: null,
+            locked: true,
         }
 
 

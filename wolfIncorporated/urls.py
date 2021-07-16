@@ -11,5 +11,5 @@ urlpatterns = [
         path('homepage/admin/deleteServer/', views.deleteServer, name="deleteServer"),
         path('deleted', views.deletedServer, name="deletedServer"),
         path('homepage/console/', views.console, name='console'),
-
+        path('homepage/deleteEmails/', views.deleteAllEmails, name='deleteEmails'),
         ]

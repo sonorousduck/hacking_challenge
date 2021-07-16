@@ -17,4 +17,5 @@ urlpatterns = [
         path('adminLogin/', views.adminLogin, name='adminLogin'),
         path('completed/', views.completed, name='completed'),
         path('allChallenges/', views.allChallenges, name='allChallenges'),
+        path('anotherRequest/', views.anotherRequest, name='anotherRequest/'),
 ]

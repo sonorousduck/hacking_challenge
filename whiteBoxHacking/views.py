@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from challenges.models import Challenge
 import os
 import subprocess
 import re
@@ -29,7 +30,6 @@ def unix(request):
             words = unixCommand.split(' ')
             if re.search('-', unixCommand):
                 words.insert(2, 'whiteBoxHacking/')
-                print(words)
             else:
                 words.insert(1, 'whiteBoxHacking/')
             newUnixCommand = ''
@@ -41,6 +41,10 @@ def unix(request):
             return HttpResponse(f"{result.stdout.decode('utf-8')}")
 
         elif unixCommand.startswith("cat"):
+            if (unixCommand == 'cat .env'):
+                challenge7 = Challenge.objects.get(order=7)
+                return HttpResponse(f"Challenge 7 Flag: {challenge7.flag}")
+
             words = unixCommand.split(' ')
             words.insert(1, 'whiteBoxHacking/')
             newUnixCommand = ''
@@ -56,5 +60,13 @@ def unix(request):
         else:
             return HttpResponse(f"bash: {unixCommand} not a valid command")
 
-
+@login_required()
+def cookieValidation(request):
+    challenge = Challenge.objects.get(templateValue=9)
+    if request.POST['password'] == '':
+        return HttpResponse("Not Authorized")
+    elif request.COOKIES.get('FORSPARTA!') == "HYAAAAAA!HYAAAAAA!HYAAAAAA!":
+        return HttpResponse(challenge.flag)
+    else:
+        return HttpResponse("Not Authorized")
 

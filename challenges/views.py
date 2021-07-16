@@ -215,17 +215,22 @@ def validation(request):
 
 @login_required()
 def challengeDetails(request, order):
+    challengeID = order
     order = order - 1
-    challengeID = order + 1
+
     challenge = get_object_or_404(Challenge, order=order)
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
+
+
+    print(challengeID)
+    print(data[challengeID])
 
     challenge.data = data[order]
     if (challengeID < Challenge.objects.all().count()):
         challenge.nextChallenge = data[challengeID]['hidden']
         challenge.nextChallengeID = challengeID + 1
-        challenge.nextUnlocked = data[challengeID]['completed']
+        challenge.nextUnlocked = data[challengeID - 1]['completed']
     else:
         challenge.nextUnlocked = 'last'
 
@@ -362,11 +367,28 @@ def secure(request):
         return HttpResponse(f"bash: {request.GET['password']}: command not found")
 
 @login_required()
+def anotherRequest(request):
+
+    try:
+
+        if (request.headers['allowed']):
+            flag = Challenge.objects.get(templateValue=3).flag
+            data = [{'flag': flag}]
+
+            return JsonResponse(data, safe=False)
+    except KeyError:
+        return JsonResponse({"Yeah No": "Good try though :)"}, safe=False)
+
+
+@login_required()
 def cookieValidation(request):
     challenge = Challenge.objects.get(order=9)
+    print(request.COOKIES.get('FORSPARTA!'))
+    print(request.COOKIES)
+    print(request.COOKIES.get('Employee'))
     if request.POST['password'] == '':
         return HttpResponse("Not Authorized")
-    elif request.COOKIES.get('ryansbestta') == 'spamspamspamspamspamspameggsspam':
+    elif request.COOKIES.get('FORSPARTA!') == 'HYAAAAAA!HYAAAAAA!HYAAAAAA!':
         return HttpResponse(challenge.flag)
     else: 
         return HttpResponse("Not Authorized")

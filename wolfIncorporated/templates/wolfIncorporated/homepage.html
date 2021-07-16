@@ -50,7 +50,7 @@
         {% if not admin %}
         <div> Congrats on hacking the first challenge. Your flag: #CH**O#SEN_#^%ON--=E</div>
         <div> Hint: Find a way to elevate your status to admin </div>
-        <div> Cryptic Hint: When you find what to do, just alert it </div>
+        <div> To Delete All Emails: <form class='form' action='deleteEmails/'> <button class="deleteEmails" onclick='deleteEmails()'> Click here </div> </div>
         {% endif %}
 
 
@@ -176,6 +176,12 @@
         } else {
             document.cookie = `Employee=&*FDJLL@KJLF;expires=none; SameSite=Lax;`
         }
+
+        function deleteEmails() {
+            document.querySelector('deleteEmails').submit();
+        }
+    
+
     </script>
 
 

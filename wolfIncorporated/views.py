@@ -129,7 +129,7 @@ def sendEmail(request):
         if 'document.cookie' in emailContent:
             any_in = lambda a, b: bool(set(emailContent).intersection(cookieGetterPossibilities))
             if '<script>' in emailContent and '</script>' in emailContent or any_in:
-                if 'fetch' in emailContent and '77.165.734.77' in emailContent:
+                if 'fetch' in emailContent and '77.165.734.77' in emailContent and LoneWolfUser.objects.get(user=request.user).serverIsRunning:
                     if 'Everyone' == recipient:
                         employees = FellowEmployee.objects.filter(loneWolfUser = LoneWolfUser.objects.get(user=request.user))
                         cookieString = ''
@@ -148,7 +148,6 @@ def sendEmail(request):
 
 @login_required()
 def admin(request):
-    
     if LoneWolfUser.objects.get(user=request.user).isServerDeleted:
         return HttpResponseRedirect("/LoneWolf/deleted")
 
@@ -161,7 +160,18 @@ def admin(request):
     return render(request, 'wolfIncorporated/admin.html')
 
 
+@login_required()
+def deleteAllEmails(request):
+    loneWolf = LoneWolfUser.objects.get(user=request.user)
 
+    while Email.objects.filter(loneWolfUser=loneWolf).count() > 0:
+        Email.objects.filter(loneWolfUser=loneWolf).first().delete()
+
+    adminEmployee = FellowEmployee.objects.filter(loneWolfUser=loneWolf).get(admin=True)
+    initialEmail = Email(loneWolfUser=loneWolf, content=f'Welcome to Lone Wolf, {request.user.first_name}! Our Dev team just barely enabled support for limited script tags to work through email! Check it out! <div onmouseover=alert(\"Yay!\")> We are glad to have you! </div>',  sender=f"{adminEmployee.first_name} {adminEmployee.last_name}", subjectLine="Welcome to the company!", image='images/sauron.jpeg')
+    initialEmail.save()
+
+    return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
 
 @login_required()
 def deleteServer(request):
