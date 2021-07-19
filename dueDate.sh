@@ -1,4 +1,3 @@
 #!/bin/bash
 
-python3 manage.py dueDate > scores.csv
-
+python3 manage.py dueDate
