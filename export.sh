@@ -1,2 +1,1 @@
-#!/bin/bash
-python3 ~/Desktop/hacking_challenge/manage.py dumpdata > ~/Desktop/hacking_challenge/db.json
+python3 hacking_challenge/manage.py dumpdata > hacking_challenge/db.json
