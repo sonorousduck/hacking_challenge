@@ -1,0 +1,51 @@
+#changeDate {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+#homeIcon {
+    color: #66FCF1;
+}
+
+#settingsIcon {
+    color: #66FCF1;
+}
+
+#logoutIcon {
+    color: #66FCF1;
+}
+
+#adminIcon {
+    color: #66FCF1;
+}
+
+
+.centered {
+    text-align: center;
+}
+
+.padded {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    
+
+}
+
+.dueDates {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 48px;
+    margin-top: 24px; 
+
+}
+
+
+
+
+
+
+
+
+

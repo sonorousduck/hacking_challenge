@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#topBanner {
+    display: flex;
+    color: white;
+    background-color: black;
+}
+
+.linkText {
+    text-decoration: none;
+    transition-duration: 0.2s;
+    color: white;
+    flex-basis: 12%;
+    white-space: nowrap;
+}
+
+#entry {
+    padding: 16px;
+
+}
+
+#entry:hover {
+    cursor: pointer;
+    background-color: #383838;
+    opacity: 75%;
+}
+
+#hint {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+
+.console {
+    display: flex;
+    background-color: black;
+    height: 90vh;
+}
+
+.form {
+    width: 100%;
+
+}
+
+#consoleInput {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: #00FF00;
+    vertical-align: top;
+    line-height: 100%;
+    padding: 8px;
+}
+
+.messages {
+    width: 100%;
+    color: #00FF00;
+    vertical-align: bottom;
+    line-height; 50%;
+    z-index: 2;
+    position: relative;
+    top: -95%;
+    margin-left: 16px;
+
+}
+

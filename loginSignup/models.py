@@ -11,7 +11,8 @@ class CustomUser(models.Model):
     challenges = models.JSONField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     admin = models.BooleanField(default=False)
-    last_name = models.TextField(default="")
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
     customText = models.TextField(default="", blank=True)
     numTotalIncorrectGuesses = models.IntegerField(default=0)
     incorrectPerChallenge = models.JSONField()
@@ -26,3 +27,6 @@ class CustomUser(models.Model):
 
     def __str__(self):
         return f" {self.user.first_name} {self.user.last_name} { round(((self.completedChallenges / self.numChallenges) * 100), 2) }%"
+
+
+

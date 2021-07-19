@@ -1,0 +1,290 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 0 50px;
+    font-size: 16px;
+}
+
+.navbar {
+    background-color: #0B0C10;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #C5C6C7;
+    text-align: center;
+    padding: 20px 32px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    background-color: #1F2833;
+    color: white;
+}
+
+.navbar a.active {
+    background-color: #45A29E;
+    color: white;
+}
+
+.divider {
+    color: #C5C5C6;
+    background-color: #C5C6C7;
+    float: left;
+    display: block;
+    margin-top: 10px;
+    height: 40px;    
+    width: 1px;
+}
+
+#challengesIcon {
+    color: #66FCF1;
+}
+
+#homeIcon {
+    color: #66FCF1;
+}
+
+
+#settingsIcon {
+    color: #66FCF1;
+}
+
+#logoutIcon {
+    color: #66FCF1;
+}
+
+#adminIcon {
+    color: #66FCF1;
+}
+
+.navbar .icon {
+    display: none;
+}
+
+
+.navbar .logout {
+    float: right;
+}
+.navbar .settings {
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar a:not(:first-child) {display: none; }
+    .navbar a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navbar.responsive {position: relative;}
+    ,navbar.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .navbar.responsive a {
+        float: none;
+        display: b17lock;
+        text-align: left;
+    }
+}
+
+
+.profileIndicator {
+    font-size: 48px;
+    font-weight: 1;
+    color: #1F2833;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 75px;
+}
+
+.profileCircle {
+    float: left;
+    border-radius: 50%;
+    border: solid 1px #45A29E;
+    background-color: #C5C6C7;
+    width: 75px;
+    height: 75px;
+    opacity: 0.90;
+    box-shadow: 0 1px 2px 0 #0B0C10;
+
+}
+
+.namePlacard {
+   padding: 8px;
+   margin-left: 24px;
+   margin-top: 24px;
+   margin-bottom: 16px;
+}
+
+.textInformation {
+   float: left;
+    margin-left: 16px;
+    margin-top: 24px;
+}
+
+.user {
+    float: left;
+    color: #45A29E;
+    font-weight: bold;
+}
+
+.username {
+    float: left;
+    font-style: italic;
+    color: #45A29E;
+}
+
+#isAdmin {
+    float: right;
+    color: #0B0C10;
+    margin-left: 8px;
+    font-weight: 100;
+}
+
+.pageEnder {
+    margin-top: 124px;
+    color: #0B0C10;
+    text-align: center;
+    width: 90%;
+}
+
+.theButtons {
+    float: right;
+    padding: 8px;
+    margin-right: 0px;
+    margin-top: 0px;
+}
+
+.buttons {
+    max-width: 200px;
+    width: 200px;
+    background-color: #45A29E;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    margin: 8px 0px 8px 8px; 
+    height: 42px;
+    vertical-align: middle;
+    line-height: 42px;
+    transition: all 0.2s ease-in-out;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    outline: none;
+}
+
+.buttons:hover {
+    transform: scale(1.1);
+    background-color: #30716e;
+    cursor: pointer;
+}
+
+.adminAndButtons {
+    float: right;
+    margin-right: 32px;
+    margin-top: 24px;
+
+}
+
+.completedChallenges {
+   padding: 16px; 
+   margin-left: 16px;
+   margin-top: 16px;
+
+}
+
+#progressBar {
+    background-color: #c5c6c7;
+    border-radius: 8px;
+    border: solid 1px #b8b9ba;
+    width: 80%;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    height: 40px;
+
+}
+
+.challengesCompleted {
+    margin-left: 160px;
+
+
+}
+
+
+
+.flavorTextNote {
+    color: #45A29E;
+    font-size: 12px;
+    text-align: center;
+}
+
+#completeBar {
+    text-align: left;
+    background-color: #66FCF1;
+    height: 40px;
+    border-radius: 8px;
+}
+
+#progressText {
+    float: left;
+    line-height: 40px;
+    vertical-align: middle;
+    margin-left: 16px;
+    color: #1F2833;
+
+
+}
+.achievementHolder {
+    margin: 16px;
+    margin-top: 32px;
+    max-height: 300px;
+}
+
+.achievement {
+    padding: 16px;
+    border-radius: 5px;
+    border: solid 2px #1F2833;
+    display: inline-block;
+    margin: 8px;
+    background: #C5C6C7; 
+}
+
+.achievementTitle {
+    font-size: 16px;
+    color: #1F2833;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+
+.achievementIcon {
+    width: 100px;
+    height: auto;
+}
+
+.achievementDescription {
+    font-style: italic;
+    max-width: 175px;
+    color: #1F2833;
+}
+
+#achievementsLabel {
+    font-weight: bold;
+    font-size: 24px;
+    padding-left: 16px;
+
+}
+
+.centered {
+    align: center;
+    text-align: center;
+    float: center;
+}

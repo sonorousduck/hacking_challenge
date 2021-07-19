@@ -44,7 +44,7 @@ def populate_db(apps, schema_editor):
     achievement_10 = Achievement(title="Phenomenal", description="Complete 5 in a row without mistake", achievementIcon="Phenomenal.png")
     achievement_10.save()
 
-    achievement_11 = Achievement(title="Unstoppable", description="Complete 6 in a row without mistake", achievementIcon="Upstoppable.PNG")
+    achievement_11 = Achievement(title="Unstoppable", description="Complete 6 in a row without mistake", achievementIcon="Unstoppable.PNG")
     achievement_11.save()
 
     achievement_12 = Achievement(title="Unforgettable", description="Complete 7 in a row without mistake", achievementIcon="Unforgettable.PNG")
