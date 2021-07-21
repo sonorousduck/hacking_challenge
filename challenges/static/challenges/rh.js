@@ -55,12 +55,3 @@ const vm1 = app.mount("#challenge");
 
 
 
-//function sendHeader(flag) {
-//    let xhr = new XMLHttpRequest();
-//    
-//
-//
-//    xhr.open("GET", '../passwordSecurity');
-//    xhr.setRequestHeader("SuperSecureAndSecretPassword", flag);
-//    xhr.send();
-//}

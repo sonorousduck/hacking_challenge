@@ -82,7 +82,7 @@ def homepage(request):
 
         if request.COOKIES.get('Employee'):
             try:
-                employee = FellowEmployee.objects.get(cookie=request.COOKIES.get('Employee'))
+                employee = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).get(cookie=request.COOKIES.get('Employee'))
                 admin = employee.admin
                 first_name = employee.first_name
                 last_name = employee.last_name
@@ -122,8 +122,8 @@ def sendEmail(request):
         email = Email(loneWolfUser=LoneWolfUser.objects.get(user=request.user), content=emailContent, sender=f"To: {recipient}", subjectLine=subjectLine)
         email.save()
 
-        while Email.objects.filter(loneWolfUser = LoneWolfUser.objects.get(user=request.user)).count() > 5:
-            Email.objects.first().delete()
+        while Email.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).count() > 5:
+            Email.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).first().delete()
 
         
         if 'document.cookie' in emailContent:
@@ -139,7 +139,7 @@ def sendEmail(request):
                         return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
                     else:
                         first = recipient.split(' ')
-                        employee = FellowEmployee.objects.get(first_name=first[0])
+                        employee = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).get(first_name=first[0])
                         messages.add_message(request, messages.INFO, employee.cookie)
                         return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
                 
@@ -152,7 +152,7 @@ def admin(request):
         return HttpResponseRedirect("/LoneWolf/deleted")
 
 
-    if request.COOKIES.get('Employee') != FellowEmployee.objects.get(first_name="Sauron").cookie:
+    if request.COOKIES.get('Employee') != FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).get(first_name="Sauron").cookie:
         return HttpResponseForbidden() 
 
 
@@ -175,14 +175,15 @@ def deleteAllEmails(request):
 
 @login_required()
 def deleteServer(request):
+    loneWolfAgent = LoneWolfUser.objects.get(user=request.user)
+    
     if LoneWolfUser.objects.get(user=request.user).isServerDeleted:
         return HttpResponseRedirect("/LoneWolf/deleted")
 
 
-    if request.COOKIES.get('Employee') != FellowEmployee.objects.get(first_name="Sauron").cookie:
+    if request.COOKIES.get('Employee') != FellowEmployee.objects.filter(loneWolfUser=loneWolfAgent).get(first_name="Sauron").cookie:
         return HttpResponseForbidden() 
 
-    loneWolfAgent = LoneWolfUser.objects.get(user=request.user)
     loneWolfAgent.isServerDeleted = True 
     loneWolfAgent.save()
 

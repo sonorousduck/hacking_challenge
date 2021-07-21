@@ -56,9 +56,8 @@ def index(request):
             moderateCompleted += 1
             if moderateCompleted != len(moderateChallenges):
                 if data[count + 1]['completed'] == 'false':
-                    currentModerateChallenge = moderateChallenges[count - len(easyChallenges) + 1].order 
+                    currentModerateChallenge = moderateChallenges[count - len(easyChallenges) + 1].order + 1 
                     moderateFound = True
-                    pass
             else:
                 currentModerateChallenge = 'completed'
         else:
@@ -72,15 +71,26 @@ def index(request):
 
     hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard").order_by('order')
     hardCompleted = 0
+    hardFound = False
+
     for challenge in hardChallenges:
         challenge.hidden = data[count]['hidden']
         challenge.completed = data[count]['completed']
         challenge.data = data[count]
         if data[count]['completed'] == 'true':
             hardCompleted += 1
+            if hardCompleted != len(hardChalllenges):
+                if data[count + 1]['completed'] == 'false':
+                    currentHardChallenge = hardChallenges[count - len(easyChallenges) - len(moderateChallenges) + 1].order + 1
+                    hardFound = True
+            else:
+                currentHardChallenge = 'completed'
+        else:
+            if not hardFound:
+                currentHardChallenge = hardChallenges[0].order + 1
         count += 1
 
-    return render(request, 'challenges/index.html', {'easyChallenges': easyChallenges, 'moderateChallenges': moderateChallenges, 'hardChallenges': hardChallenges, 'easyCompleted': easyCompleted, 'moderateCompleted': moderateCompleted, 'hardCompleted': hardCompleted, 'moderateLocked': moderateLocked, 'hardLocked': hardLocked, 'currentEasyChallenge': currentEasyChallenge, 'currentModerateChallenge': currentModerateChallenge})
+    return render(request, 'challenges/index.html', {'easyChallenges': easyChallenges, 'moderateChallenges': moderateChallenges, 'hardChallenges': hardChallenges, 'easyCompleted': easyCompleted, 'moderateCompleted': moderateCompleted, 'hardCompleted': hardCompleted, 'moderateLocked': moderateLocked, 'hardLocked': hardLocked, 'currentEasyChallenge': currentEasyChallenge, 'currentModerateChallenge': currentModerateChallenge, 'currentHardChallenge': currentHardChallenge})
 
 
 @login_required()
@@ -223,9 +233,6 @@ def challengeDetails(request, order):
     data = json.loads(customUser.challenges)
 
 
-    print(challengeID)
-    print(data[challengeID])
-
     challenge.data = data[order]
     if (challengeID < Challenge.objects.all().count()):
         challenge.nextChallenge = data[challengeID]['hidden']
@@ -251,8 +258,6 @@ def completed(request):
     for count, challenge in enumerate(challenges):
         if data[count]['completed'] == 'true':
             completedChallenges.append(challenge)
-            print(completedChallenges)
-
     return render(request, 'challenges/allChallenges.html', {'completedChallenges': completedChallenges})
     #return HttpResponse("Congrats! You have finished this level of difficulty!", request)
 
@@ -383,12 +388,7 @@ def anotherRequest(request):
 @login_required()
 def cookieValidation(request):
     challenge = Challenge.objects.get(order=9)
-    print(request.COOKIES.get('FORSPARTA!'))
-    print(request.COOKIES)
-    print(request.COOKIES.get('Employee'))
-    if request.POST['password'] == '':
-        return HttpResponse("Not Authorized")
-    elif request.COOKIES.get('FORSPARTA!') == 'HYAAAAAA!HYAAAAAA!HYAAAAAA!':
+    if request.COOKIES.get('FORSPARTA!') == 'HYAAAAAA!HYAAAAAA!HYAAAAAA!':
         return HttpResponse(challenge.flag)
     else: 
         return HttpResponse("Not Authorized")

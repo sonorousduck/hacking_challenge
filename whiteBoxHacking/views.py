@@ -63,9 +63,8 @@ def unix(request):
 @login_required()
 def cookieValidation(request):
     challenge = Challenge.objects.get(templateValue=9)
-    if request.POST['password'] == '':
-        return HttpResponse("Not Authorized")
-    elif request.COOKIES.get('FORSPARTA!') == "HYAAAAAA!HYAAAAAA!HYAAAAAA!":
+    print(request.COOKIES)
+    if request.COOKIES.get('FORSPARTA!') == "HYAAAAAA!HYAAAAAA!HYAAAAAA!":
         return HttpResponse(challenge.flag)
     else:
         return HttpResponse("Not Authorized")

@@ -54,7 +54,9 @@
                 {% if hardLocked == 'true' %}
                     <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked (Optional) </div>
                 {% else %}
+                    <a class="link" href={{ currentHardChallenge }}>
                     <div class="customButton"> Continue (Optional) <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>
+                    </a>
                 {% endif %}
             </div>
 
