@@ -12,6 +12,8 @@ from datetime import datetime, timedelta
 @login_required()
 def index(request):
     easyChallenges = Challenge.objects.filter(difficultyIndicator="Easy").order_by('order')
+    moderateChallenges = Challenge.objects.filter(difficultyIndicator="Moderate").order_by('order')
+    hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard").order_by('order')
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
     count = 0
@@ -38,13 +40,17 @@ def index(request):
         else:
             moderateLocked = 'false'
         if easyCompleted == len(easyChallenges):
+
             hardLocked = 'false'
+            data[len(moderateChallenges) + len(easyChallenges)]['hidden'] = 'false'
+            customUser.challenges = json.dumps(data)
+            customUser.save()
+
+            print(data[len(moderateChallenges) + len(easyChallenges)]['hidden'])
+            print(data[len(moderateChallenges) + len(easyChallenges)])
         else:
             hardLocked = 'true'
 
-
-
-    moderateChallenges = Challenge.objects.filter(difficultyIndicator="Moderate").order_by('order')
     moderateCompleted = 0
     moderateFound = False
     
@@ -67,9 +73,12 @@ def index(request):
 
     if moderateCompleted == len(moderateChallenges):
         hardLocked = 'false'
+        data[len(moderateChallenges) + len(easyChallenges)]['hidden'] = 'false'
+        customUser.challenges = json.dumps(data)
+        customUser.save()
+        print(data[len(moderateChallenges) + len(easyChallenges)]['hidden'])
+        print(data[len(moderateChallenges) + len(easyChallenges)])
 
-
-    hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard").order_by('order')
     hardCompleted = 0
     hardFound = False
 

@@ -25,10 +25,17 @@
                 <hr class="titleBar">
                 <img class="skullImage" src={% static 'challenges/skull.jpg' %} />
                 <div class="completedLevels"> {{ easyCompleted }}/{{ easyChallenges.count }} Completed </div>
-                
+                {% if currentEasyChallenge  == 'completed' %}
+                <a class="link" href={{ currentEasyChallenge }}>
+                    <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
+Complete </div>
+                </a>
+
+                {% else %}                
                 <a class="link" href={{ currentEasyChallenge }}>
                     <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>
                 </a>
+                {% endif %}
             </div>
 
             <div class="challengeCard" id="moderate">
