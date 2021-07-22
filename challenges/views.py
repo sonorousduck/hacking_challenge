@@ -42,7 +42,9 @@ def index(request):
         if easyCompleted == len(easyChallenges):
 
             hardLocked = 'false'
-            data[len(moderateChallenges) + len(easyChallenges)]['hidden'] = 'false'
+            hardChallengesCount = len(hardChallenges)
+            for i in range(hardChallengesCount):
+                data[len(moderateChallenges) + len(easyChallenges) + i]['hidden'] = 'false'
             customUser.challenges = json.dumps(data)
             customUser.save()
 
@@ -73,11 +75,11 @@ def index(request):
 
     if moderateCompleted == len(moderateChallenges):
         hardLocked = 'false'
-        data[len(moderateChallenges) + len(easyChallenges)]['hidden'] = 'false'
+        hardChallengesCount = len(hardChallenges)
+        for i in range(hardChallengesCount):
+            data[len(moderateChallenges) + len(easyChallenges) + i]['hidden'] = 'false'
         customUser.challenges = json.dumps(data)
         customUser.save()
-        print(data[len(moderateChallenges) + len(easyChallenges)]['hidden'])
-        print(data[len(moderateChallenges) + len(easyChallenges)])
 
     hardCompleted = 0
     hardFound = False
@@ -254,6 +256,31 @@ def challengeDetails(request, order):
         return HttpResponse(render(request, 'challenges/forbidden.html'))
 
     return render(request, f'challenges/{challenge.templateValue}.html', {'challenge': challenge})
+
+@login_required()
+def hardChallenges(request):
+    hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard")
+    customUser = CustomUser.objects.get(user=request.user)
+    bruteForce = hardChallenges[0].order + 1
+    bruteForceComplete = 'false'
+    crossSite = hardChallenges[1].order + 1
+    crossSiteComplete = 'false'
+    cryptology = hardChallenges[2].order + 1
+    cryptologyComplete = 'false'
+
+    challengesData = json.loads(customUser.challenges)
+    if challengesData[cryptology - 1]['completed'] == 'true':
+        cryptologyComplete = 'true'
+
+    elif challengesData[bruteForce - 1]['completed'] == 'true':
+        bruteForceComplete = 'true'
+
+    elif challengesData[crossSite - 1]['completed'] == 'true':
+        crossSiteComplete = 'true'
+
+
+    return render(request, 'challenges/hardChallenges.html', {'cryptology': cryptology, 'bruteForce': bruteForce, 'crossSite': crossSite, 'cryptologyComplete': cryptologyComplete, 'bruteForceComplete': bruteForceComplete, 'crossSiteComplete': crossSiteComplete})
+
 
 
 

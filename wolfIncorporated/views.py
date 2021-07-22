@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import LoneWolfUser, FellowEmployee, Email
+from loginSignup.models import CustomUser
 from challenges.models import Challenge
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 import random
+import json
 from django.contrib import messages
 from django.contrib.messages import get_messages
 
@@ -40,7 +42,7 @@ def index(request):
 
                     # Create Fellow Employees
 
-                    firstNames = ['John', 'Cortana', 'Jeff', 'Taylor', 'David', 'Erik', 'Ryan', 'Arthur', 'Steven', 'Cayde', 'Claire', 'Sophia', 'Abby', 'Emily', 'Eris', 'Luke', 'Anakin', 'Aang', 'Itadori', 'Tanjiro', 'Nezuko', 'Katara', 'Doom', 'Stewie', 'James']
+                    firstNames = ['John', 'Cortana', 'Jeff', 'Taylor', 'David', 'Erik', 'Ryan', 'Arthur', 'Steven', 'Cayde', 'Claire', 'Sophia', 'Abby', 'Emily', 'Eris', 'Luke', 'Anakin', 'Aang', 'Itadori', 'Tanjiro', 'Nezuko', 'Katara', 'Doom', 'Stewie', 'Doctor']
                     lastNames = ['Smith', 'Anderson', 'Six', 'Skywalker', 'Morn', 'Bray', 'Woodward', 'Gardner', 'Holliday', 'Williams', 'Hamill', 'Jarvis', 'Strange', 'Dixon', 'Skywalker', 'Kenobi', 'Stark', 'Wayne', 'Banner', 'Morgan', 'Mir', 'Guy', 'Baggins', 'AKA Batman', 'Griffin', 'Bond']
 
                     random.shuffle(firstNames)
@@ -95,7 +97,6 @@ def homepage(request):
         return (render(request, 'wolfIncorporated/homepage.html', {'first_name': request.user.first_name, 'last_name': request.user.last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage, 'serverRunning': serverRunning, 'flag': flag}))
 
     except (Exception) as e:
-        print(e)
         return HttpResponseRedirect('/LoneWolf')
 
 
@@ -155,8 +156,6 @@ def admin(request):
     if request.COOKIES.get('Employee') != FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).get(first_name="Sauron").cookie:
         return HttpResponseForbidden() 
 
-
-
     return render(request, 'wolfIncorporated/admin.html')
 
 
@@ -196,7 +195,38 @@ def deleteServer(request):
 @login_required()
 def deletedServer(request):
     flag = Challenge.objects.get(templateValue=17).flag
-    return render(request, 'wolfIncorporated/deletedServer.html', {'flag': flag})
+    user = request.user
+
+    customUser = CustomUser.objects.get(user=user)
+    try:
+        loneWolfUser = LoneWolfUser.objects.get(user=user)
+    except:
+        return HttpResponseRedirect(reverse('wolfIncorporated:LoneWolf'))
+
+    if (loneWolfUser.isServerDeleted):
+        data = json.loads(customUser.challenges)
+        challenges = Challenge.objects.filter(challengeSeries='LoneWolf')
+        challenges = challenges[:len(challenges) - 1] # We don't want to auto complete the last challenge
+        challengesToFinish = []
+        for challenge in challenges:
+            challengesToFinish.append(challenge.order)
+        
+        challengeCompletedCount = 0
+        
+        for number in challengesToFinish:
+            data[number]['completed'] = 'true'
+            data[number]['hidden'] = 'false'
+            data[number + 1]['hidden'] = 'false'
+            challengeCompletedCount += 1
+
+        customUser.challenges = json.dumps(data)
+        customUser.completedChallenges += challengeCompletedCount
+        customUser.correctInARow += challengeCompletedCount
+        customUser.save()
+
+        return render(request, 'wolfIncorporated/deletedServer.html', {'flag': flag})
+    else:
+        return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
 
 
 @login_required()
@@ -204,7 +234,6 @@ def console(request):
     if not request.POST:
         if get_messages(request):
             messagesList = ''
-            #messagesList = str(get_messages(request))
             for message in get_messages(request):
                 messagesList += str(message) +'\t'
             return render(request, 'wolfIncorporated/console.html', {'messages': messagesList})

@@ -1,0 +1,404 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: #00FF00;
+}
+
+
+.completedCard {
+    box-shadow: 0 2px 4px 0 #0B0C10;
+    width: 13%;
+    max-width: 13%;
+    height: 5%;
+    max-height: 5%;
+    transition: all 0.2s ease-in-out;
+    border-radius: 10px;
+    display: inline-block;
+    float: left;
+    text-align: center;
+    background-color: #45A29E;
+    padding: 8px 56px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    margin-right: 8px;
+    margin-left: 8px;
+    color: white;
+}
+
+.completedCard:hover {
+    transform: scale(1.1);
+    background-color: #30716e;
+    cursor: pointer;
+}
+
+
+.container {
+    padding: 2px 16px;
+
+}
+
+.levelText {
+   padding: 24px 24px;
+   font-size: 16px;
+   font-weight: 500;
+}
+
+
+.linkText {
+    color: black;
+}
+
+.challengeContainer {
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    align: center;
+}
+
+
+.rightSpacing {
+    margin-right: 25px;
+    margin-left: 0px;
+}
+
+.onTheRight {
+    align: right;
+    text-align: right;
+    float: right;
+
+}
+
+.leftSpacing {
+    margin-left: 25px;
+    margin-right: 0px;
+}
+
+.navbar {
+    background-color: #0B0C10;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #C5C6C7;
+    text-align: center;
+    padding: 20px 32px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+
+.divider {
+    color: #C5C5C6;
+    background-color: #C5C6C7;
+    float: left;
+    display: block;
+    margin-top: 10px;
+    height: 40px;    
+    width: 1px;
+}
+
+.navbar a:hover {
+    background-color: #1F2833;
+    color: white;
+}
+
+.navbar a.active {
+    background-color: #45A29E;
+    color: white;
+}
+
+.navbar .settings {
+    float: right;
+
+}
+
+#challengesIcon {
+    color: #66FCF1;
+}
+
+
+#homeIcon {
+    color: #66FCF1;
+}
+
+
+#settingsIcon {
+    color: #66FCF1;
+}
+
+#logoutIcon {
+    color: #66FCF1;
+}
+
+#adminIcon {
+    color: #66FCF1;
+}
+
+.navbar .icon {
+    display: none;
+}
+
+
+.navbar .logout {
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar a:not(:first-child) {display: none; }
+    .navbar a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navbar.responsive {position: relative;}
+    ,navbar.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .navbar.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}
+
+.levelNumber {
+    align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.levelDescription {
+    align: center;
+    text-align: center;
+    font-size: 24px;
+}
+
+#passcodeForm {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    align: center;
+    text-align: center;
+}
+
+#passcodeValidation {
+    align: center;
+    padding: 20px;
+    background-color: #C5C6C7;
+    transition-duration: 0.2s;
+    border-style: solid;
+    border-radius: 10px;
+    width: 33%;
+    margin-right: 8px;
+    outline: none;
+}
+
+#passcodeValidation:focus {
+    border-color: #66FCF1;
+    transform: scale(1.01);
+}
+
+#submitButton {
+    align: center;
+    padding: 16px 48px;
+    transition-duration: 0.2s;
+    background-color: #C5C6C7;
+    border-radius: 10px;
+    border: 2px solid #45A29E;
+    margin-right: 8px;
+}
+
+
+#submitButton:hover {
+    background-color: #C5C6C7;
+    transform: scale(1.1);
+
+}
+
+
+#hintButton {
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.2s ease-in-out;
+    border-radius: 10px;
+    width: 350px;
+}
+
+
+#hintButton:hover {
+    transform: scale(1.1);
+    background-color: #30716e;
+    cursor: pointer;
+}
+.loginForm {
+    align: center;
+    text-align: center;
+    padding: 16px;
+    margin-top: 24px;
+}
+
+.formEntry {
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 16px;
+    border-radius: 8px;
+    border-style: solid;
+    outline: none;
+}
+.formEntry:focus {
+    border-color: black;
+}
+
+.bash {
+    width: 50%;
+    font-size: 16px;
+}
+
+#theSolution {
+    align: center;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 8px;
+}
+
+.movedDownForChallengeBar {
+    margin-top: 80px;
+}
+
+.titleDescription {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.challengeContainer {
+    padding-bottom: 32px;
+}
+
+.wolfLogo {
+    text-align: center;
+    height: 100px;
+}
+
+.loneWolfLink {
+    align: center;
+    text-align: center;
+    color: black;
+}
+
+.loneWolfDiv {
+    text-align: center;
+    margin-top: 16px;
+}
+
+#supplementalDescription {
+    text-align: center;
+    margin-top: 8px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.small-text {
+    font-size: 12px;
+    font-style: italic;
+}
+
+#mainContainer {
+    display: flex;
+    text-align: center;
+    margin-top: 48px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+
+.challengeCard {
+    flex: 33%; 
+    margin: 24px;
+    border: solid 1px #1F2833;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 #0B0C10;
+}
+
+.skullImage {
+    margin-top: 16px;
+    height: 150px;
+    width: auto;
+    margin-bottom: 8px;
+}
+
+
+.title {
+    margin-top: 24px;
+    font-variant: small-caps;
+    font-size: 20px;
+    color: #;
+}
+
+
+.titleBar {
+    width: 90%;
+}
+
+
+.completedLevels {
+    margin-bottom: 64px;
+    font-size: 24px;    
+}
+
+.customButton {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 128px;
+    margin-bottom: 16px;
+    border: solid 1px #00FF00;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    height: 50px;
+    line-height: 50px;
+    transition: all 0.2s ease-in-out;
+}
+
+.customButton:hover {
+    transform: scale(1.1);
+    background-color: #0B0C10;
+    cursor: pointer;
+}
+
+.customButtonDisabled {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 128px;
+    background-color: #1F2833;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.whiteBoxDetails {
+    margin-top: 16px;
+
+}
+
+
