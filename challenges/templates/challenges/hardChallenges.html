@@ -8,7 +8,7 @@
         <title> Challenges </title>
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
-        <script defer src="{% static 'challenges/challengesHome.js' %}"></script>
+        <script defer src="{% static 'challenges/challengesHard.js' %}"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/hardChallenges.css' %}">
     </head> 
@@ -29,7 +29,7 @@
 
                 {% if bruteForceComplete == 'true' %}
                 <a class="link" href='../allChallenges'>
-                    <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i> Complete </div>
+                   <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i> Complete </div>
                 </a>
                 {% else %}
                 <a class="link" href='../{{ bruteForce  }}'>
@@ -70,8 +70,25 @@ Complete </div>
                     </a>
                     {% endif %}
             </div>
+        </div>
+
+        {% if completed %}
+        <div id="completedContainer">
+            <div v-if='isLoaded'>
+                <div class="customButton" @click='beginDeletion'> Delete Evil Dude's Server! </div>
+                <div :hidden='progressBarHidden' class="deletionBar"> 
+                    <div class="progress"  :style="{ width: progressBarPercent + '%' }">
+                        <div class="progressText"> [% progressBarPercent %]% </div>
+                    </div> 
+                </div>
+            </div>
+
+
+
+
 
         </div>
+        {% endif %}
 
 
 

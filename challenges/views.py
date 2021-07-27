@@ -4,6 +4,7 @@ from loginSignup.models import CustomUser
 from customAdmin.models import AssignmentDates
 from achievements.models import Achievements
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, HttpResponseForbidden 
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 import json
 from datetime import datetime, timedelta
@@ -232,7 +233,6 @@ def validation(request):
             return response
 
 
-# TODO: Get the information for which challenge to send them to from a database instead of static as I am currently doing. This allows us to easier change the order of the levels and it will correctly point to the html page that it should. Essentially, it will be a dictionary mapping the challenge to a html page (instead of currently the order mapping it strictly to an html page, which makes it if the order changes, then it doesn't update correctly to the new html page
 
 @login_required()
 def challengeDetails(request, order):
@@ -261,12 +261,16 @@ def challengeDetails(request, order):
 def hardChallenges(request):
     hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard")
     customUser = CustomUser.objects.get(user=request.user)
+
+
+    # TODO: Turn back to false!
     bruteForce = hardChallenges[0].order + 1
-    bruteForceComplete = 'false'
+    bruteForceComplete = 'true'
     crossSite = hardChallenges[1].order + 1
-    crossSiteComplete = 'false'
+    crossSiteComplete = 'true'
     cryptology = hardChallenges[2].order + 1
-    cryptologyComplete = 'false'
+    cryptologyComplete = 'true'
+    completed = False
 
     challengesData = json.loads(customUser.challenges)
     if challengesData[cryptology - 1]['completed'] == 'true':
@@ -278,9 +282,12 @@ def hardChallenges(request):
     elif challengesData[crossSite - 1]['completed'] == 'true':
         crossSiteComplete = 'true'
 
+    if cryptologyComplete == 'true' and bruteForceComplete == 'true' and crossSiteComplete == 'true':
+        completed = True
 
-    return render(request, 'challenges/hardChallenges.html', {'cryptology': cryptology, 'bruteForce': bruteForce, 'crossSite': crossSite, 'cryptologyComplete': cryptologyComplete, 'bruteForceComplete': bruteForceComplete, 'crossSiteComplete': crossSiteComplete})
 
+
+    return render(request, 'challenges/hardChallenges.html', {'cryptology': cryptology, 'bruteForce': bruteForce, 'crossSite': crossSite, 'cryptologyComplete': cryptologyComplete, 'bruteForceComplete': bruteForceComplete, 'crossSiteComplete': crossSiteComplete, 'completed': completed})
 
 
 

@@ -20,6 +20,7 @@ def index(request):
             return HttpResponseRedirect("/LoneWolf/deleted")
     except:
         pass
+        
 
 
     try:
@@ -47,7 +48,7 @@ def index(request):
 
                     random.shuffle(firstNames)
                     random.shuffle(lastNames)
-
+                    
 
                     for i in range(12):
                         fellowEmployee = FellowEmployee(username=f"{firstNames[i]}-{lastNames[i]}", loneWolfUser=loneWolfAgent, first_name=firstNames[i], last_name=lastNames[i], cookie=f"AA77{firstNames[i]}&*(FDSIJFSD?__){lastNames[i]}")

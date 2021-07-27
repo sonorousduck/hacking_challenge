@@ -194,18 +194,18 @@ body {
 #passcodeValidation {
     align: center;
     padding: 20px;
-    background-color: #C5C6C7;
+    background-color: black;
+    color: white;
     transition-duration: 0.2s;
-    border-style: solid;
     border-radius: 10px;
+    border: 1px solid #00FF00;
     width: 33%;
     margin-right: 8px;
     outline: none;
 }
 
 #passcodeValidation:focus {
-    border-color: #66FCF1;
-    transform: scale(1.01);
+    transform: scale(1.05);
 }
 
 #submitButton {
@@ -412,3 +412,86 @@ body {
 }
 
 
+.popup_hints {
+    background:rgba(0, 0, 0, 0.4);
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+}
+
+.popup_hints .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.popup_hints > div {
+    background-color: black;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    border-radius: 8px;
+    padding: 15px 5%;
+}
+
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+
+#hintsList {
+    text-align: left;
+    align: left;
+}
+
+#deleteServer {
+    text-align: center;
+}
+
+
+.deletionBar {
+    margin-top: 64px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #1F2833;
+    width: 90%;
+    height: 5%;
+}
+
+.progress {
+    background-color: #00FF00;
+    height: 10%;
+    transition: background 0.25s ease-in;
+}
+
+.progressText {
+    margin-left: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: black;    
+}
