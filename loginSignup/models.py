@@ -18,6 +18,7 @@ class CustomUser(models.Model):
     incorrectPerChallenge = models.JSONField()
     achievements = models.JSONField()
     correctInARow = models.IntegerField(default=0)
+    completedAllChallenges = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['last_name']

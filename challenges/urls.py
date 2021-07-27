@@ -19,5 +19,5 @@ urlpatterns = [
         path('allChallenges/', views.allChallenges, name='allChallenges'),
         path('anotherRequest/', views.anotherRequest, name='anotherRequest/'),
         path('hard/', views.hardChallenges, name='hardChallenges'),
-
+        path('hard/deleteServer/', views.deleteServer, name='deleteServer'),
 ]

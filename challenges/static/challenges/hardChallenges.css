@@ -483,15 +483,36 @@ body {
     height: 5%;
 }
 
+
+@keyframes progress_bar {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+
+}
+
 .progress {
     background-color: #00FF00;
     height: 10%;
-    transition: background 0.25s ease-in;
+    width: 0%;
+    animation: progress_bar 5s ease-in-out forwards;
 }
+
 
 .progressText {
     margin-left: 8px;
     padding-top: 4px;
     padding-bottom: 4px;
     color: black;    
+    display: flex;
 }
+
+.lyricalText {
+    margin-left: 24px;
+
+}
+
+

@@ -261,6 +261,8 @@ def challengeDetails(request, order):
 def hardChallenges(request):
     hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard")
     customUser = CustomUser.objects.get(user=request.user)
+    deleted = customUser.completedAllChallenges
+    
 
 
     # TODO: Turn back to false!
@@ -285,9 +287,7 @@ def hardChallenges(request):
     if cryptologyComplete == 'true' and bruteForceComplete == 'true' and crossSiteComplete == 'true':
         completed = True
 
-
-
-    return render(request, 'challenges/hardChallenges.html', {'cryptology': cryptology, 'bruteForce': bruteForce, 'crossSite': crossSite, 'cryptologyComplete': cryptologyComplete, 'bruteForceComplete': bruteForceComplete, 'crossSiteComplete': crossSiteComplete, 'completed': completed})
+    return render(request, 'challenges/hardChallenges.html', {'cryptology': cryptology, 'bruteForce': bruteForce, 'crossSite': crossSite, 'cryptologyComplete': cryptologyComplete, 'bruteForceComplete': bruteForceComplete, 'crossSiteComplete': crossSiteComplete, 'completed': completed, 'deleted': deleted})
 
 
 
@@ -323,7 +323,21 @@ def allChallenges(request):
     return render(request, 'challenges/allChallenges.html', {'completedChallenges': completedChallenges})
 
 
+@login_required
+def deleteServer(request):
+    customUser = CustomUser.objects.get(user=request.user.id)
+    data = json.loads(customUser.achievements)
 
+    if (request.headers['Config']): 
+        if not customUser.completedAllChallenges:
+            customUser.completedAllChallenges = True
+            data.append('Rick Rolled')
+            customUser.achievements = json.dumps(data)
+            customUser.save()
+
+        return HttpResponseRedirect(reverse('homepage:index'));
+    else:
+        return HttpResponseRedirect(reverse('homepage:index'));
 
 
 

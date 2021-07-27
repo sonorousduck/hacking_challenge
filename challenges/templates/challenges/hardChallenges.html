@@ -72,13 +72,37 @@ Complete </div>
             </div>
         </div>
 
-        {% if completed %}
+        {% if completed and not deleted %}
         <div id="completedContainer">
+            <div class="backend" hidden>{% csrf_token %} </div>
             <div v-if='isLoaded'>
-                <div class="customButton" @click='beginDeletion'> Delete Evil Dude's Server! </div>
+                <div class="customButton" :disabled="disabled" @click='beginDeletion'> Delete Evil Dude's Server! </div>
                 <div :hidden='progressBarHidden' class="deletionBar"> 
-                    <div class="progress"  :style="{ width: progressBarPercent + '%' }">
-                        <div class="progressText"> [% progressBarPercent %]% </div>
+                    <!--                    <div class="progress"  :style="{ width: progressBarPercent + '%' }"> -->
+                    <div class="progress">
+                        <div class="progressText"> [% progressBarPercent %]% 
+                            <div class="lyricalText" v-if="progressBarPercent > 39 && progressBarPercent < 55">
+                                Never Gonna Give You Up
+                            </div>
+                            
+                            <div class="lyricalText" v-if="progressBarPercent > 55 && progressBarPercent < 71">
+                                Never Gonna Let You Down
+                            </div>
+
+                            <div class="lyricalText" v-if="progressBarPercent > 71 && progressBarPercent < 87">
+                                Never Gonna Run Around and
+                            </div>
+
+                            <div class="lyricalText" v-if="progressBarPercent > 87 && progressBarPercent < 99">
+                                Desert You
+                            </div>
+                            
+                            <div class="lyricalText" v-if="progressBarPercent >= 100">
+                                Ding! Complete!
+                            </div>
+
+
+                        </div>
                     </div> 
                 </div>
             </div>
