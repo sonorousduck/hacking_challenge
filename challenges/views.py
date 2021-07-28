@@ -278,10 +278,10 @@ def hardChallenges(request):
     if challengesData[cryptology - 1]['completed'] == 'true':
         cryptologyComplete = 'true'
 
-    elif challengesData[bruteForce - 1]['completed'] == 'true':
+    if challengesData[bruteForce - 1]['completed'] == 'true':
         bruteForceComplete = 'true'
 
-    elif challengesData[crossSite - 1]['completed'] == 'true':
+    if challengesData[crossSite - 1]['completed'] == 'true':
         crossSiteComplete = 'true'
 
     if cryptologyComplete == 'true' and bruteForceComplete == 'true' and crossSiteComplete == 'true':

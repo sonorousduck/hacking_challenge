@@ -14,6 +14,7 @@ def index(request):
     customUser = CustomUser.objects.get(user=request.user.id)
     completedChallenges = customUser.completedChallenges
     numChallenges = customUser.numChallenges
+    numRequiredChallenges = customUser.numRequiredChallenges
     isAdmin = customUser.admin
     firstName = request.user.first_name
     lastName = request.user.last_name
@@ -28,7 +29,7 @@ def index(request):
     
 
     
-    return render(request, 'homepage/index.html', {'completedChallenges': completedChallenges, 'numChallenges': numChallenges, 'isAdmin': isAdmin, 'achievements': achievementList, 'firstName': firstName, 'lastName': lastName, 'username': username})
+    return render(request, 'homepage/index.html', {'completedChallenges': completedChallenges, 'numChallenges': numChallenges, 'numRequiredChallenges': numRequiredChallenges, 'isAdmin': isAdmin, 'achievements': achievementList, 'firstName': firstName, 'lastName': lastName, 'username': username})
 
 
 

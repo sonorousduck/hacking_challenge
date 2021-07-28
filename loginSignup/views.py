@@ -40,7 +40,6 @@ def signUp(request):
         if form.is_valid():
             if not User.objects.filter(username=form.cleaned_data['username']).exists():
                 if form.cleaned_data['password'] == form.cleaned_data['confirm_password']:
-                    print(form.verify_password)
                     userCreated = User.objects.create_user(
                             username=form.cleaned_data['username'],
                             password=form.cleaned_data['password'],
@@ -64,8 +63,7 @@ def signUp(request):
                             JSONAchievements = json.dumps(achievements)
 
                     except:
-                        print("No assignment open has been specified")
-
+                        pass
 
                     for i in range(Challenge.objects.all().count()):
                         if i != 0:
@@ -83,6 +81,7 @@ def signUp(request):
 
                     JSONchallenges = json.dumps(challengesJSON)
                     JSONIncorrect = json.dumps(incorrectPerChallenge)
+                    numberRequiredChallenges = Challenge.objects.all().count() - Challenge.objects.filter(difficultyIndicator="Easy").count() - Challenge.objects.filter(difficultyIndicator="Moderate")
 
 
                     customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, incorrectPerChallenge=JSONIncorrect, user=userCreated, first_name=form.cleaned_data['firstName'], last_name=form.cleaned_data['lastName'], achievements=JSONAchievements, customText="Look at who is too cool for flavor text or something! Psh! (Ironically, this is your flavor text")
