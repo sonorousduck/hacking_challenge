@@ -66,7 +66,16 @@
             </div>
         </div>
 
-        <div style="align: center; text-align: center; font-size: 16px; margin-top: 16px;"> qCGeFfekiW! </div>
+        <div class="loginForm">
+            <form action="../hard/adminLogin/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <input class="darkFormEntry"  type="text" name="username" placeholder="email">
+                <input class="darkFormEntry" type="password" name="password" placeholder="password">
+                <button type="submit" id='submitButtonAdmin'> Login </button>
+            </form>
+        </div>
+
+        <div class="small-text centered"> *Note. Upon getting the email and password, enter the information above to "log in" </div>
 
 
     </body>

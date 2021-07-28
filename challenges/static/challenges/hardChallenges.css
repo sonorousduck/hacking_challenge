@@ -516,3 +516,46 @@ body {
 }
 
 
+#adminFlag {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 16px;
+}
+
+.darkFormEntry {
+    align: center;
+    padding: 20px;
+    background-color: black;
+    color: white;
+    transition-duration: 0.2s;
+    border-radius: 10px;
+    border: 1px solid #00FF00;
+    width: 25%;
+    margin-right: 8px;
+    outline: none;
+}
+
+.darkFormEntry:focus {
+    transform: scale(1.05);
+}
+
+#submitButtonAdmin {
+    align: center;
+    transition-duration: 0.2s;
+    background-color: #C5C6C7;
+    border-radius: 10px;
+    border: 1px solid #00FF00;
+    width: 10%;
+    background-color: black;
+    color: white;
+    line-height: 55px;
+    height: 55px;
+    margin-right: 8px;
+}
+
+
+#submitButtonAdmin:hover {
+    transform: scale(1.1);
+    background-color: #0B0C10;
+    cursor: pointer;
+}

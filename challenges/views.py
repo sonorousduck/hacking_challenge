@@ -49,8 +49,6 @@ def index(request):
             customUser.challenges = json.dumps(data)
             customUser.save()
 
-            print(data[len(moderateChallenges) + len(easyChallenges)]['hidden'])
-            print(data[len(moderateChallenges) + len(easyChallenges)])
         else:
             hardLocked = 'true'
 
@@ -91,7 +89,7 @@ def index(request):
         challenge.data = data[count]
         if data[count]['completed'] == 'true':
             hardCompleted += 1
-            if hardCompleted != len(hardChalllenges):
+            if hardCompleted != len(hardChallenges):
                 if data[count + 1]['completed'] == 'false':
                     currentHardChallenge = hardChallenges[count - len(easyChallenges) - len(moderateChallenges) + 1].order + 1
                     hardFound = True
@@ -143,7 +141,7 @@ def validation(request):
 
             # Create the JSON object
 
-            if (challenge.flag == request.POST['passcode']):
+            if (challenge.flag == request.POST['passcode'].strip()):
                 json_response.append({'success': True})
                 data = json.loads(customUser.challenges)
                 incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
@@ -154,7 +152,7 @@ def validation(request):
                     customUser.correctInARow += 1
                     data[challenge_id_CustomUser]['completed'] = 'true'
     #TODO: Add a better catch for you are done
-                    if not challenge_id_CustomUser + 1 > 16:
+                    if not challenge_id_CustomUser + 1 > len(Challenge.objects.all()) - 1:
 
                         data[challenge_id_CustomUser + 1]['hidden'] = 'false'
 
@@ -242,6 +240,11 @@ def challengeDetails(request, order):
     challenge = get_object_or_404(Challenge, order=order)
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
+    admin = customUser.admin
+    adminFlag = ''
+
+    if admin:
+        adminFlag = Challenge.objects.get(templateValue=12).flag
 
 
     challenge.data = data[order]
@@ -255,23 +258,20 @@ def challengeDetails(request, order):
     if challenge.data['hidden'] == 'true':
         return HttpResponse(render(request, 'challenges/forbidden.html'))
 
-    return render(request, f'challenges/{challenge.templateValue}.html', {'challenge': challenge})
+    return render(request, f'challenges/{challenge.templateValue}.html', {'challenge': challenge, 'admin': admin, 'adminFlag': adminFlag})
 
 @login_required()
 def hardChallenges(request):
     hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard")
     customUser = CustomUser.objects.get(user=request.user)
     deleted = customUser.completedAllChallenges
-    
 
-
-    # TODO: Turn back to false!
     bruteForce = hardChallenges[0].order + 1
-    bruteForceComplete = 'true'
+    bruteForceComplete = 'false'
     crossSite = hardChallenges[1].order + 1
-    crossSiteComplete = 'true'
+    crossSiteComplete = 'false'
     cryptology = hardChallenges[2].order + 1
-    cryptologyComplete = 'true'
+    cryptologyComplete = 'false'
     completed = False
 
     challengesData = json.loads(customUser.challenges)
@@ -452,15 +452,31 @@ def cookieValidation(request):
 
 
 @login_required()
+def hardAdminLogin(request):
+    if request.POST['username'] == 'Monkey@monkey.com' and request.POST['password'] == 'yamaha':
+        challenge = Challenge.objects.get(templateValue=11)
+        
+        return HttpResponse(challenge.flag)
+
+    else:
+        return HttpResponseForbidden("""
+
+            <h1 style="align:center; text-align: center"> 403 Forbidden </h1>
+            <h5 style="align:center; text-align: center"> Leave this page or suffer the consequences </h5>
+
+        """)
+    
+
+
+
+
+
+@login_required()
 def adminLogin(request):
-    # TODO: Fix this one a bit. Right now, it works to do the javascript brute force. however there is a caveat. When you find the 200 response code, if you try double clicking it, you get hit with the CSRF_token missing right now. You can, however, look into the request and pull the password and username from it. Which might actually be a feature instead of a bug, since Django actually protects against this kind of thing specifically, so it takes one extra step to figure it out.
-
-    # TODO: Set this one up too to use a database instead of the hardcoded values
-
     if request.POST['username'] == 'ShadyVelociraptor@gmail.com' and request.POST['password'] == 'turtle':
     
         
-        challenge = Challenge.objects.get(order=10)
+        challenge = Challenge.objects.get(templateValue=10)
         
         return HttpResponse(challenge.flag)
 

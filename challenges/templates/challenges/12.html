@@ -42,6 +42,10 @@
                     </div>
                 </div>
 
+                {% if admin %}
+                    <div id="adminFlag">Flag: {{ adminFlag }} </div>
+                {% endif %}
+
 
 
                 <form action="../validation/" id="passcodeForm" method="POST" >

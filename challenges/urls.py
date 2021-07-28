@@ -20,4 +20,5 @@ urlpatterns = [
         path('anotherRequest/', views.anotherRequest, name='anotherRequest/'),
         path('hard/', views.hardChallenges, name='hardChallenges'),
         path('hard/deleteServer/', views.deleteServer, name='deleteServer'),
+        path('hard/adminLogin/', views.hardAdminLogin, name='hardAdminLogin'),
 ]
