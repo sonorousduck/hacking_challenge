@@ -151,11 +151,11 @@ def validation(request):
                     if customUser.percentComplete > 100:
                         customUser.percentComplete = 100
                     
-                    data[challenge_id_CustomUser]['completed'] = 'true'
+                    data[challenge_id]['completed'] = 'true'
     #TODO: Add a better catch for you are done
-                    if not challenge_id_CustomUser + 1 > len(Challenge.objects.all()) - 1:
+                    if not challenge_id + 1 > len(Challenge.objects.all()) - 1:
 
-                        data[challenge_id_CustomUser + 1]['hidden'] = 'false'
+                        data[challenge_id + 1]['hidden'] = 'false'
 
 
 
@@ -212,11 +212,11 @@ def validation(request):
                 incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
 
                 if data[challenge_id]['completed'] != 'true':
-                    numIncorrect = int(incorrectPerChallengeData[challenge_id_CustomUser]['numberIncorrect'])
+                    numIncorrect = int(incorrectPerChallengeData[challenge_id]['numberIncorrect'])
                     numIncorrect += 1
                     customUser.numTotalIncorrectGuesses += 1
                     customUser.correctInARow = 0
-                    incorrectPerChallengeData[challenge_id_CustomUser]['numberIncorrect'] = str(numIncorrect)
+                    incorrectPerChallengeData[challenge_id]['numberIncorrect'] = str(numIncorrect)
                     customUser.incorrectPerChallenge = json.dumps(incorrectPerChallengeData)
                     customUser.save()
 
