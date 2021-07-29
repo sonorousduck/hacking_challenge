@@ -146,10 +146,13 @@ def validation(request):
                 data = json.loads(customUser.challenges)
                 incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
 
-
                 if data[challenge_id_CustomUser]['completed'] != 'true':
                     customUser.completedChallenges += 1
                     customUser.correctInARow += 1
+                    customUser.percentComplete =  (customUser.completedChallenges / customUser.numRequiredChallenges) * 100
+                    if customUser.percentComplete > 100:
+                        customUser.percentComplete = 100
+                    
                     data[challenge_id_CustomUser]['completed'] = 'true'
     #TODO: Add a better catch for you are done
                     if not challenge_id_CustomUser + 1 > len(Challenge.objects.all()) - 1:

@@ -64,6 +64,12 @@ Complete </div>
                 <div class="completedLevels"> {{ hardCompleted }}/{{ hardChallenges.count }} Completed </div>
                 {% if hardLocked == 'true' %}
                     <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked (Optional) </div>
+
+                {% elif currentHardChallenge == 'completed' %}
+                    <a class="link" href='hard/'>
+                        <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
+    Complete </div>
+                    </a>
                 {% else %}
                     <a class="link" href='hard/'>
                     <div class="customButton"> Continue (Optional) <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>

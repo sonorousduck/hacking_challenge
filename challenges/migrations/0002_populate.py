@@ -214,7 +214,7 @@ def populate_db(apps, schema_editor):
     hint_12_0.save()
 
 
-    challenge_13 = Challenge(flag="congratulations on decrypting this!", title="Cryptology Challenge", description="Below is a paragraph that has been encrypted. Solve it", order=16, difficultyIndicator="Hard", templateValue=13)
+    challenge_13 = Challenge(flag="congratulationsondecryptingthis!", title="Cryptology Challenge", description="Below is a paragraph that has been encrypted. Solve it", order=16, difficultyIndicator="Hard", templateValue=13)
     challenge_13.save()
 
     hint_13_0 = Hint(challenge=challenge_13, hint="Code Breaking Skills")

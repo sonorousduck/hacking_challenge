@@ -20,6 +20,7 @@ class CustomUser(models.Model):
     achievements = models.JSONField()
     correctInARow = models.IntegerField(default=0)
     completedAllChallenges = models.BooleanField(default=False)
+    percentComplete = models.FloatField(default=0.00)
 
     class Meta:
         ordering = ['last_name']

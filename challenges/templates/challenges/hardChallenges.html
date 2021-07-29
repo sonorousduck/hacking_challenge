@@ -28,7 +28,7 @@
                 <hr class="titleBar">
 
                 {% if bruteForceComplete == 'true' %}
-                <a class="link" href='../allChallenges'>
+                <a class="link" href='../{{ bruteForce  }}'>
                    <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i> Complete </div>
                 </a>
                 {% else %}
@@ -43,7 +43,7 @@
                 <div class="title"> Admin Status </div>
                 <hr class="titleBar">
                 {% if crossSiteComplete == 'true' %}
-                <a class="link" href='../allChallenges'>
+                <a class="link" href='../{{ crossSite  }}'>
                     <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
 Complete </div>
                 </a>
@@ -60,7 +60,7 @@ Complete </div>
                 <hr class="titleBar">
 
                 {% if cryptologyComplete == 'true' %}
-                <a class="link" href='../allChallenges'>
+                <a class="link" href='../{{ cryptology  }}'>
                     <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
 Complete </div>
                 </a>
