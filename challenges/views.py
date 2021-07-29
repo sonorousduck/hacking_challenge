@@ -211,7 +211,7 @@ def validation(request):
                 data = json.loads(customUser.challenges)
                 incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
 
-                if data[challenge_id_CustomUser]['completed'] != 'true':
+                if data[challenge_id]['completed'] != 'true':
                     numIncorrect = int(incorrectPerChallengeData[challenge_id_CustomUser]['numberIncorrect'])
                     numIncorrect += 1
                     customUser.numTotalIncorrectGuesses += 1
