@@ -32,7 +32,11 @@ const app = Vue.createApp({
         this.completedChallenges = this.$refs.completedChallenges.firstChild.data;
         this.numChallenges = this.$refs.numChallenges.firstChild.data;
         this.numRequiredChallenges = this.$refs.numRequiredChallenges.firstChild.data;
-        this.percentComplete = '' + ((this.completedChallenges / this.numRequiredChallenges) * 100).toFixed(2) + '%';
+        percentage = ((this.completedChallenges / this.numRequiredChallenges) * 100).toFixed(2)
+        if (percentage > 100) {
+            percentage = 100;
+        }
+        this.percentComplete = '' + percentage + '%';
 
     },
 
