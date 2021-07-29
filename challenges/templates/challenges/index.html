@@ -8,7 +8,6 @@
         <title> Challenges </title>
         <meta charset="utf-8">
         <script src="https://unpkg.com/vue@next"></script>
-        <script defer src="{% static 'challenges/challengesHome.js' %}"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
 
@@ -25,10 +24,17 @@
                 <hr class="titleBar">
                 <img class="skullImage" src={% static 'challenges/skull.jpg' %} />
                 <div class="completedLevels"> {{ easyCompleted }}/{{ easyChallenges.count }} Completed </div>
-                
+                {% if currentEasyChallenge  == 'completed' %}
+                <a class="link" href={{ currentEasyChallenge }}>
+                    <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
+Complete </div>
+                </a>
+
+                {% else %}                
                 <a class="link" href={{ currentEasyChallenge }}>
                     <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>
                 </a>
+                {% endif %}
             </div>
 
             <div class="challengeCard" id="moderate">
@@ -38,6 +44,11 @@
                 <div class="completedLevels"> {{ moderateCompleted }}/{{ moderateChallenges.count }} Completed</div>
                 {% if moderateLocked == 'true' %}
                     <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked </div>
+                {% elif currentModerateChallenge == 'completed' %}
+                    <a class="link" href={{ currentModerateChallenge }}>
+                        <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
+    Complete </div>
+                    </a>
                 {% else %}
                     <a class="link" href={{ currentModerateChallenge }}>
                     <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>
@@ -53,8 +64,16 @@
                 <div class="completedLevels"> {{ hardCompleted }}/{{ hardChallenges.count }} Completed </div>
                 {% if hardLocked == 'true' %}
                     <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked (Optional) </div>
+
+                {% elif currentHardChallenge == 'completed' %}
+                    <a class="link" href='hard/'>
+                        <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
+    Complete </div>
+                    </a>
                 {% else %}
+                    <a class="link" href='hard/'>
                     <div class="customButton"> Continue (Optional) <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>
+                    </a>
                 {% endif %}
             </div>
 

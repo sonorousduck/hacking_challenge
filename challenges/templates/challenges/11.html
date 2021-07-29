@@ -4,17 +4,78 @@
     <head>
         {% load static %}
         <meta charset="utf-8">
+        <title>Brute Force </title>
         <script src="https://unpkg.com/vue@next"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-        <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
-
+        <link rel="stylesheet" href="{% static 'challenges/hardChallenges.css' %}">
+        <script type="module" defer src="{% static 'challenges/levelDescription.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'challenges/incorrectIndicator.css' %}">
+        <link rel="stylesheet" href="{% static 'challenges/challengeBar.css' %}">
     </head>
 
     <body>
+        <div class="movedDownForChallengeBar">
+            <div class="levelNumber"> Challenge {{ challenge.order }} </div>
 
-        {% include 'challenges/levelDescriptionTemplate.html' %}
+            <div class="levelDescription"> {{challenge.description }} </div>
 
-        <div style="align: center; text-align: center; font-size: 16px; margin-top: 16px;"> qCGeFfekiW! </div>
+            <div id="formAndHints">
+                <div v-if="isLoaded">
+                    <div id='challengeBar'>
+                        <div class="navbar" id="myNavbar">
+                            <a class="" href="/challenges/hard/"> <i class="fa fa-arrow-left rightSpacing" aria-hidden="true" id="homeIcon"></i> It's Too Difficult! </a>
+                        </div>
+                    </div>
+
+                    <div :hidden= "isInvisible" id="hints" class="popup_hints">
+                        <span class="helper"></span>
+                        <div>
+                            <div class="popupCloseButton" @click=getHints()>&times;</div>
+                            <p><strong> Requires Knowledge of: </strong></p>
+                            <ul id="hintsList">
+                                {% for hint in challenge.hint_set.all %}
+                                <li> {{ hint.hint }} </li>
+                                <br> 
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <form action="../validation/" id="passcodeForm" method="POST" >
+
+
+                    <input v-model="passcodeInput" id="passcodeValidation" name="passcodeValidation" placeholder="password">
+                    <button type="button" class="customButtom" id="submitButton" @click=validateInput()> Submit </button>
+                    <input hidden id="challenge_id" name='challenge_id' value = {{ challenge.order }}>
+                    <input hidden id="csrf_token" value = {{ csrf_token }}>
+                    <button type="button"   id="hintButton" @click=getHints()> View Hint </button>
+                    <br>
+                    <div :hidden= "isIncorrectHidden" id="incorrectIndicator">
+                        <div id="incorrectText"> Incorrect! </div>
+                    </div>
+                    <div :hidden= "isCorrectHidden" id="correctIndicator">
+                        <div id="correctText"> Correct! </div>
+                    </div>
+                    <div :hidden= "isAssignmentClosedHidden" id="incorrectIndicator">
+                        <div id="incorrectText"> Assignment is Currently Closed! </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="loginForm">
+            <form action="../hard/adminLogin/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <input class="darkFormEntry"  type="text" name="username" placeholder="email">
+                <input class="darkFormEntry" type="password" name="password" placeholder="password">
+                <button type="submit" id='submitButtonAdmin'> Login </button>
+            </form>
+        </div>
+
+        <div class="small-text centered"> *Note. Upon getting the email and password, enter the information above to "log in" </div>
 
 
     </body>

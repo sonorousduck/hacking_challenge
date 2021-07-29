@@ -4,6 +4,7 @@ from loginSignup.models import CustomUser
 from customAdmin.models import AssignmentDates
 from achievements.models import Achievements
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse, HttpResponseForbidden 
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 import json
 from datetime import datetime, timedelta
@@ -12,6 +13,8 @@ from datetime import datetime, timedelta
 @login_required()
 def index(request):
     easyChallenges = Challenge.objects.filter(difficultyIndicator="Easy").order_by('order')
+    moderateChallenges = Challenge.objects.filter(difficultyIndicator="Moderate").order_by('order')
+    hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard").order_by('order')
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
     count = 0
@@ -38,13 +41,17 @@ def index(request):
         else:
             moderateLocked = 'false'
         if easyCompleted == len(easyChallenges):
+
             hardLocked = 'false'
+            hardChallengesCount = len(hardChallenges)
+            for i in range(hardChallengesCount):
+                data[len(moderateChallenges) + len(easyChallenges) + i]['hidden'] = 'false'
+            customUser.challenges = json.dumps(data)
+            customUser.save()
+
         else:
             hardLocked = 'true'
 
-
-
-    moderateChallenges = Challenge.objects.filter(difficultyIndicator="Moderate").order_by('order')
     moderateCompleted = 0
     moderateFound = False
     
@@ -56,9 +63,8 @@ def index(request):
             moderateCompleted += 1
             if moderateCompleted != len(moderateChallenges):
                 if data[count + 1]['completed'] == 'false':
-                    currentModerateChallenge = moderateChallenges[count - len(easyChallenges) + 1].order 
+                    currentModerateChallenge = moderateChallenges[count - len(easyChallenges) + 1].order + 1 
                     moderateFound = True
-                    pass
             else:
                 currentModerateChallenge = 'completed'
         else:
@@ -68,19 +74,33 @@ def index(request):
 
     if moderateCompleted == len(moderateChallenges):
         hardLocked = 'false'
+        hardChallengesCount = len(hardChallenges)
+        for i in range(hardChallengesCount):
+            data[len(moderateChallenges) + len(easyChallenges) + i]['hidden'] = 'false'
+        customUser.challenges = json.dumps(data)
+        customUser.save()
 
-
-    hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard").order_by('order')
     hardCompleted = 0
+    hardFound = False
+
     for challenge in hardChallenges:
         challenge.hidden = data[count]['hidden']
         challenge.completed = data[count]['completed']
         challenge.data = data[count]
         if data[count]['completed'] == 'true':
             hardCompleted += 1
+            if hardCompleted != len(hardChallenges):
+                if data[count + 1]['completed'] == 'false':
+                    currentHardChallenge = hardChallenges[count - len(easyChallenges) - len(moderateChallenges) + 1].order + 1
+                    hardFound = True
+            else:
+                currentHardChallenge = 'completed'
+        else:
+            if not hardFound:
+                currentHardChallenge = hardChallenges[0].order + 1
         count += 1
 
-    return render(request, 'challenges/index.html', {'easyChallenges': easyChallenges, 'moderateChallenges': moderateChallenges, 'hardChallenges': hardChallenges, 'easyCompleted': easyCompleted, 'moderateCompleted': moderateCompleted, 'hardCompleted': hardCompleted, 'moderateLocked': moderateLocked, 'hardLocked': hardLocked, 'currentEasyChallenge': currentEasyChallenge, 'currentModerateChallenge': currentModerateChallenge})
+    return render(request, 'challenges/index.html', {'easyChallenges': easyChallenges, 'moderateChallenges': moderateChallenges, 'hardChallenges': hardChallenges, 'easyCompleted': easyCompleted, 'moderateCompleted': moderateCompleted, 'hardCompleted': hardCompleted, 'moderateLocked': moderateLocked, 'hardLocked': hardLocked, 'currentEasyChallenge': currentEasyChallenge, 'currentModerateChallenge': currentModerateChallenge, 'currentHardChallenge': currentHardChallenge})
 
 
 @login_required()
@@ -121,18 +141,21 @@ def validation(request):
 
             # Create the JSON object
 
-            if (challenge.flag == request.POST['passcode']):
+            if (challenge.flag == request.POST['passcode'].strip()):
                 json_response.append({'success': True})
                 data = json.loads(customUser.challenges)
                 incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
 
-
                 if data[challenge_id_CustomUser]['completed'] != 'true':
                     customUser.completedChallenges += 1
                     customUser.correctInARow += 1
+                    customUser.percentComplete =  (customUser.completedChallenges / customUser.numRequiredChallenges) * 100
+                    if customUser.percentComplete > 100:
+                        customUser.percentComplete = 100
+                    
                     data[challenge_id_CustomUser]['completed'] = 'true'
     #TODO: Add a better catch for you are done
-                    if not challenge_id_CustomUser + 1 > 16:
+                    if not challenge_id_CustomUser + 1 > len(Challenge.objects.all()) - 1:
 
                         data[challenge_id_CustomUser + 1]['hidden'] = 'false'
 
@@ -211,7 +234,6 @@ def validation(request):
             return response
 
 
-# TODO: Get the information for which challenge to send them to from a database instead of static as I am currently doing. This allows us to easier change the order of the levels and it will correctly point to the html page that it should. Essentially, it will be a dictionary mapping the challenge to a html page (instead of currently the order mapping it strictly to an html page, which makes it if the order changes, then it doesn't update correctly to the new html page
 
 @login_required()
 def challengeDetails(request, order):
@@ -221,10 +243,12 @@ def challengeDetails(request, order):
     challenge = get_object_or_404(Challenge, order=order)
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
+    admin = customUser.admin
+    adminFlag = ''
 
+    if admin:
+        adminFlag = Challenge.objects.get(templateValue=12).flag
 
-    print(challengeID)
-    print(data[challengeID])
 
     challenge.data = data[order]
     if (challengeID < Challenge.objects.all().count()):
@@ -237,7 +261,36 @@ def challengeDetails(request, order):
     if challenge.data['hidden'] == 'true':
         return HttpResponse(render(request, 'challenges/forbidden.html'))
 
-    return render(request, f'challenges/{challenge.templateValue}.html', {'challenge': challenge})
+    return render(request, f'challenges/{challenge.templateValue}.html', {'challenge': challenge, 'admin': admin, 'adminFlag': adminFlag})
+
+@login_required()
+def hardChallenges(request):
+    hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard")
+    customUser = CustomUser.objects.get(user=request.user)
+    deleted = customUser.completedAllChallenges
+
+    bruteForce = hardChallenges[0].order + 1
+    bruteForceComplete = 'false'
+    crossSite = hardChallenges[1].order + 1
+    crossSiteComplete = 'false'
+    cryptology = hardChallenges[2].order + 1
+    cryptologyComplete = 'false'
+    completed = False
+
+    challengesData = json.loads(customUser.challenges)
+    if challengesData[cryptology - 1]['completed'] == 'true':
+        cryptologyComplete = 'true'
+
+    if challengesData[bruteForce - 1]['completed'] == 'true':
+        bruteForceComplete = 'true'
+
+    if challengesData[crossSite - 1]['completed'] == 'true':
+        crossSiteComplete = 'true'
+
+    if cryptologyComplete == 'true' and bruteForceComplete == 'true' and crossSiteComplete == 'true':
+        completed = True
+
+    return render(request, 'challenges/hardChallenges.html', {'cryptology': cryptology, 'bruteForce': bruteForce, 'crossSite': crossSite, 'cryptologyComplete': cryptologyComplete, 'bruteForceComplete': bruteForceComplete, 'crossSiteComplete': crossSiteComplete, 'completed': completed, 'deleted': deleted})
 
 
 
@@ -251,8 +304,6 @@ def completed(request):
     for count, challenge in enumerate(challenges):
         if data[count]['completed'] == 'true':
             completedChallenges.append(challenge)
-            print(completedChallenges)
-
     return render(request, 'challenges/allChallenges.html', {'completedChallenges': completedChallenges})
     #return HttpResponse("Congrats! You have finished this level of difficulty!", request)
 
@@ -275,7 +326,21 @@ def allChallenges(request):
     return render(request, 'challenges/allChallenges.html', {'completedChallenges': completedChallenges})
 
 
+@login_required
+def deleteServer(request):
+    customUser = CustomUser.objects.get(user=request.user.id)
+    data = json.loads(customUser.achievements)
 
+    if (request.headers['Config']): 
+        if not customUser.completedAllChallenges:
+            customUser.completedAllChallenges = True
+            data.append('Rick Rolled')
+            customUser.achievements = json.dumps(data)
+            customUser.save()
+
+        return HttpResponseRedirect(reverse('homepage:index'));
+    else:
+        return HttpResponseRedirect(reverse('homepage:index'));
 
 
 
@@ -383,27 +448,38 @@ def anotherRequest(request):
 @login_required()
 def cookieValidation(request):
     challenge = Challenge.objects.get(order=9)
-    print(request.COOKIES.get('FORSPARTA!'))
-    print(request.COOKIES)
-    print(request.COOKIES.get('Employee'))
-    if request.POST['password'] == '':
-        return HttpResponse("Not Authorized")
-    elif request.COOKIES.get('FORSPARTA!') == 'HYAAAAAA!HYAAAAAA!HYAAAAAA!':
+    if request.COOKIES.get('FORSPARTA!') == 'HYAAAAAA!HYAAAAAA!HYAAAAAA!':
         return HttpResponse(challenge.flag)
     else: 
         return HttpResponse("Not Authorized")
 
 
 @login_required()
+def hardAdminLogin(request):
+    if request.POST['username'] == 'Monkey@monkey.com' and request.POST['password'] == 'yamaha':
+        challenge = Challenge.objects.get(templateValue=11)
+        
+        return HttpResponse(challenge.flag)
+
+    else:
+        return HttpResponseForbidden("""
+
+            <h1 style="align:center; text-align: center"> 403 Forbidden </h1>
+            <h5 style="align:center; text-align: center"> Leave this page or suffer the consequences </h5>
+
+        """)
+    
+
+
+
+
+
+@login_required()
 def adminLogin(request):
-    # TODO: Fix this one a bit. Right now, it works to do the javascript brute force. however there is a caveat. When you find the 200 response code, if you try double clicking it, you get hit with the CSRF_token missing right now. You can, however, look into the request and pull the password and username from it. Which might actually be a feature instead of a bug, since Django actually protects against this kind of thing specifically, so it takes one extra step to figure it out.
-
-    # TODO: Set this one up too to use a database instead of the hardcoded values
-
     if request.POST['username'] == 'ShadyVelociraptor@gmail.com' and request.POST['password'] == 'turtle':
     
         
-        challenge = Challenge.objects.get(order=10)
+        challenge = Challenge.objects.get(templateValue=10)
         
         return HttpResponse(challenge.flag)
 

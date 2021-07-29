@@ -41,8 +41,6 @@
         </div>
 
 
-
-
                 <div>
                     <div class="namePlacard">
                         <div class="profileCircle" >
@@ -78,11 +76,13 @@
                    <div hidden ref="admin">{{ isAdmin }}</div>
                    <div hidden ref="completedChallenges"> {{ completedChallenges }} </div>
                    <div hidden ref="numChallenges"> {{ numChallenges }} </div>
+                   <div hidden ref="numRequiredChallenges"> {{ numRequiredChallenges }} </div>
+
 
                    <div v-if="isNotLoaded"> Loading... </div>
                    <div class="completedChallenges" v-else>
                        <div class="challengesCompleted">
-                           <div> Challenge Progress: [% completedChallenges %] / [% numChallenges %] </div>
+                           <div> Challenge Progress: [% completedChallenges %] / [% numRequiredChallenges %] </div>
                        </div>
                         <div id="progressBar">
                             <div id="progressText"> [% percentComplete %] </div>

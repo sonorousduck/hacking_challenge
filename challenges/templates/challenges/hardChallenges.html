@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        {% load static %}
+        <title> Challenges </title>
+        <meta charset="utf-8">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script defer src="{% static 'challenges/challengesHard.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'challenges/hardChallenges.css' %}">
+    </head> 
+
+
+    <body>
+        <div class="navbar" id="myNavbar">
+            <a  href="/challenges/"> <i class="fa fa-arrow-left rightSpacing" aria-hidden="true" id="homeIcon"></i>
+                Back To Safety </a>
+        </div>
+
+
+
+        <div id="mainContainer">
+            <div class="challengeCard" id="easy">
+                <div class="title"> Brute Force </div>
+                <hr class="titleBar">
+
+                {% if bruteForceComplete == 'true' %}
+                <a class="link" href='../{{ bruteForce  }}'>
+                   <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i> Complete </div>
+                </a>
+                {% else %}
+                <a class="link" href='../{{ bruteForce  }}'>
+                    <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i></div>
+                </a>
+
+                {% endif %}
+            </div>
+
+            <div class="challengeCard" id="moderate">
+                <div class="title"> Admin Status </div>
+                <hr class="titleBar">
+                {% if crossSiteComplete == 'true' %}
+                <a class="link" href='../{{ crossSite  }}'>
+                    <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
+Complete </div>
+                </a>
+                {% else %}
+                    <a class="link" href='../{{ crossSite  }}'>
+                        <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i></div>
+                    </a>
+                    {% endif %}
+            </div>
+
+
+            <div class="challengeCard" id="hard">
+                <div class="title"> Breaking the Code </div>
+                <hr class="titleBar">
+
+                {% if cryptologyComplete == 'true' %}
+                <a class="link" href='../{{ cryptology  }}'>
+                    <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
+Complete </div>
+                </a>
+                {% else %}
+                    <a class="link" href='../{{ cryptology  }}'>
+                        <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i></div>
+                    </a>
+                    {% endif %}
+            </div>
+        </div>
+
+        {% if completed and not deleted %}
+        <div id="completedContainer">
+            <div class="backend" hidden>{% csrf_token %} </div>
+            <div v-if='isLoaded'>
+                <div class="customButton" :disabled="disabled" @click='beginDeletion'> Delete Evil Dude's Server! </div>
+                <div :hidden='progressBarHidden' class="deletionBar"> 
+                    <!--                    <div class="progress"  :style="{ width: progressBarPercent + '%' }"> -->
+                    <div class="progress">
+                        <div class="progressText"> [% progressBarPercent %]% 
+                            <div class="lyricalText" v-if="progressBarPercent > 39 && progressBarPercent < 55">
+                                Never Gonna Give You Up
+                            </div>
+                            
+                            <div class="lyricalText" v-if="progressBarPercent > 55 && progressBarPercent < 71">
+                                Never Gonna Let You Down
+                            </div>
+
+                            <div class="lyricalText" v-if="progressBarPercent > 71 && progressBarPercent < 87">
+                                Never Gonna Run Around and
+                            </div>
+
+                            <div class="lyricalText" v-if="progressBarPercent > 87 && progressBarPercent < 99">
+                                Desert You
+                            </div>
+                            
+                            <div class="lyricalText" v-if="progressBarPercent >= 100">
+                                Ding! Complete!
+                            </div>
+
+
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        {% endif %}
+
+
+
+    </body>
+
+
+    <script>
+        function myFunction() {
+            let navbar = document.getElementById("myNavbar");
+            if (navbar.className === "navbar") {
+                navbar.className += " responsive";
+            } else {
+                navbar.className = "navbar";
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+</html>

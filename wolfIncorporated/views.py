@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import LoneWolfUser, FellowEmployee, Email
+from loginSignup.models import CustomUser
 from challenges.models import Challenge
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 import random
+import json
 from django.contrib import messages
 from django.contrib.messages import get_messages
 
@@ -18,6 +20,7 @@ def index(request):
             return HttpResponseRedirect("/LoneWolf/deleted")
     except:
         pass
+        
 
 
     try:
@@ -40,12 +43,12 @@ def index(request):
 
                     # Create Fellow Employees
 
-                    firstNames = ['John', 'Cortana', 'Jeff', 'Taylor', 'David', 'Erik', 'Ryan', 'Arthur', 'Steven', 'Cayde', 'Claire', 'Sophia', 'Abby', 'Emily', 'Eris', 'Luke', 'Anakin', 'Aang', 'Itadori', 'Tanjiro', 'Nezuko', 'Katara', 'Doom', 'Stewie', 'James']
+                    firstNames = ['John', 'Cortana', 'Jeff', 'Taylor', 'David', 'Erik', 'Ryan', 'Arthur', 'Steven', 'Cayde', 'Claire', 'Sophia', 'Abby', 'Emily', 'Eris', 'Luke', 'Anakin', 'Aang', 'Itadori', 'Tanjiro', 'Nezuko', 'Katara', 'Doom', 'Stewie', 'Doctor']
                     lastNames = ['Smith', 'Anderson', 'Six', 'Skywalker', 'Morn', 'Bray', 'Woodward', 'Gardner', 'Holliday', 'Williams', 'Hamill', 'Jarvis', 'Strange', 'Dixon', 'Skywalker', 'Kenobi', 'Stark', 'Wayne', 'Banner', 'Morgan', 'Mir', 'Guy', 'Baggins', 'AKA Batman', 'Griffin', 'Bond']
 
                     random.shuffle(firstNames)
                     random.shuffle(lastNames)
-
+                    
 
                     for i in range(12):
                         fellowEmployee = FellowEmployee(username=f"{firstNames[i]}-{lastNames[i]}", loneWolfUser=loneWolfAgent, first_name=firstNames[i], last_name=lastNames[i], cookie=f"AA77{firstNames[i]}&*(FDSIJFSD?__){lastNames[i]}")
@@ -82,7 +85,7 @@ def homepage(request):
 
         if request.COOKIES.get('Employee'):
             try:
-                employee = FellowEmployee.objects.get(cookie=request.COOKIES.get('Employee'))
+                employee = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).get(cookie=request.COOKIES.get('Employee'))
                 admin = employee.admin
                 first_name = employee.first_name
                 last_name = employee.last_name
@@ -95,7 +98,6 @@ def homepage(request):
         return (render(request, 'wolfIncorporated/homepage.html', {'first_name': request.user.first_name, 'last_name': request.user.last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage, 'serverRunning': serverRunning, 'flag': flag}))
 
     except (Exception) as e:
-        print(e)
         return HttpResponseRedirect('/LoneWolf')
 
 
@@ -122,8 +124,8 @@ def sendEmail(request):
         email = Email(loneWolfUser=LoneWolfUser.objects.get(user=request.user), content=emailContent, sender=f"To: {recipient}", subjectLine=subjectLine)
         email.save()
 
-        while Email.objects.filter(loneWolfUser = LoneWolfUser.objects.get(user=request.user)).count() > 5:
-            Email.objects.first().delete()
+        while Email.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).count() > 5:
+            Email.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).first().delete()
 
         
         if 'document.cookie' in emailContent:
@@ -139,7 +141,7 @@ def sendEmail(request):
                         return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
                     else:
                         first = recipient.split(' ')
-                        employee = FellowEmployee.objects.get(first_name=first[0])
+                        employee = FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).get(first_name=first[0])
                         messages.add_message(request, messages.INFO, employee.cookie)
                         return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
                 
@@ -152,10 +154,8 @@ def admin(request):
         return HttpResponseRedirect("/LoneWolf/deleted")
 
 
-    if request.COOKIES.get('Employee') != FellowEmployee.objects.get(first_name="Sauron").cookie:
+    if request.COOKIES.get('Employee') != FellowEmployee.objects.filter(loneWolfUser=LoneWolfUser.objects.get(user=request.user)).get(first_name="Sauron").cookie:
         return HttpResponseForbidden() 
-
-
 
     return render(request, 'wolfIncorporated/admin.html')
 
@@ -175,14 +175,15 @@ def deleteAllEmails(request):
 
 @login_required()
 def deleteServer(request):
+    loneWolfAgent = LoneWolfUser.objects.get(user=request.user)
+    
     if LoneWolfUser.objects.get(user=request.user).isServerDeleted:
         return HttpResponseRedirect("/LoneWolf/deleted")
 
 
-    if request.COOKIES.get('Employee') != FellowEmployee.objects.get(first_name="Sauron").cookie:
+    if request.COOKIES.get('Employee') != FellowEmployee.objects.filter(loneWolfUser=loneWolfAgent).get(first_name="Sauron").cookie:
         return HttpResponseForbidden() 
 
-    loneWolfAgent = LoneWolfUser.objects.get(user=request.user)
     loneWolfAgent.isServerDeleted = True 
     loneWolfAgent.save()
 
@@ -195,7 +196,38 @@ def deleteServer(request):
 @login_required()
 def deletedServer(request):
     flag = Challenge.objects.get(templateValue=17).flag
-    return render(request, 'wolfIncorporated/deletedServer.html', {'flag': flag})
+    user = request.user
+
+    customUser = CustomUser.objects.get(user=user)
+    try:
+        loneWolfUser = LoneWolfUser.objects.get(user=user)
+    except:
+        return HttpResponseRedirect(reverse('wolfIncorporated:LoneWolf'))
+
+    if (loneWolfUser.isServerDeleted):
+        data = json.loads(customUser.challenges)
+        challenges = Challenge.objects.filter(challengeSeries='LoneWolf')
+        challenges = challenges[:len(challenges) - 1] # We don't want to auto complete the last challenge
+        challengesToFinish = []
+        for challenge in challenges:
+            challengesToFinish.append(challenge.order)
+        
+        challengeCompletedCount = 0
+        
+        for number in challengesToFinish:
+            data[number]['completed'] = 'true'
+            data[number]['hidden'] = 'false'
+            data[number + 1]['hidden'] = 'false'
+            challengeCompletedCount += 1
+
+        customUser.challenges = json.dumps(data)
+        customUser.completedChallenges += challengeCompletedCount
+        customUser.correctInARow += challengeCompletedCount
+        customUser.save()
+
+        return render(request, 'wolfIncorporated/deletedServer.html', {'flag': flag})
+    else:
+        return HttpResponseRedirect(reverse('wolfIncorporated:Employee-Home-Page'))
 
 
 @login_required()
@@ -203,7 +235,6 @@ def console(request):
     if not request.POST:
         if get_messages(request):
             messagesList = ''
-            #messagesList = str(get_messages(request))
             for message in get_messages(request):
                 messagesList += str(message) +'\t'
             return render(request, 'wolfIncorporated/console.html', {'messages': messagesList})

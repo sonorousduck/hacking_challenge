@@ -76,6 +76,8 @@ def populate_db(apps, schema_editor):
     achievement_21.save()
 
 
+    achievement_22 = Achievement(title="Rick Rolled", description="Even in the end, he never let you down", achievementIcon="Ricky.PNG")
+    achievement_22.save()
 
 class Migration(migrations.Migration):
 
