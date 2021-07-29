@@ -84,7 +84,7 @@ def signUp(request):
                     numberRequiredChallenges = Challenge.objects.all().count() - Challenge.objects.filter(difficultyIndicator="Easy").count() - Challenge.objects.filter(difficultyIndicator="Moderate").count()
 
 
-                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), completedChallenges=0, challenges=JSONchallenges, incorrectPerChallenge=JSONIncorrect, user=userCreated, first_name=form.cleaned_data['firstName'], last_name=form.cleaned_data['lastName'], achievements=JSONAchievements, customText="Look at who is too cool for flavor text or something! Psh! (Ironically, this is your flavor text")
+                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), numRequiredChallenges=numberRequiredChallenges, completedChallenges=0, challenges=JSONchallenges, incorrectPerChallenge=JSONIncorrect, user=userCreated, first_name=form.cleaned_data['firstName'], last_name=form.cleaned_data['lastName'], achievements=JSONAchievements, customText="Look at who is too cool for flavor text or something! Psh! (Ironically, this is your flavor text")
 
 
                     userCreated.save()
@@ -101,12 +101,4 @@ def signUp(request):
 
 
 
-
-
-
-
          
-
-
-
-
