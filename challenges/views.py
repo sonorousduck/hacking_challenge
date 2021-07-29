@@ -40,7 +40,6 @@ def index(request):
             moderateLocked = 'true'
         else:
             moderateLocked = 'false'
-            data[len(easyChallenges) - 1]['hidden'] = 'false'
 
         if easyCompleted == len(easyChallenges):
 
@@ -53,6 +52,11 @@ def index(request):
 
         else:
             hardLocked = 'true'
+
+    if moderateLocked == 'false':
+        data[len(easyChallenges)]['hidden'] = 'false'
+        customUser.challenges = json.dumps(data)
+        customUser.save()
 
     moderateCompleted = 0
     moderateFound = False
