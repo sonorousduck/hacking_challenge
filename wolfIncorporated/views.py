@@ -215,10 +215,11 @@ def deletedServer(request):
         challengeCompletedCount = 0
         
         for number in challengesToFinish:
-            data[number]['completed'] = 'true'
-            data[number]['hidden'] = 'false'
-            data[number + 1]['hidden'] = 'false'
-            challengeCompletedCount += 1
+            if data[number]['completed'] != 'true':
+                data[number]['completed'] = 'true'
+                data[number]['hidden'] = 'false'
+                data[number + 1]['hidden'] = 'false'
+                challengeCompletedCount += 1
 
         customUser.challenges = json.dumps(data)
         customUser.completedChallenges += challengeCompletedCount

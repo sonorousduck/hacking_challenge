@@ -50,7 +50,6 @@
         {% if not admin %}
         <div> Congrats on hacking the first challenge. Your flag: #CH**O#SEN_#^%ON--=E</div>
         <div> Hint: Find a way to elevate your status to admin </div>
-        :x
 
 
         {% endif %}
@@ -62,7 +61,7 @@
                 <div class="centered">Server is running on 77.165.734.77 </div>
             {% endif %}
             {% if admin %}
-            <div class="centered"> Your flag is {{flag}}$ </div>
+            <div class="centered"> Your flag is {{flag}} </div>
             {% endif %}
         {% else %}
             <div class="centered usernameText"> {{ user.firstName }} {{ user.lastName }} </div>

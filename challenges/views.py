@@ -133,17 +133,9 @@ def validation(request):
                     allGood = False
         if allGood:
 
-            loneWolfID = [100, 101, 102, 103]
             challenge_id = int(request.POST['challenge_id'])
             challenge = Challenge.objects.get(order=challenge_id)
-            
-            if challenge_id in loneWolfID:
-                challenge_id_CustomUser = challenge_id - 87
-            else:
-                challenge_id_CustomUser = challenge_id
-
             customUser = CustomUser.objects.get(user=request.user.id)
-            challenge_id = int(request.POST['challenge_id'])
 
             # Create the JSON object
 

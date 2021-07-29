@@ -63,7 +63,6 @@ def unix(request):
 @login_required()
 def cookieValidation(request):
     challenge = Challenge.objects.get(templateValue=9)
-    print(request.COOKIES)
     if request.COOKIES.get('FORSPARTA!') == "HYAAAAAA!HYAAAAAA!HYAAAAAA!":
         return HttpResponse(challenge.flag)
     else:
