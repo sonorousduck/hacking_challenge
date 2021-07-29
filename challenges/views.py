@@ -40,6 +40,8 @@ def index(request):
             moderateLocked = 'true'
         else:
             moderateLocked = 'false'
+            data[len(easyChallenges) - 1]['hidden'] = 'false'
+
         if easyCompleted == len(easyChallenges):
 
             hardLocked = 'false'
@@ -362,7 +364,7 @@ def security(request):
 
 @login_required()
 def securityValidation(request):
-    challenge = Challenge.objects.get(order=7)
+    challenge = Challenge.objects.get(templateValue=7)
     
 
     if not request.GET:

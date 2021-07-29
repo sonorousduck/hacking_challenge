@@ -42,7 +42,7 @@ def unix(request):
 
         elif unixCommand.startswith("cat"):
             if (unixCommand == 'cat .env'):
-                challenge7 = Challenge.objects.get(order=7)
+                challenge7 = Challenge.objects.get(templateValue=7)
                 return HttpResponse(f"Challenge 7 Flag: {challenge7.flag}")
 
             words = unixCommand.split(' ')
