@@ -7,7 +7,7 @@
         {% load static %}
         <title> Hacking Challenge </title>
         <meta charset="utf-8">
-        <script src="https://unpkg.com/vue@next"></script>
+        <script src="{% static 'homepage/node_modules/vue/dist/vue.global.prod.js' %}"></script>
         <script defer src="{% static 'homepage/main.js' %}"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'homepage/style.css' %}">
@@ -77,12 +77,13 @@
                    <div hidden ref="completedChallenges"> {{ completedChallenges }} </div>
                    <div hidden ref="numChallenges"> {{ numChallenges }} </div>
                    <div hidden ref="numRequiredChallenges"> {{ numRequiredChallenges }} </div>
+                   <div hidden ref="completedRequiredChallenges"> {{ completedRequiredChallenges }} </div>
 
 
                    <div v-if="isNotLoaded"> Loading... </div>
                    <div class="completedChallenges" v-else>
                        <div class="challengesCompleted">
-                           <div> Challenge Progress: [% completedChallenges %] / [% numRequiredChallenges %] </div>
+                           <div> Required Challenge Progress: [% completedRequiredChallenges %] / [% numRequiredChallenges %] </div>
                        </div>
                         <div id="progressBar">
                             <div id="progressText"> [% percentComplete %] </div>

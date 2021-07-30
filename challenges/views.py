@@ -146,6 +146,10 @@ def validation(request):
 
                 if data[challenge_id]['completed'] != 'true':
                     customUser.completedChallenges += 1
+
+                    if Challenge.objects.get(order=challenge_id).difficultyIndicator != "Hard":
+                        customUser.completedRequiredChallenges += 1
+
                     customUser.correctInARow += 1
                     customUser.percentComplete =  (customUser.completedChallenges / customUser.numRequiredChallenges) * 100
                     if customUser.percentComplete > 100:
