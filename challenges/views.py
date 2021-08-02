@@ -116,6 +116,7 @@ def validation(request):
 
         json_response = [] 
         allGood = True
+        success = False
 
         if (AssignmentDates.objects.all()):
             currentTime = datetime.now().time()
@@ -131,109 +132,120 @@ def validation(request):
             if currentDate > openDate.date and currentDate < closeDate.date:
                 if (currentTime > closeDate.time and currentTime == closeDate.date) or (currentTime < openDate.time and currentTime == openDate.date):
                     allGood = False
-        if allGood:
-
-            challenge_id = int(request.POST['challenge_id'])
-            challenge = Challenge.objects.get(order=challenge_id)
-            customUser = CustomUser.objects.get(user=request.user.id)
-
-            # Create the JSON object
-
-            if (challenge.flag == request.POST['passcode'].strip()):
-                json_response.append({'success': True})
-                data = json.loads(customUser.challenges)
-                incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
-
-                if data[challenge_id]['completed'] != 'true':
-                    customUser.completedChallenges += 1
-
-                    if Challenge.objects.get(order=challenge_id).difficultyIndicator != "Hard":
-                        customUser.completedRequiredChallenges += 1
-
-                    customUser.correctInARow += 1
-                    customUser.percentComplete =  (customUser.completedChallenges / customUser.numRequiredChallenges) * 100
-                    if customUser.percentComplete > 100:
-                        customUser.percentComplete = 100
-                    
-                    data[challenge_id]['completed'] = 'true'
-    #TODO: Add a better catch for you are done
-                    if not challenge_id + 1 > len(Challenge.objects.all()) - 1:
-
-                        data[challenge_id + 1]['hidden'] = 'false'
 
 
+        challenge_id = int(request.POST['challenge_id'])
+        challenge = Challenge.objects.get(order=challenge_id)
+        customUser = CustomUser.objects.get(user=request.user.id)
 
-                    if (customUser.correctInARow % 8) == 2:
-                        achievements = json.loads(customUser.achievements)
-                        achievements.append('2 down')
-                        customUser.achievements = json.dumps(achievements)
+        # Create the JSON object
 
-                    if (customUser.correctInARow % 8) == 3:
-                        achievements = json.loads(customUser.achievements)
-                        achievements.append('3 down')
-                        customUser.achievements = json.dumps(achievements)
+        if (challenge.flag == request.POST['passcode'].strip()):
+            success = True
+            data = json.loads(customUser.challenges)
+            incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
 
-                    if (customUser.correctInARow % 8) == 4:
-                        achievements = json.loads(customUser.achievements)
-                        achievements.append('Breathtaking')
-                        customUser.achievements = json.dumps(achievements)
+            if data[challenge_id]['completed'] != 'true':
+                customUser.completedChallenges += 1
 
-                    if (customUser.correctInARow % 8) == 5:
-                        achievements = json.loads(customUser.achievements)
-                        achievements.append('Phenomenal')
-                        customUser.achievements = json.dumps(achievements)
+                if Challenge.objects.get(order=challenge_id).difficultyIndicator != "Hard":
+                    customUser.completedRequiredChallenges += 1
 
-                    if (customUser.correctInARow % 8) == 6:
-                        achievements = json.loads(customUser.achievements)
-                        achievements.append('Unstoppable')
-                        customUser.achievements = json.dumps(achievements)
+                customUser.correctInARow += 1
+                customUser.percentComplete =  (customUser.completedChallenges / customUser.numRequiredChallenges) * 100
+                if customUser.percentComplete > 100:
+                    customUser.percentComplete = 100
+                
+                data[challenge_id]['completed'] = 'true'
+                if not challenge_id + 1 > len(Challenge.objects.all()) - 1:
 
-                    if (customUser.correctInARow % 8) == 7:
-                        achievements = json.loads(customUser.achievements)
-                        achievements.append('Unforgettable')
-                        customUser.achievements = json.dumps(achievements)
-
-                    if (customUser.correctInARow % 8) == 0 and customUser.correctInARow > 0:
-                        achievements = json.loads(customUser.achievements)
-                        achievements.append('Ascended')
-                        customUser.achievements = json.dumps(achievements)
-                    
-                    if  customUser.correctInARow == len(customUser.challenges):
-                        achievements = json.loads(customUser.achievements)
-                        achievements.append('Flawless')
-                        customUser.achievements = json.dumps(achievements)
-
-
-                    customUser.challenges = json.dumps(data)
-                    customUser.save()
+                    data[challenge_id + 1]['hidden'] = 'false'
 
 
 
-            else:
-                json_response.append({'success': False})
+                if (customUser.correctInARow % 8) == 2:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('2 down')
+                    customUser.achievements = json.dumps(achievements)
 
-                data = json.loads(customUser.challenges)
-                incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
+                if (customUser.correctInARow % 8) == 3:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('3 down')
+                    customUser.achievements = json.dumps(achievements)
 
-                if data[challenge_id]['completed'] != 'true':
-                    numIncorrect = int(incorrectPerChallengeData[challenge_id]['numberIncorrect'])
-                    numIncorrect += 1
-                    customUser.numTotalIncorrectGuesses += 1
-                    customUser.correctInARow = 0
-                    incorrectPerChallengeData[challenge_id]['numberIncorrect'] = str(numIncorrect)
-                    customUser.incorrectPerChallenge = json.dumps(incorrectPerChallengeData)
-                    customUser.save()
+                if (customUser.correctInARow % 8) == 4:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Breathtaking')
+                    customUser.achievements = json.dumps(achievements)
+
+                if (customUser.correctInARow % 8) == 5:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Phenomenal')
+                    customUser.achievements = json.dumps(achievements)
+
+                if (customUser.correctInARow % 8) == 6:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Unstoppable')
+                    customUser.achievements = json.dumps(achievements)
+
+                if (customUser.correctInARow % 8) == 7:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Unforgettable')
+                    customUser.achievements = json.dumps(achievements)
+
+                if (customUser.correctInARow % 8) == 0 and customUser.correctInARow > 0:
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Ascended')
+                    customUser.achievements = json.dumps(achievements)
+                
+                if  customUser.correctInARow == len(customUser.challenges):
+                    achievements = json.loads(customUser.achievements)
+                    achievements.append('Flawless')
+                    customUser.achievements = json.dumps(achievements)
 
 
-            response = JsonResponse(json_response, safe=False)
-            response['Access-Control-Allow-Origin'] = '*'
+                customUser.challenges = json.dumps(data)
+                customUser.save()
 
-            return response
+
+
         else:
-            json_response.append({'success': "Assignment is closed"})
-            response = JsonResponse(json_response, safe=False)
-            response['Access-Control-Allow-Origin'] = '*'
-            return response
+            json_response.append({'success': False})
+
+            data = json.loads(customUser.challenges)
+            incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
+    
+
+
+            if data[challenge_id]['completed'] != 'true':
+                numIncorrect = int(incorrectPerChallengeData[challenge_id]['numberIncorrect'])
+                numIncorrect += 1
+                customUser.numTotalIncorrectGuesses += 1
+                challenge = Challenge.objects.get(order=challenge_id)
+                challenge.totalIncorrectGuesses += 1
+                challenge.save()
+                customUser.correctInARow = 0
+                incorrectPerChallengeData[challenge_id]['numberIncorrect'] = str(numIncorrect)
+                customUser.incorrectPerChallenge = json.dumps(incorrectPerChallengeData)
+                customUser.save()
+
+
+        if not allGood:
+            if success:
+                json_response.append({'success': "Assignment is closed"})
+                response = JsonResponse(json_response, safe=False)
+                response['Access-Control-Allow-Origin'] = '*'
+                return response
+        
+        else:
+            if success:
+                json_response.append({'success': True})
+
+
+        response = JsonResponse(json_response, safe=False)
+        response['Access-Control-Allow-Origin'] = '*'
+
+        return response
 
 
 
