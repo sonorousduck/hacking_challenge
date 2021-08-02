@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from .models import AssignmentDates
 from django.urls import reverse
+from challenges.models import Challenge
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from matplotlib import pyplot as plt
 
 # Create your views here.
 
@@ -14,7 +16,21 @@ def index(request):
 
 
     if (request.user.is_superuser):
-        return render(request, 'customAdmin/index.html', {'dates': dates})
+        allChallenges = Challenge.objects.all().order_by('-totalIncorrectGuesses')
+
+        incorrectGuesses = []
+        orderChallenges = []
+
+        for challenge in allChallenges:
+            incorrectGuesses.append(challenge.totalIncorrectGuesses)
+            orderChallenges.append(challenge.order)
+
+        plt.bar(orderChallenges, incorrectGuesses, align='center', alpha=0.6)
+        plt.xlabel('Challenges')
+        plt.ylabel('Incorrect Guesses Total')
+        plt.savefig('customAdmin/static/customAdmin/incorrectGuesses.png')
+
+        return render(request, 'customAdmin/index.html', {'dates': dates, 'allChallenges': allChallenges})
     else: 
         return HttpResponseForbidden("403 Forbidden")
 
@@ -79,3 +95,4 @@ def changeDate(request):
 
 
     return HttpResponseRedirect(reverse('customAdmin:index'))
+

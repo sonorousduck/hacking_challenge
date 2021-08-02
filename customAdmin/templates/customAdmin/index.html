@@ -38,6 +38,20 @@
                     <a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class = "fa fa-bars"> </i> </a>
             </div>
 
+                {% if allChallenges %}
+                
+                <div class="challengeContainer">
+                    {% for challenge in allChallenges %}
+                        <div> Challenge {{ challenge.order }} {{ challenge.totalIncorrectGuesses }} </div>
+                    {% endfor %}
+                    <img src="{% static 'customAdmin/incorrectGuesses.png' %}" />
+                </div>
+
+                {% endif %}
+
+
+
+
                 {% if dates %}
                     {% for date in dates %}
                     <div class="dueDates">
