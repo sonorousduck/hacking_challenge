@@ -17,17 +17,18 @@ def index(request):
 
     if (request.user.is_superuser):
         allChallenges = Challenge.objects.all().order_by('-totalIncorrectGuesses')
+        allChallengesNoOrder = Challenge.objects.all()
 
         incorrectGuesses = []
         orderChallenges = []
 
-        for challenge in allChallenges:
+        for challenge in allChallengesNoOrder:
             incorrectGuesses.append(challenge.totalIncorrectGuesses)
-            orderChallenges.append(challenge.order)
+            orderChallenges.append(str(challenge.order))
 
-        plt.bar(orderChallenges, incorrectGuesses, align='center', alpha=0.6)
         plt.xlabel('Challenges')
         plt.ylabel('Incorrect Guesses Total')
+        plt.bar(orderChallenges, incorrectGuesses, align='center', alpha=0.6)
         plt.savefig('customAdmin/static/customAdmin/incorrectGuesses.png')
 
         return render(request, 'customAdmin/index.html', {'dates': dates, 'allChallenges': allChallenges})

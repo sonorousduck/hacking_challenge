@@ -41,10 +41,17 @@
                 {% if allChallenges %}
                 
                 <div class="challengeContainer">
+                    <div class="challenges">
                     {% for challenge in allChallenges %}
-                        <div> Challenge {{ challenge.order }} {{ challenge.totalIncorrectGuesses }} </div>
+                    <div class="individualChallenge"> 
+                        <div> Challenge {{ challenge.order }} </div>
+                        <div class="incorrectGuesses"> Total Incorrect Guesses: {{ challenge.totalIncorrectGuesses }}  </div>
+                    </div>
                     {% endfor %}
-                    <img src="{% static 'customAdmin/incorrectGuesses.png' %}" />
+                    </div>
+                    <div class="graphData">
+                        <img src="{% static 'customAdmin/incorrectGuesses.png' %}" />
+                    </div>
                 </div>
 
                 {% endif %}

@@ -1,6 +1,5 @@
 #changeDate {
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 8px;
     text-align: center;
 }
 
@@ -27,27 +26,46 @@
 
 .padded {
     margin-top: 16px;
-    margin-bottom: 16px;
-    
-
+    margin-bottom: 8px;
 }
 
 .dueDates {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
     margin-top: 24px; 
 
 }
 
 .challengeContainer {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
 }
 
+.challenges {
+    flex: 60%;
+    margin-left: 16px;
+    margin-top: 48px;
+}
+
+.graphData {
+    flex: 40%;
+}
+
+.individualChallenge {
+    padding: 16px;
+    text-align: center;
+    margin: 4px;
+    border-radius: 4px;
+    background-color: #45A29E;
+    box-shadow: 0 2px 4px 0 #0B0c10;
+    display: inline-block;
+    color: #1F2833;
+}
+
+.incorrectGuesses {
+    color: #66FCF1;
 
 
-
-
-
-
+}
