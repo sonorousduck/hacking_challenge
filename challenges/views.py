@@ -52,7 +52,6 @@ def index(request):
 
         else:
             hardLocked = 'true'
-
     if moderateLocked == 'false':
         data[len(easyChallenges)]['hidden'] = 'false'
         customUser.challenges = json.dumps(data)
@@ -95,12 +94,9 @@ def index(request):
         challenge.data = data[count]
         if data[count]['completed'] == 'true':
             hardCompleted += 1
-            if hardCompleted != len(hardChallenges):
-                if data[count + 1]['completed'] == 'false':
-                    currentHardChallenge = hardChallenges[count - len(easyChallenges) - len(moderateChallenges) + 1].order + 1
-                    hardFound = True
-            else:
+            if hardCompleted == len(hardChallenges):
                 currentHardChallenge = 'completed'
+                hardFound = True
         else:
             if not hardFound:
                 currentHardChallenge = hardChallenges[0].order + 1
@@ -148,7 +144,7 @@ def validation(request):
             if data[challenge_id]['completed'] != 'true':
                 customUser.completedChallenges += 1
 
-                if Challenge.objects.get(order=challenge_id).difficultyIndicator != "Hard":
+                if not Challenge.objects.get(order=challenge_id).optionalChallenge:
                     customUser.completedRequiredChallenges += 1
 
                 customUser.correctInARow += 1

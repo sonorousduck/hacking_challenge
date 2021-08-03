@@ -201,20 +201,20 @@ def populate_db(apps, schema_editor):
     hint_10_1 = Hint(challenge=challenge_10, hint="Fetch Commands in Javascript")
     hint_10_1.save()
 
-    challenge_11 = Challenge(flag="mYCaBbageS!", title="Cryptology part i.", description="This is designed to get a little experience with Cryptology. Thus this one is fairly easy. The hash was performed by shifting all letters 4 over", order=14, difficultyIndicator = "Hard", templateValue=11)
+    challenge_11 = Challenge(flag="mYCaBbageS!", title="Cryptology part i.", description="This is designed to get a little experience with Cryptology. Thus this one is fairly easy. The hash was performed by shifting all letters 4 over", order=14, difficultyIndicator = "Hard", optionalChallenge=True, templateValue=11)
     challenge_11.save()
 
     hint_11_0 = Hint(challenge=challenge_11, hint="Basic Effort")
     hint_11_0.save()
 
-    challenge_12 = Challenge(flag="YouAreAnAdminNow77@^</>", title="Cross Site Scripting", description="We need you to find a way to become an admin for the very man you were working for and end him. He is evil. You helped him. Our intel tells us there is a single way for this to be done. Good luck.", order=15, difficultyIndicator = "Hard", templateValue=12)
+    challenge_12 = Challenge(flag="YouAreAnAdminNow77@^</>", title="Cross Site Scripting", description="We need you to find a way to become an admin for the very man you were working for and end him. He is evil. You helped him. Our intel tells us there is a single way for this to be done. Good luck.", order=15, difficultyIndicator = "Hard", templateValue=12, optionalChallenge=True)
     challenge_12.save()
 
     hint_12_0 = Hint(challenge=challenge_12, hint="Cross Site Scripting")
     hint_12_0.save()
 
 
-    challenge_13 = Challenge(flag="congratulationsondecryptingthis!", title="Cryptology Challenge", description="Below is a paragraph that has been encrypted. Solve it", order=16, difficultyIndicator="Hard", templateValue=13)
+    challenge_13 = Challenge(flag="congratulationsondecryptingthis!", title="Cryptology Challenge", description="Below is a paragraph that has been encrypted. Solve it", order=16, difficultyIndicator="Hard", optionalChallenge=True, templateValue=13)
     challenge_13.save()
 
     hint_13_0 = Hint(challenge=challenge_13, hint="Code Breaking Skills")
@@ -234,10 +234,21 @@ def populate_db(apps, schema_editor):
     challenge_loneWolf_0 = Challenge(flag="#CH**O#SEN_#^%ON--=E", title="Lone Wolf Part 1", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=11, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf", templateValue=14)
     challenge_loneWolf_0.save()
 
+    hint_loneWolf_0 = Hint(challenge=challenge_loneWolf_0, hint="GET requests")
+    hint_loneWolf_0.save()
+
+    hint_loneWolf_0_1 = Hint(challenge=challenge_loneWolf_0, hint="Weak Authentication validators")
+    hint_loneWolf_0_1.save()
 
     challenge_loneWolf_2 = Challenge(flag="DO!ITSTRI#^KETH445ESE*RV^ERD#@OWN", title="Lone Wolf Part 2", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=12, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf", templateValue=16)
     challenge_loneWolf_2.save()
 
+    hint_loneWolf_0_2 = Hint(challenge=challenge_loneWolf_2, hint="Fetch Requests")
+    hint_loneWolf_0_2.save()
+
+
+    hint_loneWolf_0_3 = Hint(challenge=challenge_loneWolf_2, hint="Maybe try using the console?")
+    hint_loneWolf_0_3.save()
 
     challenge_loneWolf_3 = Challenge(flag="Y2OU!@MONSdsTER%^", title="Lone Wolf Part 3", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=13, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf", templateValue=17)
     challenge_loneWolf_3.save()
