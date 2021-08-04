@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404  
 from .models import Challenge, Hint
 from loginSignup.models import CustomUser
 from customAdmin.models import AssignmentDates
@@ -199,6 +199,67 @@ def validation(request):
                     achievements.append('Flawless')
                     customUser.achievements = json.dumps(achievements)
 
+                if customUser.completedRequiredChallenges == customUser.numRequiredChallenges:
+                    classFirst = Achievements.objects.get(title="Class First")
+                    classSecond = Achievements.objects.get(title="Class Second")
+                    classThird = Achievements.objects.get(title="Class Third")
+
+                    if not classFirst.earned:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Class First')
+                        customUser.achievements = json.dumps(achievements)
+                        classFirst.earned = True
+                        classFirst.save()
+                    elif not classSecond.earned:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Class Second')
+                        customUser.achievements = json.dumps(achievements)
+                        classSecond.earned = True
+                        classSecond.save()
+                    elif not classThird.earned:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Class Third')
+                        customUser.achievements = json.dumps(achievements)
+                        classThird.earned = True
+                        classThird.save()
+
+
+
+                    if (AssignmentDates.objects.all()):
+                        currentTime = datetime.now()
+                        currentDate = datetime.today().date()
+
+                        closeDate = AssignmentDates.objects.get(description="closed")
+                        
+                        offset = timedelta(hours=3)
+                        newTime = currentTime + offset
+                        time = newTime.time()
+                        if currentDate == closeDate.date and time > closeDate.time:
+                            achievements = json.loads(customUser.achievements)
+                            achievements.append('Playing With Fire')
+                            customUser.achievements = json.dumps(achievements)
+
+                    if customUser.numTotalIncorrectGuesses < 20:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Golden Eye')
+                        customUser.achievements = json.dumps(achievements)
+                    elif customUser.numTotalIncorrectGuesses < 60:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Dead Eye')
+                        customUser.achievements = json.dumps(achievements)
+                    elif customUser.numTotalIncorrectGuesses > 277:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Bot Status')
+                        customUser.achievements = json.dumps(achievements)
+                    elif customUser.numTotalIncorrectGuesses > 200:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Tenacious')
+                        customUser.achievements = json.dumps(achievements)
+                    elif customUser.numTotalIncorrectGuesses > 150:
+                        achievements = json.loads(customUser.achievements)
+                        achievements.append('Committed')
+                        customUser.achievements = json.dumps(achievements)
+
 
                 customUser.challenges = json.dumps(data)
                 customUser.save()
@@ -212,6 +273,11 @@ def validation(request):
             incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
     
 
+            if customUser.numTotalIncorrectGuesses > 250:
+                achievements = json.loads(customUser.achievements)
+                achievements.append('You Okay Bro?')
+                customUser.achievements = json.dumps(achievements)
+                customUser.save()
 
             if data[challenge_id]['completed'] != 'true':
                 numIncorrect = int(incorrectPerChallengeData[challenge_id]['numberIncorrect'])

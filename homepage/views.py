@@ -45,4 +45,4 @@ def resetFlavorText(request):
     customUser.customText = "Look at who is too cool for flavor text or something! Psh! (Ironically, this is your flavor text)"
     customUser.save()
 
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("homepage:index"))

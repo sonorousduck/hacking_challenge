@@ -9,7 +9,7 @@ class CustomUser(models.Model):
     numChallenges = models.IntegerField(default=0)
     numRequiredChallenges = models.IntegerField(default=0)
     completedChallenges = models.IntegerField(default=0)
-    completedRequiredChallenges = models.IntegerField(default=0)
+    completedRequiredChallenges = models.IntegerField(default=1)
     challenges = models.JSONField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     admin = models.BooleanField(default=False)
@@ -30,7 +30,7 @@ class CustomUser(models.Model):
 
 
     def __str__(self):
-        return f" {self.user.first_name} {self.user.last_name} { round(((self.completedChallenges / self.numChallenges) * 100), 2) }%"
+        return f" {self.user.first_name} {self.user.last_name} { round(((self.completedRequiredChallenges / self.numRequiredChallenges) * 100), 2) }%"
 
 
 

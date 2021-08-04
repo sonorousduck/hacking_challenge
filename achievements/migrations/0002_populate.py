@@ -17,11 +17,11 @@ def populate_db(apps, schema_editor):
     achievement_2 = Achievement(title="Early Bird", description="Start the hacking challenge within 1.5 weeks of the due date.", achievementIcon="EarlyBird.PNG")
     achievement_2.save()
 
-    achievement_3 = Achievement(title="Class First", description="Complete the assignment first in class", achievementIcon="ClassFirst.PNG")
+    achievement_3 = Achievement(title="Class First", description="Complete assignment first in class", achievementIcon="ClassFirst.PNG")
     achievement_3.save()
 
 
-    achievement_4 = Achievement(title="Class Second", description="Complete the assignment second in class", achievementIcon="ClassSecond.PNG")
+    achievement_4 = Achievement(title="Class Second", description="Complete assignment second in class", achievementIcon="ClassSecond.PNG")
     achievement_4.save()
 
     achievement_5 = Achievement(title="Class Third", description="Complete the assignment third in class", achievementIcon="ClassThird.PNG")
@@ -53,23 +53,19 @@ def populate_db(apps, schema_editor):
     achievement_13 = Achievement(title="Ascended", description="Complete 8 in a row without mistake", achievementIcon="Ascended.PNG")
     achievement_13.save()
 
-    achievement_14 = Achievement(title="Golden Eye", description="Complete the assignment with under 20 incorrect guesses", achievementIcon="GoldenEye.PNG")
+    achievement_14 = Achievement(title="Golden Eye", description="Complete with under 20 incorrect guesses", achievementIcon="GoldenEye.PNG")
     achievement_14.save()
 
-    achievement_15 = Achievement(title="Dead Eye", description="Complete the assignment with under 60 incorrect guesses", achievementIcon="DeadEye.PNG")
+    achievement_15 = Achievement(title="Dead Eye", description="Complete with under 60 incorrect guesses", achievementIcon="DeadEye.PNG")
     achievement_15.save()
 
-# This one has no icon so far
-    #achievement_17 = Achievement(title="Baby Archer", description="Complete the assignment with under 100 incorrect guesses")
-    #achievement_17.save()
-
-    achievement_18 = Achievement(title="Committed", description="Complete the assignment with over 150 incorrect guesses", achievementIcon="Committed.PNG")
+    achievement_18 = Achievement(title="Committed", description="Complete with over 150 incorrect guesses", achievementIcon="Committed.PNG")
     achievement_18.save()
 
-    achievement_19 = Achievement(title="Tenacious", description="Complete the assignment with over 200 incorrect guesses", achievementIcon="Tenacious.PNG")
+    achievement_19 = Achievement(title="Tenacious", description="Complete with over 200 incorrect guesses", achievementIcon="Tenacious.PNG")
     achievement_19.save()
 
-    achievement_20 = Achievement(title="Bot Status", description="Complete the assignment with over 277 incorrect guesses")
+    achievement_20 = Achievement(title="Bot Status", description="Complete with over 277 incorrect guesses")
     achievement_20.save()
 
     achievement_21 = Achievement(title="You Okay Bro?", description="Have over 250 incorrect guesses", achievementIcon="UOKBro.PNG")
