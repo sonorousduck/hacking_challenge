@@ -10,6 +10,4 @@
 
 ## Making the Achievements Possible to Earn
     - Go to the challenges app. In views, under validation this is where the server validates if the user got the challenge correct.
-    - There is a block of code that handles a lot of the achievements. Add it in there. (This will be a function that I add, just add to there)
-
-
+    - There is a block of code that handles a lot of the achievements. Add it in there. 

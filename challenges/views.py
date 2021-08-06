@@ -145,7 +145,9 @@ def validation(request):
                 customUser.completedChallenges += 1
 
                 if not Challenge.objects.get(order=challenge_id).optionalChallenge:
-                    customUser.completedRequiredChallenges += 1
+                    # This doesn't add to their score after the assignment closes
+                    if allGood:
+                        customUser.completedRequiredChallenges += 1
 
                 customUser.correctInARow += 1
                 customUser.percentComplete =  (customUser.completedChallenges / customUser.numRequiredChallenges) * 100
