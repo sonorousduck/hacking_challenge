@@ -29,7 +29,7 @@ def populate_db(apps, schema_editor):
     hint_1_1.save()
 
 
-    challenge_2 = Challenge(flag="0iL2oV4eH6aC8kI10nG", title="Level 2", order=2, hidden=False, description="HA! Javascript will help me here! Good luck with this one little pest!", templateValue=2)
+    challenge_2 = Challenge(flag="0iL2oV4eH6aC8kI10nG", title="Level 2", order=2, hidden=False, description="HA! Javascript will help me here! Good luck with this one you little pest!", templateValue=2)
     challenge_2.save()
 
     hint_2_0 = Hint(challenge=challenge_2, hint="HTML")
@@ -59,7 +59,7 @@ def populate_db(apps, schema_editor):
     hint_4_0 = Hint(challenge=challenge_4, hint="Developer Tools")
     hint_4_0.save()
 
-    challenge_5 = Challenge(flag="D0gI2qF4aO6", title="Level 5", order=5, hidden=False, description="I guess I underestimated just who YOU were. You ever think what would happen if I was hacking you at the same time? Or even just stealing your IP address to find out where you are? Mwahaha. Anyways, I moved it out of the html, having it be served by the server instead. Good luck lol.", templateValue=5)
+    challenge_5 = Challenge(flag="D0gI2qF4aO6", title="Level 5", order=5, hidden=False, description="I guess I underestimated who YOU were. You ever think what would happen if I were hacking you at the same time? Maybe I'm scanning your IP address right now to find  out were you live. Mwahaha. Anyways, I moved the password out of the HTML, sending it directly from the server instead. Good luck finding it now LOL.", templateValue=5)
     challenge_5.save()
 
 
@@ -188,7 +188,7 @@ def populate_db(apps, schema_editor):
     hint_9_8 = Hint(challenge=challenge_9, hint="Cookies")
     hint_9_8.save()
 
-    hint_9_9 = Hint(challenge=challenge_9, hint="Where you make cookies is important")
+    hint_9_9 = Hint(challenge=challenge_9, hint="The Cookie's path is significant, too")
     hint_9_9.save()
 
 

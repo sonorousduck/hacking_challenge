@@ -40,6 +40,12 @@ def signUp(request):
         if form.is_valid():
             if not User.objects.filter(username=form.cleaned_data['username']).exists():
                 if form.cleaned_data['password'] == form.cleaned_data['confirm_password']:
+
+                    email = form.cleaned_data['email']
+                    if not email.endswith('usu.edu'):
+                        messages.error(request, message="Use a usu.edu email")
+                        return render(request, 'loginSignup/signUpScreen.html', {'form': form})
+
                     userCreated = User.objects.create_user(
                             username=form.cleaned_data['username'],
                             password=form.cleaned_data['password'],
