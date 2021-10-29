@@ -3,6 +3,12 @@
 <html>
     <head>
         {% load static %}
+        <script src="{% static 'homepage/node_modules/vue/dist/vue.global.prod.js' %}"></script>
+        <script type="module" defer src="{% static 'challenges/levelDescription.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'challenges/popupStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'challenges/incorrectIndicator.css' %}">
+        <link rel="stylesheet" href="{% static 'challenges/challengeBar.css' %}">
+        <title> Challenge {{ challenge.order }} </title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
