@@ -1,0 +1,343 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 0 50px;
+    font-size: 16px;
+}
+
+.navbar {
+    background-color: #0B0C10;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #C5C6C7;
+    text-align: center;
+    padding: 20px 32px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    background-color: #1F2833;
+    color: white;
+}
+
+.navbar a.active {
+    background-color: #45A29E;
+    color: white;
+}
+
+.divider {
+    color: #C5C5C6;
+    background-color: #C5C6C7;
+    display: block;
+    float: left;
+    margin-top: 10px;
+    height: 40px;    
+    width: 1px;
+}
+
+#challengesIcon {
+    color: #66FCF1;
+}
+
+#homeIcon {
+    color: #66FCF1;
+}
+
+
+#settingsIcon {
+    color: #66FCF1;
+}
+
+#logoutIcon {
+    color: #66FCF1;
+}
+
+#adminIcon {
+    color: #66FCF1;
+}
+
+.navbar .icon {
+    display: none;
+}
+
+
+.navbar .logout {
+    float: right;
+}
+
+.navbar .settings {
+    float: right;
+}
+
+
+@media screen and (max-width: 600px) {
+    .navbar a:not(:first-child) {display: none; }
+    .navbar a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navbar.responsive {position: relative;}
+    ,navbar.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .navbar.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}
+
+
+.padded {
+    padding: 16px;
+
+}
+
+.flavorTextForm {
+    width: 100%;
+    text-align: center;
+}
+
+
+.textBox {
+    align: center;
+    padding: 16px;
+    height: 250px;
+    transition-duration: 0.2s;
+    border-style: solid;
+    border-radius: 10px;
+    outline: none;
+}
+
+.textBox:focus {
+    border-color: #45A29E;
+}
+
+
+.submitButton {
+    align: center; 
+    padding: 16px 48px;
+    transition-duration: 0.2s;
+    background-color: white;
+    border-radius: 10px;
+    border-style: solid;
+    margin-right: 8px;
+    outline: none;
+    vertical-align: bottom;
+}
+
+.submitButton:hover {
+    background-color: lightgrey;
+}
+
+.customFlavorText {
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 200px;
+    margin-left: 128px;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 #0B0C10;
+    width: 600px;
+    height: 150px;
+}
+
+.profileIndicator {
+    font-size: 48px;
+    font-weight: 1;
+    color: #1F2833;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 75px;
+}
+
+.profileCircle {
+    float: left;
+    border-radius: 50%;
+    border: solid 1px #45A29E;
+    background-color: #C5C6C7;
+    width: 75px;
+    height: 75px;
+    opacity: 0.90;
+    box-shadow: 0 1px 2px 0 #0B0C10;
+
+}
+
+.namePlacard {
+   padding: 8px;
+   margin-left: 24px;
+   margin-top: 24px;
+   margin-bottom: 16px;
+}
+
+.textInformation {
+   float: left;
+    margin-left: 16px;
+    margin-top: 24px;
+}
+
+.user {
+    float: left;
+    color: #45A29E;
+    font-weight: bold;
+}
+
+.username {
+    float: left;
+    font-style: italic;
+    color: #45A29E;
+}
+
+.adminText {
+    margin-right: 56px;
+    float: right;
+    color: #45A29E;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#isAdmin {
+    float: right;
+    color: #0B0C10;
+    margin-left: 8px;
+    font-weight: 100;
+}
+
+.pageEnder {
+    margin-top: 124px;
+    color: #0B0C10;
+    text-align: center;
+    width: 90%;
+}
+
+.theButtons {
+    float: right;
+    padding: 8px;
+    margin-right: 0px;
+    margin-top: 0px;
+}
+
+.buttons {
+    max-width: 200px;
+    width: 200px;
+    background-color: #45A29E;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    margin: 8px 0px 8px 8px; 
+    height: 42px;
+    vertical-align: middle;
+    line-height: 42px;
+    transition: all 0.2s ease-in-out;
+}
+
+.buttons:hover {
+    transform: scale(1.1);
+    background-color: #30716e;
+    cursor: pointer;
+}
+
+.adminAndButtons {
+    float: right;
+    margin-right: 32px;
+    margin-top: 24px;
+
+}
+
+.popup {
+    background: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+}
+
+.popup .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.popup > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    border-radius: 8px;
+    padding: 15px 5%;
+}
+
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+
+.formEntry {
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 16px;
+    border-radius: 8px;
+    border-style: solid;
+    outline: none;
+    min-width: 5%;
+    width: 75%;
+    font-size: 16px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+.formEntry:focus {
+    border-color: #66FCF1;
+}
+
+.errors {
+    color: red;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.success {
+    color: green;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 16px;
+}
+
+
+
+

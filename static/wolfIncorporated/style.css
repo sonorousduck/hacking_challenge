@@ -1,0 +1,379 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#topBar {
+    display: flex;
+    white-space: nowrap;
+
+}
+
+#wolfLogo {
+    width: auto;
+    height: 100px;
+    flex-basis: 10%;
+}
+
+
+.wolfBanner {
+    background-color: black;
+    line-height: 100px;
+    vertical-align: center;
+    display: flex;
+    flex-basis: 90%;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+.wolfBannerText {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    vertical-align: center;
+    align: center;
+    flex-basis: 10%
+}
+
+.spacer {
+    flex-basis: 500%;
+    background-color: black;
+    line-height: 100px;
+}
+
+
+.adminSpacer {
+    flex-basis: 350%;
+    background-color: black;
+    line-height: 100px;
+}
+
+.consoleText {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    vertical-align: center;
+    flex-basis: 5%;
+    padding-left: 32px;
+    padding-right: 32px;
+    justify-content: flex-end;
+    text-align: center;
+}
+
+.wolfBannerConsole {
+    transition-duration: 0.2s;
+    text-decoration: none;
+    color: white;
+    flex-basis: 10%;
+}
+
+.wolfBannerConsole:hover {
+    cursor: pointer;
+    background-color: #383838;
+    opacity: 75%;
+}
+
+.wolfBannerAdmin {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    vertical-align: middle;
+    transition-duration: 0.2s;
+    text-decoration: none;
+    flex-basis: 10%;
+}
+.wolfBannerAdmin:hover {
+    cursor: pointer;
+    background-color: #383838;
+    opacity: 75%;
+}
+
+.loginForm {
+    align: center;
+    text-align: center;
+   padding: 16px;
+    margin-top: 24px;
+}
+
+.formEntry {
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 16px;
+    border-radius: 8px;
+    border-style: solid;
+    outline: none;
+    width: 33%;
+    font-size: 16px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+.formEntry:focus {
+    border-color: black;
+}
+
+
+#submitButton {
+    align: center;
+    padding: 16px 48px;
+    transition-duration: 0.2s;
+    background-color: white;
+    border-radius: 32px;
+    border-style: solid;
+    margin-right: 8px;
+    margin-top: 16px;
+    width: 24%;
+    background: black;
+    color: white;
+    font-size: 24px;
+    font-style: bold;
+}
+
+#submitButton:hover {
+    background-color: #353839;
+    cursor: pointer;
+}
+
+
+#deleteButton {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 0;
+    align: center;
+    text-align: center;
+    padding: 16px 48px;
+    outline: none;
+    transition-duration: 0.2s;
+    background-color: white;
+    border-radius: 32px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    width: 50%;
+    background: #ff3d4a;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+#deleteButton:hover {
+    background-color: #AB1822;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+.centered {
+    text-align: center;
+    align: center;
+}
+
+.usernameText {
+    font-size: 32px;
+
+}
+
+.emailPopup  {
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    position: fixed;
+    padding: 8px;
+    padding-right: 16px;
+    padding-left: 16px;
+    bottom: 0px;
+    right: 0px;
+    background-color: #D3D3D3;
+    box-shadow: 10px, 10px, 60px, #555;
+    z-index: 10000;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.clockInDiv {
+    margin-top: 32px;
+    font-size: 24px;
+    align: center;
+    text-align: center;
+    float: center;
+}
+
+.clock-in {
+    cursor: pointer;
+    border-radius: 32px;
+    margin-top: 16px;
+    border: solid;
+    border-width: 2px;
+    width: 160px;
+    align: center;
+    text-align: center;
+    float: center;
+    margin-left: auto;
+    margin-right: auto;
+    transition-duration: 0.2s;
+}
+
+.clock-in:hover {
+    background-color: #D3D3D3;
+}
+
+#currentlyWorkingEmployees {
+    margin-left: 16px;
+    margin-top: 32px;
+    font-size: 16px;
+}
+
+#underlined {
+    font-size: 24px;
+    text-decoration: underline;
+
+}
+
+.popup_hints {
+    background:rgba(0, 0, 0, 0.4);
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+}
+
+.popup_hints .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.popup_hints > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    border-radius: 8px;
+    padding: 15px 5%;
+    align: left;
+    text-align: left;
+}
+
+.compose {
+    background-color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    font-size: 24px;
+    text-align: center;
+
+
+}
+
+
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+
+.emailProfilePic {
+    width: 75px;
+    height: auto;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 8px;
+    position: absolute;
+    left: 8px;
+}
+
+.emailBlock {
+    display: inline-block;
+    vertical-align: middle;
+    align: middle;
+    padding: 16px;
+}
+.emailText {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.emailItem {
+    padding: 16px;
+}
+
+.emailForm {
+    align: center;
+    text-align: center;
+    width: 100%;
+}
+
+.formEntry {
+    width: 100%;
+}
+
+.formEntryTall {
+    height: 100px;
+}
+
+#submitButton {
+    align: center;
+    padding: 16px 48px;
+    vertical-align: center;
+    transition-duration: 0.2s;
+    border-radius: 32px;
+    border-style: solid;
+    margin-right: 8px;
+    margin-top: 16px;
+    width: 24%;
+    font-size: 24px;
+    font-style: bold;
+}
+
+
+#submitButton:hover {
+    cursor: pointer;
+}
+
+.sendIcon {
+    color: white;
+    position: relative;
+    left: 35px;
+    pointer-events: none;
+
+}
+
+.fromServer {
+    padding: 16px;
+
+
+}
+
+

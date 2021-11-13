@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+ djangoapp:
+  build: . 
+  volumes:
+   - .:/opt/services/djangoapp/src
+   - static_volume:/opt/services/djangoapp/staticfiles
+  networks:
+   - nginx_network
+
+ nginx:
+  image: nginx:latest
+  ports:
+   - "80:8000"
+  volumes:
+   - ./config/nginx/conf.d:/etc/nginx/conf.d
+   - static_volume:/opt/services/djangoapp/staticfiles
+   - /static:/staticfiles
+  depends_on:
+   - web
+  networks:
+   - nginx_network
+
+ web:
+   build: .
+   container_name: DJANGOXDOCKERNAME
+   command: bash -c "guicorn hacking_challenge.wsgi -b 0.0.0.0:80"
+   volumes:
+     - .:/code
+     - static:/staticfiles
+   command: python manage.py runserver 0.0.0.0:8000
+   expose:
+    - "80"
+   ports:
+     - "80:8000"
+
+volumes:
+   static-data:
+      driver: local
+   static_volume:
+      driver: local

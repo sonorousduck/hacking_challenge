@@ -30,7 +30,7 @@ SECRET_KEY = '^4r)j(iwa$21&+pd3yc)e3d(np@(az6a2&(pwrr2j#^nyg9d=f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False 
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'aggiectf.tk', '206.189.210.78']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'aggiectf.tk', '206.189.210.78', "www.aggiectf.tk"]
 
 LOGIN_URL = "loginSignup:login"
 
@@ -136,5 +136,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

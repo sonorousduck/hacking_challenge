@@ -1,24 +1,25 @@
+version: '3'
+
 services:
- 
+
+ djangoapp:
+  build: . 
+  volumes:
+   - .:/opt/services/djangoapp/src
+   - static_volume:/opt/services/djangoapp/staticfiles
 
  web:
    build: .
-   environment:
-     MYENV: EXAMPLE
+   container_name: DJANGOXDOCKERNAME
+   command: bash -c "guicorn hacking_challenge.wsgi -b 0.0.0.0:80"
    volumes:
      - .:/code
-     - static-data:/static_files
- web_migrate:
-   extends:
-     service: web
-   command: python manage.py migrate
- web_run:
-   extends:
-     service: web
    command: python manage.py runserver 0.0.0.0:8000
+   expose:
+    - "80"
    ports:
      - "80:8000"
-volumes:
-   static-data:
-      driver: local
 
+volumes:
+   static_volume:
+      driver: local

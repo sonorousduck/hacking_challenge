@@ -1,0 +1,41 @@
+#incorrectIndicator {
+    align: center;
+    text-align: center;
+    font-size: 36px;
+    width: 70%;
+    border-radius: 10px;
+    background-color: #FF7377;
+    opacity: .7;
+    color: darkred;
+    margin: auto;
+    padding: 8px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+#incorrectText {
+    align: center;
+    text-align: center;
+
+}
+
+#correctIndicator {
+    align: center;
+    text-align: center;
+    font-size: 36px;
+    width: 70%;
+    border-radius: 10px;
+    background-color: #80B362;
+    opacity: .7;
+    color: darkgreen;
+    margin: auto;
+    padding: 8px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+#correctText {
+    align: center;
+    text-align: center;
+
+}
