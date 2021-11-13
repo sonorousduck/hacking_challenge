@@ -5,16 +5,9 @@
     - python manage.py migrate
 
 ## Run the Server
-    - Running the server was done with docker
-    - There is a script to make sure the server is automatically set up correctly. Run this with ./updateServer.sh
-    - Alternatively, make sure the server is taken down with docker-compose down.
-    - Then rebuild the server with docker-compose build
-    - Then run the server with docker-compose up
-
-
-    So:
-        docker-compose down
-        docker-compose build (This should take care of installing any required python files)
-        docker-compose up
-
+    - The server is now being ran with uwsgi.
+    - To run the server, start a tmux process by typing tmux into the shell
+    - Run the ./startServer.sh
+    - Press Ctrl + b and then d to leave the session. You can safely close the ssh now
+    - To Get back to your server process, run tmux attach
 
