@@ -4,7 +4,10 @@ from challenges.models import Challenge
 import os
 import subprocess
 import re
+import random
 from django.contrib.auth.decorators import login_required
+from time import strftime
+
 
 @login_required()
 def index(request):
@@ -14,57 +17,152 @@ def index(request):
 def showViews(request):
     return render(request, 'views.py')
 
+BLACKLIST = [
+        "ash", "awk", "bash", "bc", "bunzip2", "bzip2", "compress", "cp",
+        "cpio", "dash", "du", "env", "factor", "finger", "grep", "gunzip",
+        "gzip", "ifconfig", "ip", "iwconfig", "journalctl", "locate", "mkdir",
+        "mount", "mv", "netcat", "netstat", "nmap", "ping", "python",
+        "python2", "python3", "rm", "rmdir", "sed", "sh", "sleep", "systemctl",
+        "tar", "telinit", "touch", "tree", "umount", "unzip", "xxd", "xz",
+        "zip", "zsh",
+        ]
+
+SAFE = ['echo', 'printf', 'pwd', 'tty']
+
+NOOP = ["true", "false", "cd", "fg", "bg", "jobs", "pushd", "popd"]
+
+NOT_A_TTY = [
+        "emacs", "joe", "less", "man", "more", "nano", "nethack", "nvim", "pg",
+        "vi", "vim",
+        ]
+
+FORTUNES = [
+"""Twenty percent of all input forms filled out by people contain bad data.
+
+    -- Vic Vyssotsky
+       Bell Labs""",
+
+"""Each new user of a new system uncovers a new class of bugs.
+
+    -- Brian Kernighan
+       Bell Labs""",
+
+"""When in doubt, use brute force.
+
+    -- Ken Thompson
+       Bell Labs""",
+
+"""The structure of a system reflects the structure of the organization that built it.
+
+    -- Richard E. Fairley
+       Wang Institute""",
+
+"""Whenever possible, steal code.
+
+    -- Tom Duff
+       Bell Labs""",
+
+"""If you lie to the computer, it will get you.
+
+    -- Perry Farrar
+       Germantown, Maryland""",
+
+"""Furious activity is no substitute for understanding.
+
+    -- H. H. Williams
+       Oakland, California
+       September 1985""",
+        ]
+
+CWD = 'whiteBoxHacking'
+HOSTNAME = "docker-l-4vcpu-7gb-slc13-37"
+UID = 1337
+USERNAME = "hackerman"
+
+# !!! SECURITY NOTICE !!!
+# 'shell' should ALWAYS be False; otherwise, students can inject extra commands after ";", "&", etc.
+OPTS = {'shell': False, 'cwd': CWD, 'stdout': subprocess.PIPE}
+
 @login_required()
 def unix(request):
+    if request.GET and 'unix' in request.GET:
+        cmdline = request.GET['unix']
 
-    if request.GET:
-        unixCommand = request.GET['unix']
+        if cmdline == "":
+            return HttpResponse("<pre>bash: : command not found</pre>")
 
-        if re.search("\.\./", unixCommand):
-            return HttpResponse(f"You are not allowed to back out of a folder. Sorry.")
+        args = re.split(' +', cmdline)
+        cmd = args.pop(0)
 
+        if "../" in cmd:
+            return HttpResponse(f"<pre>bash: {cmd}: command not found</pre>")
 
-        if unixCommand == "":
-            return HttpResponse("bash: "": command not found")
-        elif unixCommand == "ls" or unixCommand == "ls -a" or unixCommand.startswith('ls'):
-            words = unixCommand.split(' ')
-            if re.search('-', unixCommand):
-                words.insert(2, 'whiteBoxHacking/')
-            else:
-                words.insert(1, 'whiteBoxHacking/')
-            newUnixCommand = ''
-            for word in words:
-                newUnixCommand += word
-                if not word.endswith('/'):
-                    newUnixCommand += ' '
-            result = subprocess.run([newUnixCommand], stdout=subprocess.PIPE, shell=True)
-            return HttpResponse(f"{result.stdout.decode('utf-8')}")
+        elif ".." in args:
+            return HttpResponse(f"<pre>bash: {cmd}: Permission denied</pre>")
 
-        elif unixCommand.startswith("cat"):
-            if (unixCommand == 'cat .env'):
+        elif cmd == 'ls':
+            result = subprocess.run([cmd, *args], **OPTS)
+            return HttpResponse(f"<pre>{result.stdout.decode('utf-8')}</pre>")
+
+        elif cmd == "cat":
+            if len(args) == 1 and args[0] == '.env':
                 challenge7 = Challenge.objects.get(templateValue=7)
-                return HttpResponse(f"Challenge 7 Flag: {challenge7.flag}")
+                return HttpResponse(f"<pre>Challenge 7 Flag: {challenge7.flag}</pre>")
+            else:
+                result = subprocess.run([cmd, *args], **OPTS)
+                return HttpResponse(f"<pre>{result.stdout.decode('utf-8')}</pre>")
 
-            words = unixCommand.split(' ')
-            words.insert(1, 'whiteBoxHacking/')
-            newUnixCommand = ''
-            for word in words:
-                newUnixCommand += word
-                if not word.endswith('/'):
-                    newUnixCommand += ' '
+        elif cmd in SAFE:
+            result = subprocess.run([cmd, *args], **OPTS)
+            return HttpResponse(f"<pre>{result.stdout.decode('utf-8')}</pre>")
 
-            result = subprocess.run([newUnixCommand], stdout=subprocess.PIPE, shell=True)
-            return HttpResponse(f"{result.stdout.decode('utf-8')}")
-        elif unixCommand.startswith("cp") or unixCommand.startswith("mv") or unixCommand.startswith("touch") or unixCommand.startswith("rm") or unixCommand.startswith("locate") or unixCommand.startswith("grep") or unixCommand.startswith("cd"):
-            return HttpResponse("bash: "": command not found")
+        elif cmd in BLACKLIST:
+            return HttpResponse(f"<pre>bash: {cmd}: Permission denied</pre>")
+
+        elif cmd in NOT_A_TTY:
+            return HttpResponse(f"<pre>{cmd}: stdin is not a tty</pre>")
+
+        elif cmd in NOOP:
+            return HttpResponse(f"<pre></pre>")
+
+        # fake command output
+        elif cmd == 'df':
+            return HttpResponse("<pre>Filesystem     1K-blocks     Used Available Use% Mounted on<br/>/dev/vda1       25226960 18668320   6542256  75% /</pre>")
+
+        elif cmd == 'fortune': # Encourage students with a random hint
+            return HttpResponse(f"<pre>{re.sub('\n', '<br/>', random.choice(FORTUNES))}</pre>")
+
+        elif cmd == 'free':
+            return HttpResponse("<pre> total        used        free      shared  buff/cache   available<br/>Mem:        1004892      486940       87752        3372      430200      347140<br/>Swap:             0           0           0                    </pre>")
+
+        elif cmd == 'hostname':
+            if args != []:
+                return HttpResponse(f"<pre>{HOSTNAME}</pre>")
+            else:
+                return HttpResponse(f"<pre>hostname: you must be root to change the host name</pre>")
+
+        elif cmd == 'id':
+            return HttpResponse(f"<pre>uid={UID}({USERNAME}) gid={UID}({USERNAME}) groups={UID}({USERNAME})</pre>")
+
+        elif cmd == 'sudo':
+            return HttpResponse(f"<pre>{USERNAME} is not in the sudoers file.   This incident will be reported.</pre>")
+
+        elif cmd == 'uptime':
+            return HttpResponse(f"<pre>{strftime('%H:%M:%S')} up 1337 days, 13:37,  3 users,  load average: 0.05, 0.02, 0.01</pre>")
+
+        elif cmd == 'whoami' or cmd == 'who':
+            return HttpResponse(f"<pre>{USERNAME}</pre>")
+
         else:
-            return HttpResponse(f"bash: {unixCommand} not a valid command")
+            return HttpResponse(f"<pre>bash: {cmd}: command not found</pre>")
+    else:
+        return HttpResponse("<pre>bash: : command not found</pre>")
+
 
 @login_required()
 def cookieValidation(request):
     challenge = Challenge.objects.get(templateValue=9)
     if request.COOKIES.get('FORSPARTA!') == "HYAAAAAA!HYAAAAAA!HYAAAAAA!":
-        return HttpResponse(challenge.flag)
+        return HttpResponse(f"<pre>{challenge.flag}</pre>")
     else:
-        return HttpResponse("Not Authorized")
-
+        return HttpResponse("<h2>Not Authorized</h2><p>Go back and try again</p>")
