@@ -130,7 +130,9 @@ def unix(request):
             return HttpResponse("<pre>Filesystem     1K-blocks     Used Available Use% Mounted on<br/>/dev/vda1       25226960 18668320   6542256  75% /</pre>")
 
         elif cmd == 'fortune': # Encourage students with a random hint
-            return HttpResponse(f"<pre>{re.sub('\n', '<br/>', random.choice(FORTUNES))}</pre>")
+            # F strings freaked out at a backslash. This is a hacky way to combat this
+            newlineCharacter = '\n'
+            return HttpResponse(f"<pre>{re.sub('{newlineCharacter}', '<br/>', random.choice(FORTUNES))}</pre>")
 
         elif cmd == 'free':
             return HttpResponse("<pre> total        used        free      shared  buff/cache   available<br/>Mem:        1004892      486940       87752        3372      430200      347140<br/>Swap:             0           0           0                    </pre>")
