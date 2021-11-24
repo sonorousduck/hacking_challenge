@@ -89,22 +89,24 @@ def unix(request):
     if request.GET and 'unix' in request.GET:
         cmdline = request.GET['unix']
 
+        print(f"\n>>> UNIX: Running '{cmdline}' <<<")  # DELETE ME
+
         if cmdline == "":
             return HttpResponse("<pre>bash: : command not found</pre>")
 
-        args = re.split(' +', cmdline)
+        # filter out empty arguments found after splitting the command line on whitespace
+        args = list(filter(None, re.split('\s+', cmdline)))
         cmd = args.pop(0)
+        print(f">>> UNIX: cmd='{cmd}' args={args} <<<\n")  # DELETE ME
 
         if cmd in NOOP:
             return HttpResponse(f"<pre></pre>")
 
-        elif "../" in cmd:
+        elif "../" in cmd or cmd.startswith("/"):
             return HttpResponse(f"<pre>bash: {cmd}: command not found</pre>")
 
-        elif ".." in args:
-            return HttpResponse(f"<pre>bash: {cmd}: Permission denied</pre>")
-
         elif cmd == 'ls':
+            args = filter(lambda s: not s.startswith('/') and '..' not in s, args)
             result = subprocess.run([cmd, *args], **OPTS)
             return HttpResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>")
 
@@ -113,10 +115,12 @@ def unix(request):
                 challenge7 = Challenge.objects.get(templateValue=7)
                 return HttpResponse(f"<pre>Challenge 7 Flag: {challenge7.flag}</pre>")
             else:
+                args = filter(lambda s: not s.startswith('/') and '..' not in s, args)
                 result = subprocess.run([cmd, *args], **OPTS)
                 return HttpResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>")
 
         elif cmd in WHITELIST:
+            args = filter(lambda s: not s.startswith('/') and '..' not in s, args)
             result = subprocess.run([cmd, *args], **OPTS)
             return HttpResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>")
 
