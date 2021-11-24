@@ -28,7 +28,7 @@ BLACKLIST = [
         "zip", "zsh",
         ]
 
-WHITELIST = ['echo', 'printf', 'pwd', 'tty', 'cal', 'figlet']
+WHITELIST = ['echo', 'printf', 'pwd', 'tty', 'cal', 'figlet', 'find', 'man']
 
 NOOP = ["true", "false", "cd", "fg", "bg", "jobs", "pushd", "popd"]
 
