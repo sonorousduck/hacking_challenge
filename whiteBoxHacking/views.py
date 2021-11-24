@@ -20,15 +20,15 @@ def showViews(request):
 BLACKLIST = [
         "ash", "awk", "bash", "bc", "bunzip2", "bzip2", "chgrp", "chmod",
         "chown", "chsh", "compress", "cp", "cpio", "dash", "du", "env",
-        "factor", "finger", "fish", "grep", "gunzip", "gzip", "ifconfig", "ip",
-        "iwconfig", "journalctl", "ksh", "locate", "mkdir", "mount", "mv",
-        "netcat", "netstat", "nmap", "ping", "python", "python2", "python3",
-        "reboot", "rm", "rmdir", "sed", "sh", "shutdown", "sleep", "systemctl",
-        "tar", "telinit", "touch", "tree", "umount", "unzip", "xxd", "xz",
-        "zip", "zsh",
+        "factor", "find", "finger", "fish", "grep", "gunzip", "gzip",
+        "ifconfig", "ip", "iwconfig", "journalctl", "ksh", "locate", "mkdir",
+        "mount", "mv", "netcat", "netstat", "nmap", "ping", "python",
+        "python2", "python3", "reboot", "rm", "rmdir", "sed", "sh", "shutdown",
+        "sleep", "systemctl", "tar", "telinit", "touch", "tree", "umount",
+        "unzip", "xxd", "xz", "zip", "zsh",
         ]
 
-WHITELIST = ['echo', 'printf', 'pwd', 'tty', 'cal', 'figlet', 'find', 'man']
+WHITELIST = ['echo', 'printf', 'pwd', 'tty', 'cal', 'figlet', 'man']
 
 NOOP = ["true", "false", "cd", "fg", "bg", "jobs", "pushd", "popd"]
 
