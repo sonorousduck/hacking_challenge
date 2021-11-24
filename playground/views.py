@@ -8,7 +8,8 @@ from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 
 
 def index(request): 
-    return render(request, 'playground/index.html')
+    pythonVersion = sys.version
+    return render(request, 'playground/index.html', {'version': pythonVersion})
 
 
 def getDatabaseData(request):
