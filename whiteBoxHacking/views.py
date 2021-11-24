@@ -18,16 +18,17 @@ def showViews(request):
     return render(request, 'views.py')
 
 BLACKLIST = [
-        "ash", "awk", "bash", "bc", "bunzip2", "bzip2", "compress", "cp",
-        "cpio", "dash", "du", "env", "factor", "finger", "grep", "gunzip",
-        "gzip", "ifconfig", "ip", "iwconfig", "journalctl", "locate", "mkdir",
-        "mount", "mv", "netcat", "netstat", "nmap", "ping", "python",
-        "python2", "python3", "rm", "rmdir", "sed", "sh", "sleep", "systemctl",
+        "ash", "awk", "bash", "bc", "bunzip2", "bzip2", "chgrp", "chmod",
+        "chown", "chsh", "compress", "cp", "cpio", "dash", "du", "env",
+        "factor", "finger", "fish", "grep", "gunzip", "gzip", "ifconfig", "ip",
+        "iwconfig", "journalctl", "ksh", "locate", "mkdir", "mount", "mv",
+        "netcat", "netstat", "nmap", "ping", "python", "python2", "python3",
+        "reboot", "rm", "rmdir", "sed", "sh", "shutdown", "sleep", "systemctl",
         "tar", "telinit", "touch", "tree", "umount", "unzip", "xxd", "xz",
         "zip", "zsh",
         ]
 
-SAFE = ['echo', 'printf', 'pwd', 'tty']
+WHITELIST = ['echo', 'printf', 'pwd', 'tty', 'cal']
 
 NOOP = ["true", "false", "cd", "fg", "bg", "jobs", "pushd", "popd"]
 
@@ -81,7 +82,7 @@ USERNAME = "hackerman"
 
 # !!! SECURITY NOTICE !!!
 # 'shell' should ALWAYS be False; otherwise, students can inject extra commands after ";", "&", etc.
-OPTS = {'shell': False, 'cwd': CWD, 'stdout': subprocess.PIPE}
+OPTS = {'shell': False, 'cwd': CWD, 'stdout': subprocess.PIPE, 'stderr': subprocess.PIPE}
 
 @login_required()
 def unix(request):
@@ -94,7 +95,10 @@ def unix(request):
         args = re.split(' +', cmdline)
         cmd = args.pop(0)
 
-        if "../" in cmd:
+        if cmd in NOOP:
+            return HttpResponse(f"<pre></pre>")
+
+        elif "../" in cmd:
             return HttpResponse(f"<pre>bash: {cmd}: command not found</pre>")
 
         elif ".." in args:
@@ -102,7 +106,7 @@ def unix(request):
 
         elif cmd == 'ls':
             result = subprocess.run([cmd, *args], **OPTS)
-            return HttpResponse(f"<pre>{result.stdout.decode('utf-8')}</pre>")
+            return HttpResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>")
 
         elif cmd == "cat":
             if len(args) == 1 and args[0] == '.env':
@@ -110,20 +114,17 @@ def unix(request):
                 return HttpResponse(f"<pre>Challenge 7 Flag: {challenge7.flag}</pre>")
             else:
                 result = subprocess.run([cmd, *args], **OPTS)
-                return HttpResponse(f"<pre>{result.stdout.decode('utf-8')}</pre>")
+                return HttpResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>")
 
-        elif cmd in SAFE:
+        elif cmd in WHITELIST:
             result = subprocess.run([cmd, *args], **OPTS)
-            return HttpResponse(f"<pre>{result.stdout.decode('utf-8')}</pre>")
+            return HttpResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>")
 
         elif cmd in BLACKLIST:
             return HttpResponse(f"<pre>bash: {cmd}: Permission denied</pre>")
 
         elif cmd in NOT_A_TTY:
             return HttpResponse(f"<pre>{cmd}: stdin is not a tty</pre>")
-
-        elif cmd in NOOP:
-            return HttpResponse(f"<pre></pre>")
 
         # fake command output
         elif cmd == 'df':
