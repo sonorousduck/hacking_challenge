@@ -201,10 +201,10 @@ def populate_db(apps, schema_editor):
     hint_10_1 = Hint(challenge=challenge_10, hint="Fetch Commands in Javascript")
     hint_10_1.save()
 
-    challenge_11 = Challenge(flag="mYCaBbageS!", title="Cryptology part i.", description="This is designed to get a little experience with Cryptology. Thus this one is fairly easy. The hash was performed by shifting all letters 4 over", order=14, difficultyIndicator = "Hard", optionalChallenge=True, templateValue=11)
+    challenge_11 = Challenge(flag="mYCaBbageS!", title="Brute Force Part 2", description="Contained in a previous challenge were more emails and passwords. Find the correct one and log in. This is the easiest of the hard challenges", order=14, difficultyIndicator = "Hard", optionalChallenge=True, templateValue=11)
     challenge_11.save()
 
-    hint_11_0 = Hint(challenge=challenge_11, hint="Basic Effort")
+    hint_11_0 = Hint(challenge=challenge_11, hint="Brute Force Methods")
     hint_11_0.save()
 
     challenge_12 = Challenge(flag="YouAreAnAdminNow77@^</>", title="Cross Site Scripting", description="We need you to find a way to become an admin for the very man you were working for and end him. He is evil. You helped him. Our intel tells us there is a single way for this to be done. Good luck.", order=15, difficultyIndicator = "Hard", templateValue=12, optionalChallenge=True)
