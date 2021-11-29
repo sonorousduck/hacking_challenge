@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="{% static 'challenges/incorrectIndicator.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/challengeBar.css' %}">
         <title> Challenge {{ challenge.order }} </title>
-        <script src="https://unpkg.com/vue@next"></script>
         <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
 
@@ -25,7 +24,7 @@
 
         <div class="loneWolfDiv">
             <a class="loneWolfLink" href="../../LoneWolf/"> 
-                <img class="wolfLogo" src={% static 'challenges/loneWolf.jpeg' %}/> 
+                <img class="wolfLogo" src="{% static 'challenges/loneWolf.jpeg' %}"/> 
                 <br>
                 Lone Wolf 
             </a>

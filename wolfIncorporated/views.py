@@ -131,7 +131,7 @@ def sendEmail(request):
         if 'document.cookie' in emailContent:
             any_in = lambda a, b: bool(set(emailContent).intersection(cookieGetterPossibilities))
             if '<script>' in emailContent and '</script>' in emailContent or any_in:
-                if 'fetch' in emailContent and '77.165.734.77' in emailContent and LoneWolfUser.objects.get(user=request.user).serverIsRunning:
+                if 'fetch' in emailContent and '203.0.113.113' in emailContent and LoneWolfUser.objects.get(user=request.user).serverIsRunning:
                     if 'Everyone' == recipient:
                         employees = FellowEmployee.objects.filter(loneWolfUser = LoneWolfUser.objects.get(user=request.user))
                         cookieString = ''
@@ -268,11 +268,11 @@ def console(request):
                     loneWolfAgent = LoneWolfUser.objects.get(user=request.user)
                     
                     if loneWolfAgent.serverIsRunning:
-                        messages.add_message(request, messages.INFO, "I don't understand... The server is already running on 77.165.734.77")
+                        messages.add_message(request, messages.INFO, "I don't understand... The server is already running on 203.0.113.113")
                     else:
                         loneWolfAgent.serverIsRunning = True
                         loneWolfAgent.save()
-                        messages.add_message(request, messages.INFO, "Server Starting up... \n Server Running on 77.165.734.77")
+                        messages.add_message(request, messages.INFO, "Server Starting up... \n Server Running on 203.0.113.113")
 
 
 
