@@ -55,10 +55,12 @@
         {% endif %}
 
 
+
+
         {% if first_name %}
             <div class="centered usernameText"> {{ first_name }} {{ last_name }} </div>
             {% if serverRunning %}
-                <div class="centered">Server is running on 77.165.734.77 </div>
+                <div class="centered">Server is running on 203.0.113.113 </div>
             {% endif %}
             {% if admin %}
             <div class="centered"> Your flag is {{flag}} </div>
@@ -77,6 +79,10 @@
                     <div class="centered"> [% date %] </div>
                     <div class="centered"> [% time %] </div>
                     <div class="clock-in" @click="clockIn"> Clock In </div>
+                    <form action="deleteAllEmails/" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete Emails" class="delete-emails"/>
+                    </form>
                 </div>
 
 
