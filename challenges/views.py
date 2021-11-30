@@ -136,7 +136,7 @@ def validation(request):
             data = json.loads(customUser.challenges)
             incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
 
-            if data[challenge_id]['completed'] != 'true':
+            if data[challenge_id]['completed'] != 'true' and allGood:
                 customUser.completedChallenges += 1
 
                 if not Challenge.objects.get(order=challenge_id).optionalChallenge:
