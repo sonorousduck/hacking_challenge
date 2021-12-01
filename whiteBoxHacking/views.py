@@ -80,8 +80,7 @@ HOSTNAME = "docker-l-4vcpu-7gb-slc13-37"
 UID = 1337
 USERNAME = "hackerman"
 
-# !!! SECURITY NOTICE !!!
-# 'shell' should ALWAYS be False; otherwise, students can inject extra commands after ";", "&", etc.
+# 'shell' should ALWAYS be False to avoid shell metacharacter interpolation
 OPTS = {'shell': False, 'cwd': CWD, 'stdout': subprocess.PIPE, 'stderr': subprocess.PIPE}
 
 @login_required()
@@ -89,7 +88,8 @@ def unix(request):
     if request.GET and 'unix' in request.GET:
         cmdline = request.GET['unix']
 
-        print(f"\n>>> UNIX: Running '{cmdline}' <<<")  # DELETE ME
+        # Log commands students run, in case somebody does something naughty
+        print(f"  >>> {request.user}@{request.META['REMOTE_ADDR']} ran '{cmdline}' <<<")
 
         if cmdline == "":
             return HttpResponse("<pre>bash: : command not found</pre>")
@@ -97,7 +97,6 @@ def unix(request):
         # filter out empty arguments found after splitting the command line on whitespace
         args = list(filter(None, re.split('\s+', cmdline)))
         cmd = args.pop(0)
-        print(f">>> UNIX: cmd='{cmd}' args={args} <<<\n")  # DELETE ME
 
         if cmd in NOOP:
             return HttpResponse(f"<pre></pre>")
@@ -168,8 +167,8 @@ def unix(request):
 
 @login_required()
 def cookieValidation(request):
-    challenge = Challenge.objects.get(templateValue=9)
+    challenge9 = Challenge.objects.get(templateValue=9)
     if request.COOKIES.get('FORSPARTA!') == "HYAAAAAA!HYAAAAAA!HYAAAAAA!":
-        return HttpResponse(f"<pre>{challenge.flag}</pre>")
+        return HttpResponse(f"<pre>{challenge9.flag}</pre>")
     else:
         return HttpResponse("<h2>Not Authorized</h2><p>Go back and try again</p>")

@@ -35,10 +35,10 @@
 
 
         <div class="loginForm">
-            <form action="../cookieValidation/" method="POST" autocomplete="off">
+            <form action="/WhiteBox/cookieValidation" method="POST" autocomplete="off">
                 {% csrf_token %}
-                <input class="formEntry bash" type="password" name="password">
-                <button type="submit"> Submit </button>
+                <input class="formEntry bash" type="password" name="password" placeholder="Cookie go CRUNCH!" />
+                <button type="submit">Validate Cookie</button>
             </form>
         </div>
 
