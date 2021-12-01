@@ -9,4 +9,5 @@ urlpatterns = [
         path('', views.index, name='whiteBox'),
         path('views.py/', views.showViews, name='views'),
         path('giveWhatTheyWant', views.unix, name='unix'),
+        path('cookieValidation', views.cookieValidation, name='cookieValidation'),
 ]

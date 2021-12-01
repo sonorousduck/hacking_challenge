@@ -675,9 +675,9 @@ def secure(request):
 def cookieValidation(request):
     challenge = Challenge.objects.get(order=9)
     if request.POST['password'] == '':
-        return HttpResponse("Not Authorized")
+        return HttpResponse("Not Authorized - empty password")
     elif request.COOKIES.get('ryansbestta') == 'spamspamspamspamspamspameggsspam':
         return HttpResponse(challenge.flag)
     else: 
-        return HttpResponse("Not Authorized")
+        return HttpResponse("Not Authorized - so, yeah")
 """

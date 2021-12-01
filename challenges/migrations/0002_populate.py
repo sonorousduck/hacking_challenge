@@ -231,7 +231,7 @@ def populate_db(apps, schema_editor):
     hint_13_3 = Hint(challenge=challenge_13, hint="Don't be afraid to guess. The decryption of the flag and text both are recognizable English, so as you start narrowing things down, it should become easier and easier")
     hint_13_3.save()
 
-    challenge_loneWolf_0 = Challenge(flag="#CH**O#SEN_#^%ON--=E", title="Lone Wolf Part 1", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=11, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf", templateValue=14)
+    challenge_loneWolf_0 = Challenge(flag="#CH**O#SEN_#^%ON--=E", title="Lone Wolf Part 1", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=11, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf", templateValue=14, optionalChallenge=True)
     challenge_loneWolf_0.save()
 
     hint_loneWolf_0 = Hint(challenge=challenge_loneWolf_0, hint="GET requests")
@@ -240,7 +240,7 @@ def populate_db(apps, schema_editor):
     hint_loneWolf_0_1 = Hint(challenge=challenge_loneWolf_0, hint="Weak Authentication validators")
     hint_loneWolf_0_1.save()
 
-    challenge_loneWolf_2 = Challenge(flag="DO!ITSTRI#^KETH445ESE*RV^ERD#@OWN", title="Lone Wolf Part 2", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=12, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf", templateValue=16)
+    challenge_loneWolf_2 = Challenge(flag="DO!ITSTRI#^KETH445ESE*RV^ERD#@OWN", title="Lone Wolf Part 2", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=12, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf", templateValue=16, optionalChallenge=True)
     challenge_loneWolf_2.save()
 
     hint_loneWolf_0_2 = Hint(challenge=challenge_loneWolf_2, hint="Fetch Requests")
@@ -250,7 +250,7 @@ def populate_db(apps, schema_editor):
     hint_loneWolf_0_3 = Hint(challenge=challenge_loneWolf_2, hint="Maybe try using the console?")
     hint_loneWolf_0_3.save()
 
-    challenge_loneWolf_3 = Challenge(flag="Y2OU!@MONSdsTER%^", title="Lone Wolf Part 3", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=13, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf", templateValue=17)
+    challenge_loneWolf_3 = Challenge(flag="Y2OU!@MONSdsTER%^", title="Lone Wolf Part 3", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=13, difficultyIndicator = "Moderate", challengeSeries = "LoneWolf", templateValue=17, optionalChallenge=True)
     challenge_loneWolf_3.save()
 
 

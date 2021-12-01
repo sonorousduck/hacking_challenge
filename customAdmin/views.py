@@ -29,7 +29,7 @@ def index(request):
         plt.xlabel('Challenges')
         plt.ylabel('Incorrect Guesses Total')
         plt.bar(orderChallenges, incorrectGuesses, align='center', alpha=0.6)
-        plt.savefig('customAdmin/static/customAdmin/incorrectGuesses.png')
+        plt.savefig('static/customAdmin/incorrectGuesses.png')
 
         return render(request, 'customAdmin/index.html', {'dates': dates, 'allChallenges': allChallenges})
     else: 
