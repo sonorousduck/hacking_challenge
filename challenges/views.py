@@ -193,7 +193,7 @@ def validation(request):
                     achievements.append('Flawless')
                     customUser.achievements = json.dumps(achievements)
 
-                if customUser.completedRequiredChallenges == customUser.numRequiredChallenges:
+                if customUser.completedRequiredChallenges == customUser.numRequiredChallenges and customUser.completedAllChallenges == customUser.numRequiredChallenges:
                     classFirst = Achievements.objects.get(title="Class First")
                     classSecond = Achievements.objects.get(title="Class Second")
                     classThird = Achievements.objects.get(title="Class Third")
