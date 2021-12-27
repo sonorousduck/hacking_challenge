@@ -142,7 +142,7 @@ def unix(request):
             return HttpResponse("<pre> total        used        free      shared  buff/cache   available<br/>Mem:        1004892      486940       87752        3372      430200      347140<br/>Swap:             0           0           0                    </pre>")
 
         elif cmd == 'hostname':
-            if args != []:
+            if args == []:
                 return HttpResponse(f"<pre>{HOSTNAME}</pre>")
             else:
                 return HttpResponse(f"<pre>hostname: you must be root to change the host name</pre>")
