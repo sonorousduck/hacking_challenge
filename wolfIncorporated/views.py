@@ -242,6 +242,7 @@ def console(request):
         return render(request, 'wolfIncorporated/console.html')
 
     else:
+
         validCommands = ['python', 'ls', 'pwd', 'cat']
         files = 'server.py randomFile.txt anotherRandomFile.txt instructions.txt'
         instructions = "File Content: Start the server, and maybe try doing something to send a way to log in to the server? Just an idea...?"
@@ -260,7 +261,10 @@ def console(request):
                 """
         command = request.POST['console']
         commandList = list(filter(command.startswith, validCommands))
-        isValidCommand = commandList[0] in validCommands 
+        try:
+            isValidCommand = commandList[0] in validCommands 
+        except:
+            isValidCommand = False
 
         if isValidCommand:
             if commandList[0] == 'python':
@@ -272,7 +276,7 @@ def console(request):
                     else:
                         loneWolfAgent.serverIsRunning = True
                         loneWolfAgent.save()
-                        messages.add_message(request, messages.INFO, "Server Starting up... \n Server Running on 203.0.113.113")
+                        messages.add_message(request, messages.INFO, "Server Starting up... \n Server Running on 203.0.113.113. (Feel Free to write emails fetching to this server. It isn't a real one, just an emulated one)")
 
 
 
@@ -288,7 +292,7 @@ def console(request):
                 elif command.endswith('server.py'):
                     messages.add_message(request, messages.INFO, server)
         else:
-            pass
+            messages.add_message(request, messages.INFO, "Invalid Command") 
         
         return HttpResponseRedirect(reverse('wolfIncorporated:console'), request)
 

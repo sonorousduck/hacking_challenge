@@ -79,10 +79,6 @@
                     <div class="centered"> [% date %] </div>
                     <div class="centered"> [% time %] </div>
                     <div class="clock-in" @click="clockIn"> Clock In </div>
-                    <form action="deleteAllEmails/" method="POST">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete Emails" class="delete-emails"/>
-                    </form>
                 </div>
 
 

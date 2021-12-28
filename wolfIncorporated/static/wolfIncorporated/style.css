@@ -164,12 +164,6 @@ body {
     cursor: pointer;
 }
 
-
-
-
-
-
-
 .centered {
     text-align: center;
     align: center;
@@ -393,7 +387,7 @@ body {
 
 .fromServer {
     padding: 16px;
-
+	font-size: 32px;
 
 }
 

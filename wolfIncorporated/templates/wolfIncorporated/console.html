@@ -24,12 +24,12 @@
         </div>
 
 
+
         <div id="hint"> *Very limited commands* </div>
 
         <div class="console">
             <form class="form" action="" method="POST" autocomplete="off">
                 {% csrf_token %}
-                <!-- <input type="text" id="consoleInput" name="console" autofocus> -->
                 <textarea id="consoleInput" onkeydown="pressed(event)" placeholder="%" name="console" autofocus></textArea>
 
                 {% if messages %}
@@ -38,6 +38,12 @@
             </form>
         </div>
         
+		<div>
+		<form action="../deleteAllEmails/" method="POST">
+			{% csrf_token %}
+			<input type="submit" value="Delete Emails" class="delete-emails"/>
+		</form>
+		</div>
 
 
     </body>
