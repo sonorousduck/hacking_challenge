@@ -11,3 +11,7 @@
 - For importing the backup, run import.sh, and that will take care of all the migrations and importing the database
 
 
+# Todo:
+
+1. Look into using more threads for nginx (if possible)
+2. Add new challenges
