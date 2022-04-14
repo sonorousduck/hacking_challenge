@@ -13,6 +13,7 @@ Main Blue: #45A29E
 ## Top Bar:
 
 Background Color: #2c2c2c
+box-shadow: 0 2px 8px 0 #000;
 
 
 ## Card:
