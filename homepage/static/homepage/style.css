@@ -259,15 +259,15 @@ body {
 .achievement {
     padding: 16px;
     border-radius: 5px;
-    border: solid 2px #1F2833;
     display: inline-block;
     margin: 8px;
-    background: #C5C6C7; 
+    background: #2c2c2c;
+    box-shadow: 0 2px 8px 0 #000;
 }
 
 .achievementTitle {
     font-size: 16px;
-    color: #1F2833;
+    color: #fff;
     margin-bottom: 8px;
     font-weight: bold;
 }
@@ -281,7 +281,7 @@ body {
 .achievementDescription {
     font-style: italic;
     max-width: 175px;
-    color: #1F2833;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 #achievementsLabel {

@@ -22,7 +22,7 @@
             <div class="challengeCard" id="easy">
                 <div class="title"> Easy </div>
                 <hr class="titleBar">
-                <img class="skullImage" src={% static 'challenges/skull.jpg' %} />
+                <img class="skullImage" src={% static 'challenges/skull.png' %} />
                 <div class="completedLevels"> {{ easyCompleted }}/{{ easyChallenges.count }} Completed </div>
                 {% if currentEasyChallenge  == 'completed' %}
                 <a class="link" href={{ currentEasyChallenge }}>
@@ -40,7 +40,7 @@ Complete </div>
             <div class="challengeCard" id="moderate">
                 <div class="title"> Moderate </div>
                 <hr class="titleBar">
-                <img class="skullImage" src={% static 'challenges/skullAndCrossBones.jpg' %} />
+                <img class="skullImage" src={% static 'challenges/skullAndCrossBones.png' %} />
                 <div class="completedLevels"> {{ moderateCompleted }}/{{ moderateChallenges.count }} Completed</div>
                 {% if moderateLocked == 'true' %}
                     <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked </div>
@@ -60,7 +60,7 @@ Complete </div>
             <div class="challengeCard" id="hard">
                 <div class="title"> Hard </div>
                 <hr class="titleBar">
-                <img class="skullImage" src={% static 'challenges/anonymous.jpg' %} />
+                <img class="skullImage" src={% static 'challenges/anonymous.png' %} />
                 <div class="completedLevels"> {{ hardCompleted }}/{{ hardChallenges.count }} Completed </div>
                 {% if hardLocked == 'true' %}
                     <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked (Optional) </div>
