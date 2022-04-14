@@ -1,13 +1,16 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #121212;
 }
 
 .title {
     font-size: 24px;
-    background: #0B0C10;
+    background: #2c2c2c;
     padding: 8px 32px;
     color: #66FCF1;
+    box-shadow: 0 2px 8px 0 #000;
+
 }
 
 #hackingChallengeTitle {
@@ -46,6 +49,9 @@ body {
     font-size: 16px;
     margin-bottom: 4px;
     margin-top: 4px;
+    background-color: #2c2c2c;
+    border-color: #121212;
+    color: #fff;
     transition: all 0.2s ease-in-out;
 }
 
@@ -55,16 +61,16 @@ body {
 
 
 #submitButton {
-    max-width: 200px;
-    width: 200px;
+    flex-basis: 20%;
     background-color: #45A29E;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
     color: white;
-    text-align: center;
     border-radius: 8px;
-    margin: 8px 0px 8px 8px; 
-    height: 42px;
-    vertical-align: middle;
-    line-height: 42px;
+    padding: 0px 8px;
+    box-shadow: 0 2px 8px 0 #000;
     transition: all 0.2s ease-in-out;
 }
 
@@ -75,10 +81,17 @@ body {
 }
 
 .signUpText {
-    margin-top: 32px;
+    flex-basis: 30%;
+    line-height: 50px;
+    vertical-align: bottom;
     font-weight: 700;
+    justify-content: flex-start;
     transition: all 0.2s ease-in-out;
-    float: left;
+    border-color: #45A29E;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px;
+    padding: 0px 8px;
 }
 
 .signUpText:hover {
@@ -117,27 +130,30 @@ body {
     padding: 8px;    
     flex-basis: 33%;
     margin-top: 15%;
+    color:white;
 }
 
 .signinForm {
     padding: 16px;
     margin-top: 24px;
-    box-shadow: 0 2px 4px 0 #0B0C10;
+    box-shadow: 0 2px 8px 0 #000;
     border-radius: 8px;
     text-align: center;
     width: 45%;
+    background-color: #1e1e1e;
 }
 
 
 .createAccountForm {
     padding: 16px;
     margin-top: 24px;
-    box-shadow: 0 2px 4px 0 #0B0C10;
+    box-shadow: 0 2px 8px 0 #000;
     border-radius: 8px;
     text-align: center;
     flex-basis: 66%;
     width: 100%;
     margin-left: 1%;
+    background-color: #1e1e1e;
 }
 
 .wrapperCreate {
@@ -155,6 +171,7 @@ body {
     font-weight: bold;
     margin-bottom: 64px;
     margin-top: 24px;
+    color: #ffffff;
 }
 
 .entry {
@@ -166,17 +183,21 @@ body {
 #submitButtonLogin {
     flex-basis: 20%;
     background-color: #45A29E;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
     color: white;
-    text-align: center;
     border-radius: 8px;
-    vertical-align: middle;
-    line-height: 50px;
+    padding: 0px 8px;
+    box-shadow: 0 2px 8px 0 #000;
     transition: all 0.2s ease-in-out;
 }
 
 #submitButtonLogin:hover {
     transform: scale(1.1);
     background-color: #30716e;
+    box-shadow: 0 2px 12px 0 #000;
     cursor: pointer;
 }
 
@@ -205,6 +226,11 @@ body {
     font-weight: 700;
     justify-content: flex-start;
     transition: all 0.2s ease-in-out;
+    border-color: #45A29E;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px;
+    padding: 0px 8px;
 }
 
 .signInText:hover {
