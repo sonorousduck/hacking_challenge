@@ -74,7 +74,8 @@ body {
 }
 
 .navbar {
-    background-color: #0B0C10;
+    background-color: #2c2c2c;
+    box-shadow: 0 2px 8px 0 #000;
     overflow: hidden;
 }
 
@@ -174,12 +175,14 @@ body {
     text-align: center;
     font-size: 48px;
     font-weight: bold;
+    color: #fff;
 }
 
 .levelDescription {
     align: center;
     text-align: center;
     font-size: 24px;
+    color: #fff;
 }
 
 #passcodeForm {
@@ -208,18 +211,18 @@ body {
 }
 
 #submitButton {
-    align: center;
     padding: 16px 48px;
     transition-duration: 0.2s;
-    background-color: #C5C6C7;
     border-radius: 10px;
     border: 2px solid #45A29E;
     margin-right: 8px;
+    color: #45A29E;
+    background-color: transparent;
+    font-weight: bold;
 }
 
 
 #submitButton:hover {
-    background-color: #C5C6C7;
     transform: scale(1.1);
 
 }
@@ -233,7 +236,9 @@ body {
     height: 55px;
     line-height: 55px;
     transition: all 0.2s ease-in-out;
-    border-radius: 10px;
+    box-shadow: 0 2px 8px 0 #000;
+    border-radius: 8px;
+    border: none;
     width: 350px;
 }
 
@@ -257,10 +262,29 @@ body {
     border-radius: 8px;
     border-style: solid;
     outline: none;
+    background-color: #C5C6C7;
+
 }
 .formEntry:focus {
     border-color: black;
 }
+
+.new-button {
+    padding: 16px 48px;
+    transition-duration: 0.2s;
+    border-radius: 10px;
+    border: 2px solid #45A29E;
+    margin-right: 8px;
+    color: #45A29E;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+.new-button:hover {
+    transform: scale(1.1);
+
+}
+
 
 .bash {
     width: 50%;
@@ -281,6 +305,7 @@ body {
 .titleDescription {
     font-size: 24px;
     font-weight: bold;
+    color: #fff;
 }
 
 .challengeContainer {
@@ -295,7 +320,7 @@ body {
 .loneWolfLink {
     align: center;
     text-align: center;
-    color: black;
+    color: #fff;
 }
 
 .loneWolfDiv {
@@ -306,6 +331,7 @@ body {
 #supplementalDescription {
     text-align: center;
     margin-top: 8px;
+    color: #45A29E;
 }
 
 .centered {
@@ -315,6 +341,7 @@ body {
 .small-text {
     font-size: 12px;
     font-style: italic;
+    color: #fff;
 }
 
 #mainContainer {
@@ -329,7 +356,7 @@ body {
 .challengeCard {
     flex: 33%; 
     margin: 24px;
-    border: solid 1px #1F2833;
+    border: none;
     border-radius: 8px;
     text-align: center;
     background-color: #1e1e1e;
@@ -359,7 +386,8 @@ body {
 
 .completedLevels {
     margin-bottom: 64px;
-    font-size: 24px;    
+    font-size: 24px;
+    color: #fff;
 }
 
 .customButton {
@@ -395,12 +423,17 @@ body {
     line-height: 50px;
 }
 
+.optional-text {
+    margin-top: 4px;
+    line-height: 25px;
+}
+
 .link {
     text-decoration: none;
 }
 
 .whiteBoxDetails {
     margin-top: 16px;
-
+    color: #45A29E;
 }
 

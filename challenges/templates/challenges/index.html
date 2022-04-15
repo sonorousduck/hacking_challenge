@@ -63,7 +63,7 @@ Complete </div>
                 <img class="skullImage" src={% static 'challenges/anonymous.png' %} />
                 <div class="completedLevels"> {{ hardCompleted }}/{{ hardChallenges.count }} Completed </div>
                 {% if hardLocked == 'true' %}
-                    <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked (Optional) </div>
+                    <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked <div class="optional-text"> (Optional, no credit/progress towards grade)</div> </div>
 
                 {% elif currentHardChallenge == 'completed' %}
                     <a class="link" href='hard/'>
@@ -72,7 +72,7 @@ Complete </div>
                     </a>
                 {% else %}
                     <a class="link" href='hard/'>
-                    <div class="customButton"> Continue (Optional) <i class="fa fa-arrow-right" aria-hidden="true"></i>  </div>
+                    <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i> <div class="optional-text"> (Optional, no credit/progress towards grade)</div> </div>
                     </a>
                 {% endif %}
             </div>
