@@ -210,7 +210,7 @@ body {
 #progressBar {
     background-color: #c5c6c7;
     border-radius: 8px;
-    border: solid 1px #b8b9ba;
+    border: none;
     width: 80%;
     max-width: 80%;
     margin-top: 16px;
@@ -238,6 +238,7 @@ body {
     background-color: #66FCF1;
     height: 40px;
     border-radius: 8px;
+    border: none;
     max-width: 100%;
 }
 

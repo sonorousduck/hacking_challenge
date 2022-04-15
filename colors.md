@@ -30,18 +30,15 @@ box-shadow: 0 2px 8px 0 #000;
 
 ### Outlined Button
 
-{
-    flex-basis: 30%;
-    line-height: 50px;
-    vertical-align: bottom;
-    font-weight: 700;
-    justify-content: flex-start;
-    transition: all 0.2s ease-in-out;
-    border-color: #45A29E;
-    border-radius: 8px;
-    border-style: solid;
-    border-width: 2px;
-    padding: 0px 8px;
+.new-button {
+    padding: 16px 48px;
+    transition-duration: 0.2s;
+    border-radius: 10px;
+    border: 2px solid #45A29E;
+    margin-right: 8px;
+    color: #45A29E;
+    background-color: transparent;
+    font-weight: bold;
 }
 
 ### Solid Button
