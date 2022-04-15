@@ -22,6 +22,8 @@ class CustomUser(models.Model):
     correctInARow = models.IntegerField(default=0)
     completedAllChallenges = models.BooleanField(default=False)
     percentComplete = models.FloatField(default=0.00)
+    completedAllRequired = models.BooleanField(default=False)
+    hasYouOkayBro = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['last_name']

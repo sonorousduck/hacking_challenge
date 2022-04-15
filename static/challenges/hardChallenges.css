@@ -5,6 +5,13 @@ body {
     color: #00FF00;
 }
 
+.notice {
+	margin-left: auto;
+	margin-right: auto;
+	color: #00FF00;
+	text-align: center;
+
+}
 
 .completedCard {
     box-shadow: 0 2px 4px 0 #0B0C10;

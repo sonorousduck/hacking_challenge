@@ -193,7 +193,8 @@ def validation(request):
                     achievements.append('Flawless')
                     customUser.achievements = json.dumps(achievements)
 
-                if customUser.completedRequiredChallenges == customUser.numRequiredChallenges and customUser.completedChallenges == customUser.numRequiredChallenges:
+                if customUser.completedRequiredChallenges == customUser.numRequiredChallenges and not customUser.completedAllRequired:
+                    customUser.completedAllRequired = True
                     classFirst = Achievements.objects.get(title="Class First")
                     classSecond = Achievements.objects.get(title="Class Second")
                     classThird = Achievements.objects.get(title="Class Third")
@@ -259,7 +260,8 @@ def validation(request):
             data = json.loads(customUser.challenges)
             incorrectPerChallengeData = json.loads(customUser.incorrectPerChallenge)
 
-            if customUser.numTotalIncorrectGuesses > 250:
+            if customUser.numTotalIncorrectGuesses > 250 and not customUser.hasYouOkayBro:
+                customUser.hasYouOkayBro = True
                 achievements = json.loads(customUser.achievements)
                 achievements.append('You Okay Bro?')
                 customUser.achievements = json.dumps(achievements)

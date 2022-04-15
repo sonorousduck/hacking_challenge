@@ -65,7 +65,7 @@ def populate_db(apps, schema_editor):
     achievement_19 = Achievement(title="Tenacious", description="Complete with over 200 incorrect guesses", achievementIcon="Tenacious.PNG")
     achievement_19.save()
 
-    achievement_20 = Achievement(title="Bot Status", description="Complete with over 277 incorrect guesses")
+    achievement_20 = Achievement(title="Bot Status", description="Complete with over 277 incorrect guesses", achievementIcon="BotStatus.PNG")
     achievement_20.save()
 
     achievement_21 = Achievement(title="You Okay Bro?", description="Have over 250 incorrect guesses", achievementIcon="UOKBro.PNG")

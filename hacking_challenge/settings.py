@@ -32,7 +32,12 @@ with open('/etc/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+<<<<<<< Updated upstream
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'aggiectf.gq', '206.189.210.78', "www.aggiectf.gq"]
+=======
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'aggiectf.tk', '206.189.210.78',
+        "www.aggiectf.tk", "aggiectf.gq", "www.aggiectf.gq", ]
+>>>>>>> Stashed changes
 
 LOGIN_URL = "loginSignup:login"
 
