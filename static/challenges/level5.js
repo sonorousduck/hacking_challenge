@@ -7,7 +7,6 @@ goodPasswordMaterial = [
   "a",
   "o"
 ];
-
 function generatePassword(material){
   goodPasswordMaterial.forEach((item, i) => {
     if (i % 2 == 0){
@@ -23,7 +22,7 @@ function generatePassword(material){
 
   return password;
 }
+document.cookie = `${generatePassword(goodPasswordMaterial)};expires=none; SameSite=Lax;`
 
-document.cookie = `P4$$\\/\\/0RD=${generatePassword(goodPasswordMaterial)}; expires=none; SameSite=Lax;`
 
 

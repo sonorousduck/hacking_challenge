@@ -24,7 +24,7 @@
 
         <div class="loneWolfDiv">
             <a class="loneWolfLink" href="../../WhiteBox/"> 
-                <img class="wolfLogo" src="{% static 'whiteBoxHacking/whitebox.jpeg' %}"/> 
+                <img class="wolfLogo" src="{% static 'whiteBoxHacking/whitebox.png' %}"/> 
                 <br>
                 White Box  
             </a>
@@ -38,7 +38,7 @@
             <form action="/WhiteBox/cookieValidation" method="POST" autocomplete="off">
                 {% csrf_token %}
                 <input class="formEntry bash" type="password" name="password" placeholder="Cookie go CRUNCH!" />
-                <button type="submit">Validate Cookie</button>
+                <button type="submit" class="new-button">Validate Cookie</button>
             </form>
         </div>
 
