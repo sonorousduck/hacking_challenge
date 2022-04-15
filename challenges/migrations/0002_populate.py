@@ -7,7 +7,7 @@ def populate_db(apps, schema_editor):
     Challenge = apps.get_model('challenges', 'Challenge')
     Hint = apps.get_model('challenges', 'Hint')
 
-
+    # This flag cannot change or it will break
     challenge_0 = Challenge(flag="password", title="Level 0", order=0, templateValue=0, hidden=False, description="You dare try to hack me!? You will never be able to!")
     challenge_0.save()
 
@@ -28,7 +28,7 @@ def populate_db(apps, schema_editor):
     hint_1_1 = Hint(challenge=challenge_1, hint="Browser Developer Tools")
     hint_1_1.save()
 
-
+    # This flag cannot change, it will break
     challenge_2 = Challenge(flag="0iL2oV4eH6aC8kI10nG", title="Level 2", order=2, hidden=False, description="HA! Javascript will help me here! Good luck with this one you little pest!", templateValue=2)
     challenge_2.save()
 
@@ -59,7 +59,8 @@ def populate_db(apps, schema_editor):
     hint_4_0 = Hint(challenge=challenge_4, hint="Developer Tools")
     hint_4_0.save()
 
-    challenge_5 = Challenge(flag="D0gIb2qF4aO6", title="Level 5", order=5, hidden=False, description="I guess I underestimated who YOU were. You ever think what would happen if I were hacking you at the same time? Maybe I'm scanning your IP address right now to find  out were you live. Mwahaha. Anyways, I moved the password out of the HTML, sending it directly from the server instead. Good luck finding it now LOL.", templateValue=5)
+    # This flag cannot change, it is reliant upon a JS function
+    challenge_5 = Challenge(flag="D0gI2qF4aO6", title="Level 5", order=5, hidden=False, description="I guess I underestimated who YOU were. You ever think what would happen if I were hacking you at the same time? Maybe I'm scanning your IP address right now to find  out were you live. Mwahaha. Anyways, I moved the password out of the HTML, sending it directly from the server instead. Good luck finding it now LOL.", templateValue=5)
     challenge_5.save()
 
 
