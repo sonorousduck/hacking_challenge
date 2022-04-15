@@ -29,7 +29,7 @@ def populate_db(apps, schema_editor):
     hint_1_1.save()
 
 
-    challenge_2 = Challenge(flag="0iL2oV4eH6baC8kI10nG", title="Level 2", order=2, hidden=False, description="HA! Javascript will help me here! Good luck with this one you little pest!", templateValue=2)
+    challenge_2 = Challenge(flag="0iL2oV4eH6aC8kI10nG", title="Level 2", order=2, hidden=False, description="HA! Javascript will help me here! Good luck with this one you little pest!", templateValue=2)
     challenge_2.save()
 
     hint_2_0 = Hint(challenge=challenge_2, hint="HTML")
