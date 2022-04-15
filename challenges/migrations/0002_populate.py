@@ -129,7 +129,7 @@ def populate_db(apps, schema_editor):
     hint_7_7 = Hint(challenge=challenge_7, hint="Hidden Files")
     hint_7_7.save()
 
-
+    # If you change this flag, it should be changed in /whiteBoxHacking/urls.py
     challenge_8 = Challenge(flag="1a2s3d4f5bg6h7j8k9l", title="Level 8", order=8, hidden=False, description="Good. Good. There are more security flaws. Find them.", templateValue=8)
     challenge_8.save()
 
