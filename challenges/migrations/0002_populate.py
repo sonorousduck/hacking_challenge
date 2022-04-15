@@ -7,7 +7,7 @@ def populate_db(apps, schema_editor):
     Challenge = apps.get_model('challenges', 'Challenge')
     Hint = apps.get_model('challenges', 'Hint')
 
-
+    # This flag cannot change or it will break
     challenge_0 = Challenge(flag="password", title="Level 0", order=0, templateValue=0, hidden=False, description="You dare try to hack me!? You will never be able to!")
     challenge_0.save()
 
@@ -18,7 +18,7 @@ def populate_db(apps, schema_editor):
     hint_0_1 = Hint(challenge=challenge_0, hint="Browser Developer Tools")
     hint_0_1.save()
 
-    challenge_1 = Challenge(flag="FJKLDAS$@*()789fds", title="Level 1", order=1, hidden=False, description="I admit, that first one was terrible security. This one isn't nearly as terrible.", templateValue=1)
+    challenge_1 = Challenge(flag="FBJKLDAS$@*()789fds", title="Level 1", order=1, hidden=False, description="I admit, that first one was terrible security. This one isn't nearly as terrible.", templateValue=1)
     challenge_1.save()
 
 
@@ -28,7 +28,7 @@ def populate_db(apps, schema_editor):
     hint_1_1 = Hint(challenge=challenge_1, hint="Browser Developer Tools")
     hint_1_1.save()
 
-
+    # This flag cannot change, it will break
     challenge_2 = Challenge(flag="0iL2oV4eH6aC8kI10nG", title="Level 2", order=2, hidden=False, description="HA! Javascript will help me here! Good luck with this one you little pest!", templateValue=2)
     challenge_2.save()
 
@@ -43,7 +43,7 @@ def populate_db(apps, schema_editor):
 
 
 
-    challenge_3 = Challenge(flag="@UK#K3ir3i2dsa", title="Level 3", order=3, hidden=False, description="Fine. Fine. Fine. I get it. Keeping it offsite would be a much better idea they told me. I'll do that.", templateValue=3)
+    challenge_3 = Challenge(flag="@UK#Kb3ir3i2dsa", title="Level 3", order=3, hidden=False, description="Fine. Fine. Fine. I get it. Keeping it offsite would be a much better idea they told me. I'll do that.", templateValue=3)
     challenge_3.save()
    
 
@@ -52,13 +52,14 @@ def populate_db(apps, schema_editor):
 
 
 
-    challenge_4 = Challenge(flag="T/E))2n-_-0!cj4--H*0?", title="Level 4", order=4, hidden=False, description="Do you not know who I am!? Leave me and my site alone! Offsite obviously didn't work. I'm using Javascript again.", templateValue=4)
+    challenge_4 = Challenge(flag="T/E))2n-_-0b!cj4--H*0?", title="Level 4", order=4, hidden=False, description="Do you not know who I am!? Leave me and my site alone! Offsite obviously didn't work. I'm using Javascript again.", templateValue=4)
     challenge_4.save()
 
 
     hint_4_0 = Hint(challenge=challenge_4, hint="Developer Tools")
     hint_4_0.save()
 
+    # This flag cannot change, it is reliant upon a JS function
     challenge_5 = Challenge(flag="D0gI2qF4aO6", title="Level 5", order=5, hidden=False, description="I guess I underestimated who YOU were. You ever think what would happen if I were hacking you at the same time? Maybe I'm scanning your IP address right now to find  out were you live. Mwahaha. Anyways, I moved the password out of the HTML, sending it directly from the server instead. Good luck finding it now LOL.", templateValue=5)
     challenge_5.save()
 
@@ -80,7 +81,7 @@ def populate_db(apps, schema_editor):
     hint_5_4.save()
 
     
-    challenge_6 = Challenge(flag="@U/*D4(DV}wT{F`e", title="Level 6", order=6, hidden=False, description="Forgive me if I seem neglectful now. I have... other tasks at hand. I just quickly implemented a sign in form instead. Sign in, gives password. Seems a little redundant for me to remember a password but oh well.", templateValue=6)
+    challenge_6 = Challenge(flag="@U/*Db4(DV}wT{F`e", title="Level 6", order=6, hidden=False, description="Forgive me if I seem neglectful now. I have... other tasks at hand. I just quickly implemented a sign in form instead. Sign in, gives password. Seems a little redundant for me to remember a password but oh well.", templateValue=6)
     challenge_6.save()
 
 
@@ -101,7 +102,7 @@ def populate_db(apps, schema_editor):
     hint_6_3.save()
 
 
-    challenge_7 = Challenge(flag="/D3<]3v34Q3H,tDn", title="Level 7", order=7, hidden=False, description="Hmmm... I think you could actually be handy to me. Use White Box and find the flags and submit them to me. Thank you kindly.", templateValue=7)
+    challenge_7 = Challenge(flag="/D3<]3v3b4Q3H,tDn", title="Level 7", order=7, hidden=False, description="Hmmm... I think you could actually be handy to me. Use White Box and find the flags and submit them to me. Thank you kindly.", templateValue=7)
     challenge_7.save()
 
     hint_7_0 = Hint(challenge=challenge_7, hint="HTML")
@@ -128,8 +129,8 @@ def populate_db(apps, schema_editor):
     hint_7_7 = Hint(challenge=challenge_7, hint="Hidden Files")
     hint_7_7.save()
 
-
-    challenge_8 = Challenge(flag="1a2s3d4f5g6h7j8k9l", title="Level 8", order=8, hidden=False, description="Good. Good. There are more security flaws. Find them.", templateValue=8)
+    # If you change this flag, it should be changed in /whiteBoxHacking/urls.py
+    challenge_8 = Challenge(flag="1a2s3d4f5bg6h7j8k9l", title="Level 8", order=8, hidden=False, description="Good. Good. There are more security flaws. Find them.", templateValue=8)
     challenge_8.save()
 
     hint_8_0 = Hint(challenge=challenge_8, hint="HTML")
@@ -157,7 +158,7 @@ def populate_db(apps, schema_editor):
     hint_8_7.save()
 
 
-    challenge_9 = Challenge(flag="er4w{^a=Z,dGeyF=", title="Level 9", order=9, hidden=False, description="You have potential, kid. Imma let you in on a little secret.", difficultyIndicator="Moderate", templateValue=9)
+    challenge_9 = Challenge(flag="er4bw{^a=Z,dGeyF=", title="Level 9", order=9, hidden=False, description="You have potential, kid. Imma let you in on a little secret.", difficultyIndicator="Moderate", templateValue=9)
     challenge_9.save()
 
     
@@ -192,7 +193,7 @@ def populate_db(apps, schema_editor):
     hint_9_9.save()
 
 
-    challenge_10 = Challenge(flag="RARW101010RKDFJLS", title="Level 10", order=10, hidden=False, description="They think themselves so safe. Could you kindly get an admin's email and password for me?", difficultyIndicator="Moderate", templateValue=10)
+    challenge_10 = Challenge(flag="RARW10101b0RKDFJLS", title="Level 10", order=10, hidden=False, description="They think themselves so safe. Could you kindly get an admin's email and password for me?", difficultyIndicator="Moderate", templateValue=10)
     challenge_10.save()
 
     hint_10_0 = Hint(challenge=challenge_10, hint="Brute Force Attacks")
@@ -203,6 +204,13 @@ def populate_db(apps, schema_editor):
 
     challenge_11 = Challenge(flag="mYCaBbageS!", title="Brute Force Part 2", description="Contained in a previous challenge were more emails and passwords. Find the correct one and log in. This is the easiest of the hard challenges", order=14, difficultyIndicator = "Hard", optionalChallenge=True, templateValue=11)
     challenge_11.save()
+
+    ###
+    ###
+    # Challenges 11 forward, as well as lone wolf challenges, should NOT be changed, unless you test them throughoughly
+    ###
+    ###
+    ###
 
     hint_11_0 = Hint(challenge=challenge_11, hint="Brute Force Methods")
     hint_11_0.save()

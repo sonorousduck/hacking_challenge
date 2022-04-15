@@ -69,6 +69,13 @@ body {
 
 }
 
+.aligning {
+    display: flex;
+    flex-basis: 90%;
+    justify-content: space-between;
+}
+
+
 .delete-emails {
     cursor: pointer;
     border-radius: 32px;
@@ -80,9 +87,6 @@ body {
     width: 160px;
     text-align: center;
     transition-duration: 0.2s;
-    display: flex;
-    flex-basis: 90%;
-    justify-content: space-between;
 }
 
 .delete-emails:hover {
