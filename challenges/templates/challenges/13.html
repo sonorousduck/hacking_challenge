@@ -47,7 +47,7 @@
                 <form action="../validation/" id="passcodeForm" method="POST" >
 
 
-                    <input v-model="passcodeInput" id="passcodeValidation" name="passcodeValidation" placeholder="password">
+                    <input v-model="passcodeInput" id="passcodeValidation" name="passcodeValidation" placeholder="flag">
                     <button type="button" class="customButtom" id="submitButton" @click=validateInput()> Submit </button>
                     <input hidden id="challenge_id" name='challenge_id' value = {{ challenge.order }}>
                     <input hidden id="csrf_token" value = {{ csrf_token }}>
