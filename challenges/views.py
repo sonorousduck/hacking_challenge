@@ -21,6 +21,11 @@ def index(request):
     easyCompleted = 0
     currentEasyChallenge = easyChallenges[0].order + 1
     foundCurrentChallenge = False
+    completedChallenges = customUser.completedChallenges
+    completedRequiredChallenges = customUser.completedRequiredChallenges
+    numChallenges = customUser.numChallenges
+    numRequiredChallenges = customUser.numRequiredChallenges
+    isAdmin = customUser.admin
 
     for challenge in easyChallenges:
         challenge.hidden = data[count]['hidden']
@@ -101,8 +106,24 @@ def index(request):
             if not hardFound:
                 currentHardChallenge = hardChallenges[0].order + 1
         count += 1
-
-    return render(request, 'challenges/index.html', {'easyChallenges': easyChallenges, 'moderateChallenges': moderateChallenges, 'hardChallenges': hardChallenges, 'easyCompleted': easyCompleted, 'moderateCompleted': moderateCompleted, 'hardCompleted': hardCompleted, 'moderateLocked': moderateLocked, 'hardLocked': hardLocked, 'currentEasyChallenge': currentEasyChallenge, 'currentModerateChallenge': currentModerateChallenge, 'currentHardChallenge': currentHardChallenge})
+    # needs isAdmin, completedChallenges, numChallenges, numRequiredChallenges, completedRequiredChallenges
+    return render(request, 'challenges/index.html', {
+        'isAdmin':isAdmin,
+        'completedChallenges':completedChallenges,
+        'numChallenges': numChallenges,
+        'numRequiredChallenges': numRequiredChallenges,
+        'completedRequiredChallenges': completedRequiredChallenges,
+        'easyChallenges': easyChallenges,
+        'moderateChallenges': moderateChallenges,
+        'hardChallenges': hardChallenges,
+        'easyCompleted': easyCompleted,
+        'moderateCompleted': moderateCompleted,
+        'hardCompleted': hardCompleted,
+        'moderateLocked': moderateLocked,
+        'hardLocked': hardLocked,
+        'currentEasyChallenge': currentEasyChallenge,
+        'currentModerateChallenge': currentModerateChallenge,
+        'currentHardChallenge': currentHardChallenge})
 
 
 @login_required()
