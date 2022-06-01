@@ -15,6 +15,7 @@ def index(request):
     easyChallenges = Challenge.objects.filter(difficultyIndicator="Easy").order_by('order')
     moderateChallenges = Challenge.objects.filter(difficultyIndicator="Moderate").order_by('order')
     hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard").order_by('order')
+    leetChallenges = Challenge.objects.filter(difficultyIndicator="l33t").order_by('order')
     customUser = CustomUser.objects.get(user=request.user.id)
     data = json.loads(customUser.challenges)
     count = 0
@@ -47,16 +48,17 @@ def index(request):
             moderateLocked = 'false'
 
         if easyCompleted == len(easyChallenges):
-
-            hardLocked = 'false'
-            hardChallengesCount = len(hardChallenges)
-            for i in range(hardChallengesCount):
-                data[len(moderateChallenges) + len(easyChallenges) + i]['hidden'] = 'false'
-            customUser.challenges = json.dumps(data)
-            customUser.save()
+            pass
+            # hardLocked = 'false'
+            # hardChallengesCount = len(hardChallenges)
+            # for i in range(hardChallengesCount):
+            #     data[len(moderateChallenges) + len(easyChallenges) + i]['hidden'] = 'false'
+            # customUser.challenges = json.dumps(data)
+            # customUser.save()
 
         else:
             hardLocked = 'true'
+            leetLocked = 'true'
     if moderateLocked == 'false':
         data[len(easyChallenges)]['hidden'] = 'false'
         customUser.challenges = json.dumps(data)
@@ -84,9 +86,12 @@ def index(request):
 
     if moderateCompleted == len(moderateChallenges):
         hardLocked = 'false'
+        leetLocked = 'false'
         hardChallengesCount = len(hardChallenges)
         for i in range(hardChallengesCount):
             data[len(moderateChallenges) + len(easyChallenges) + i]['hidden'] = 'false'
+        for i in range(len(leetChallenges)):
+            data[len(moderateChallenges) + len(easyChallenges) + len(hardChallenges) + i]['hidden'] = 'false'
         customUser.challenges = json.dumps(data)
         customUser.save()
 
@@ -106,6 +111,25 @@ def index(request):
             if not hardFound:
                 currentHardChallenge = hardChallenges[0].order + 1
         count += 1
+    
+    leetCompleted = 0
+    leetFound = False
+    currentLeetChallenge = ''
+
+    for challenge in leetChallenges:
+        challenge.hidden = data[count]['hidden']
+        challenge.completed = data[count]['completed']
+        challenge.data = data[count]
+        if data[count]['completed'] == 'true':
+            leetCompleted += 1
+            if leetCompleted == len(leetChallenges):
+                currentLeetChallenge = 'completed'
+                leetFound = True
+            else:
+                if not leetFound:
+                    currentLeetChallenge = leetChallenges[0].order + 1
+        count += 1
+
     # needs isAdmin, completedChallenges, numChallenges, numRequiredChallenges, completedRequiredChallenges
     return render(request, 'challenges/index.html', {
         'isAdmin':isAdmin,
@@ -116,14 +140,19 @@ def index(request):
         'easyChallenges': easyChallenges,
         'moderateChallenges': moderateChallenges,
         'hardChallenges': hardChallenges,
+        'leetChallenges': leetChallenges,
         'easyCompleted': easyCompleted,
         'moderateCompleted': moderateCompleted,
         'hardCompleted': hardCompleted,
+        'leetCompleted': leetCompleted,
         'moderateLocked': moderateLocked,
         'hardLocked': hardLocked,
+        'leetLocked': leetLocked,
         'currentEasyChallenge': currentEasyChallenge,
         'currentModerateChallenge': currentModerateChallenge,
-        'currentHardChallenge': currentHardChallenge})
+        'currentHardChallenge': currentHardChallenge,
+        'currentLeetChallenge': currentLeetChallenge,
+        })
 
 
 @login_required()

@@ -78,6 +78,26 @@ Complete </div>
                 {% endif %}
             </div>
 
+            <div class="challengeCard" id="l33t">
+                <div class="title"> L33T </div>
+                <hr class="titleBar">
+                <img class="skullImage" src={% static 'challenges/anonymous.png' %} />
+                <div class="completedLevels"> {{ leetCompleted }}/{{ leetChallenges.count }} Completed </div>
+                {% if leetLocked == 'true' %}
+                    <div class="customButtonDisabled"> <i class="fa fa-lock" aria-hidden="true"></i> Locked <div class="optional-text"> (Optional, no credit/progress towards grade)</div> </div>
+
+                {% elif currentLeetChallenge == 'completed' %}
+                    <a class="link" href='hard/'>
+                        <div class="customButton"> <i class="fa fa-check" aria-hidden="true"></i>
+    Complete </div>
+                    </a>
+                {% else %}
+                    <a class="link" href='hard/'>
+                    <div class="customButton"> Continue <i class="fa fa-arrow-right" aria-hidden="true"></i> <div class="optional-text"> (Optional, no credit/progress towards grade)</div> </div>
+                    </a>
+                {% endif %}
+            </div>
+
         </div>
 
 
