@@ -1,0 +1,26 @@
+{% load static %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'customAdmin/table.css' %}">
+</head>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        {% for tableHead in tableHeads %}
+        <th>{{ tableHead }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in tableData %}
+      <tr>
+        {% for column in row %}
+        <td>{{ column }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

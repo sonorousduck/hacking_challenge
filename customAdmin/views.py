@@ -1,11 +1,14 @@
 from django.shortcuts import render
+from django.core import serializers
 from .models import AssignmentDates
 from django.urls import reverse
 from challenges.models import Challenge
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from loginSignup.models import CustomUser
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from matplotlib import pyplot as plt
+import json
 
 # Create your views here.
 
@@ -19,6 +22,28 @@ def index(request):
         allChallenges = Challenge.objects.all().order_by('-totalIncorrectGuesses')
         allChallengesNoOrder = Challenge.objects.all()
 
+        allChallengesInOrder = Challenge.objects.all().order_by('order')
+
+        allUsers = CustomUser.objects.values('first_name', 'last_name', 'percentComplete', 'challenges')
+
+        tableHeads = ['First Name', 'Last Name', 'Percent Complete']
+        for i in range(len(allChallenges)):
+            tableHeads.append(f'Challenge {i+1}')
+
+        tableData = []
+        for user in allUsers:
+            userData = []
+            challenges = json.loads(user['challenges'])
+            userData.append(user['first_name'])
+            userData.append(user['last_name'])
+            userData.append(user['percentComplete'])
+            for challenge in allChallengesInOrder:
+                if challenges[challenge.order]['completed'] == 'true':
+                    userData.append('X')
+                else:
+                    userData.append(' ')
+            tableData.append(userData)
+
         incorrectGuesses = []
         orderChallenges = []
 
@@ -31,7 +56,11 @@ def index(request):
         plt.bar(orderChallenges, incorrectGuesses, align='center', alpha=0.6)
         plt.savefig('static/customAdmin/incorrectGuesses.png')
 
-        return render(request, 'customAdmin/index.html', {'dates': dates, 'allChallenges': allChallenges})
+        return render(request, 'customAdmin/index.html', {'dates': dates, 'allChallenges': allChallenges,
+        'tableHeads': tableHeads,
+        'allUsers': allUsers,
+        'tableData': tableData,
+        })
     else: 
         return HttpResponseForbidden("403 Forbidden")
 
@@ -96,4 +125,3 @@ def changeDate(request):
 
 
     return HttpResponseRedirect(reverse('customAdmin:index'))
-
