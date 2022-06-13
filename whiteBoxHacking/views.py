@@ -80,6 +80,24 @@ HOSTNAME = "docker-l-4vcpu-7gb-slc13-37"
 UID = 1337
 USERNAME = "hackerman"
 
+def FormatCodeResponse(message, command=""):
+    style = "<style> body { background-color: black; color: white; } </style>"
+    response = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>BASH</title>
+            {style}
+        </head>
+        <body>
+            <code>$ {command}</code>
+            {message}
+        </body>
+    </html>
+    """
+    return HttpResponse(response)
+
 # 'shell' should ALWAYS be False to avoid shell metacharacter interpolation
 OPTS = {'shell': False, 'cwd': CWD, 'stdout': subprocess.PIPE, 'stderr': subprocess.PIPE}
 
@@ -92,77 +110,77 @@ def unix(request):
         print(f"  >>> {request.user}@{request.META['REMOTE_ADDR']} ran '{cmdline}' <<<")
 
         if cmdline == "":
-            return HttpResponse("<pre>bash: : command not found</pre>")
+            return FormatCodeResponse("<pre>bash: : command not found</pre>", cmd)
 
         # filter out empty arguments found after splitting the command line on whitespace
         args = list(filter(None, re.split('\s+', cmdline)))
         cmd = args.pop(0)
 
         if cmd in NOOP:
-            return HttpResponse(f"<pre></pre>")
+            return FormatCodeResponse(f"<pre></pre>")
 
         elif "../" in cmd or cmd.startswith("/"):
-            return HttpResponse(f"<pre>bash: {cmd}: command not found</pre>")
+            return FormatCodeResponse(f"<pre>bash: {cmd}: command not found</pre>")
 
         elif cmd == 'ls':
             args = filter(lambda s: not s.startswith('/') and '..' not in s, args)
             result = subprocess.run([cmd, *args], **OPTS)
-            return HttpResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>")
+            return FormatCodeResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>", cmd)
 
         elif cmd == "cat":
             if len(args) == 1 and args[0] == '.env':
                 challenge7 = Challenge.objects.get(templateValue=7)
-                return HttpResponse(f"<pre>Challenge 7 Flag: {challenge7.flag}</pre>")
+                return FormatCodeResponse(f"<pre>Challenge 7 Flag: {challenge7.flag}</pre>", cmd)
             else:
                 args = filter(lambda s: not s.startswith('/') and '..' not in s, args)
                 result = subprocess.run([cmd, *args], **OPTS)
-                return HttpResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>")
+                return FormatCodeResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>", cmd)
 
         elif cmd in WHITELIST:
             args = filter(lambda s: not s.startswith('/') and '..' not in s, args)
             result = subprocess.run([cmd, *args], **OPTS)
-            return HttpResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>")
+            return FormatCodeResponse(f"<pre>{result.stdout.decode('utf-8') + result.stderr.decode('utf-8')}</pre>", cmd)
 
         elif cmd in BLACKLIST:
-            return HttpResponse(f"<pre>bash: {cmd}: Permission denied</pre>")
+            return FormatCodeResponse(f"<pre>bash: {cmd}: Permission denied</pre>", cmd)
 
         elif cmd in NOT_A_TTY:
-            return HttpResponse(f"<pre>{cmd}: stdin is not a tty</pre>")
+            return FormatCodeResponse(f"<pre>{cmd}: stdin is not a tty</pre>", cmd)
 
         # fake command output
         elif cmd == 'df':
-            return HttpResponse("<pre>Filesystem     1K-blocks     Used Available Use% Mounted on<br/>/dev/vda1       25226960 18668320   6542256  75% /</pre>")
+            return FormatCodeResponse("<pre>Filesystem     1K-blocks     Used Available Use% Mounted on<br/>/dev/vda1       25226960 18668320   6542256  75% /</pre>", cmd)
 
         elif cmd == 'fortune': # Encourage students with a random hint
             # F strings freaked out at a backslash. This is a hacky way to combat this
             newlineCharacter = '\n'
-            return HttpResponse(f"<pre>{re.sub('{newlineCharacter}', '<br/>', random.choice(FORTUNES))}</pre>")
+            return FormatCodeResponse(f"<pre>{re.sub('{newlineCharacter}', '<br/>', random.choice(FORTUNES))}</pre>", cmd)
 
         elif cmd == 'free':
-            return HttpResponse("<pre> total        used        free      shared  buff/cache   available<br/>Mem:        1004892      486940       87752        3372      430200      347140<br/>Swap:             0           0           0                    </pre>")
+            return FormatCodeResponse("<pre> total        used        free      shared  buff/cache   available<br/>Mem:        1004892      486940       87752        3372      430200      347140<br/>Swap:             0           0           0                    </pre>", cmd)
 
         elif cmd == 'hostname':
             if args == []:
-                return HttpResponse(f"<pre>{HOSTNAME}</pre>")
+                return FormatCodeResponse(f"<pre>{HOSTNAME}</pre>", cmd)
             else:
-                return HttpResponse(f"<pre>hostname: you must be root to change the host name</pre>")
+                return FormatCodeResponse(f"<pre>hostname: you must be root to change the host name</pre>", cmd)
 
         elif cmd == 'id':
-            return HttpResponse(f"<pre>uid={UID}({USERNAME}) gid={UID}({USERNAME}) groups={UID}({USERNAME})</pre>")
+            return FormatCodeResponse(f"<pre>uid={UID}({USERNAME}) gid={UID}({USERNAME}) groups={UID}({USERNAME})</pre>", cmd)
 
         elif cmd == 'sudo':
-            return HttpResponse(f"<pre>{USERNAME} is not in the sudoers file.   This incident will be reported.</pre>")
+            return FormatCodeResponse(f"<pre>{USERNAME} is not in the sudoers file.   This incident will be reported.</pre>", cmd)
 
         elif cmd == 'uptime':
-            return HttpResponse(f"<pre>{strftime('%H:%M:%S')} up 1337 days, 13:37,  3 users,  load average: 0.05, 0.02, 0.01</pre>")
+            return FormatCodeResponse(f"<pre>{strftime('%H:%M:%S')} up 1337 days, 13:37,  3 users,  load average: 0.05, 0.02, 0.01</pre>", cmd)
 
         elif cmd == 'whoami' or cmd == 'who':
-            return HttpResponse(f"<pre>{USERNAME}</pre>")
+            return FormatCodeResponse(f"<pre>{USERNAME}</pre>", cmd)
 
         else:
-            return HttpResponse(f"<pre>bash: {cmd}: command not found</pre>")
+            return FormatCodeResponse(f"<pre>bash: {cmd}: command not found</pre>", cmd)
     else:
-        return HttpResponse("<pre>bash: : command not found</pre>")
+        return FormatCodeResponse("<pre>bash: : command not found</pre>")
 
 
 @login_required()

@@ -26,11 +26,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-with open('/etc/secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+# with open('/etc/secret_key.txt') as f: # TODO: Change this back before pushing
+#     SECRET_KEY = f.read().strip()
+SECRET_KEY = 'changethisbackthisisfortesting'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'aggiectf.tk', '206.189.210.78',
         "www.aggiectf.tk", "aggiectf.gq", "www.aggiectf.gq", ]

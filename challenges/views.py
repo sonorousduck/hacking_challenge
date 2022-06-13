@@ -109,8 +109,10 @@ def index(request):
                 hardFound = True
         else:
             if not hardFound:
-                currentHardChallenge = hardChallenges[0].order + 1
+                currentHardChallenge = hardChallenges[0].order + 2
         count += 1
+
+    print(currentHardChallenge)
     
     leetCompleted = 0
     leetFound = False
@@ -374,7 +376,8 @@ def challengeDetails(request, order):
 
 @login_required()
 def hardChallenges(request):
-    hardChallenges = Challenge.objects.filter(difficultyIndicator="Hard")
+    # This was renamed to l33t challenges
+    hardChallenges = Challenge.objects.filter(difficultyIndicator="l33t")
     customUser = CustomUser.objects.get(user=request.user)
     deleted = customUser.completedAllChallenges
     bruteForce = hardChallenges[0].order + 1
