@@ -29,7 +29,7 @@ def populate_db(apps, schema_editor):
     hint_1_1 = Hint(challenge=challenge_1, hint="Browser Developer Tools")
     hint_1_1.save()
 
-    # This flag cannot change, it will break
+    # This flag cannot change, it will break (uses a JS function to generate)
     challenge_2 = Challenge(flag="0iL2oV4eH6aC8kI10nG", title="Level 2", order=2, hidden=False, description="HA! Javascript will help me here! Good luck with this one, little pest!", templateValue=2)
     challenge_2.save()
 
@@ -130,7 +130,7 @@ def populate_db(apps, schema_editor):
     hint_7_7 = Hint(challenge=challenge_7, hint="Hidden Files")
     hint_7_7.save()
 
-    # If you change this flag, it should be changed in /whiteBoxHacking/urls.py
+    # ok to change
     challenge_8 = Challenge(flag="1a2s3d4f5bg6h7j8k9l", title="Level 8", order=8, hidden=False, description="Good. Good. There are more security flaws. Find them.", templateValue=8)
     challenge_8.save()
 

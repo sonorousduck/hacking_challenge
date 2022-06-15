@@ -85,6 +85,10 @@
                         <button type="button" class="adminButton" @click=showForm()> Change Dates </button>
                     </div>
 
+                    <div class="centered padded">
+                        <button type="button" class="adminButton" onclick="window.location.href='/customAdmin/shuffle'">Shuffle Flags (Not all can change)</button>
+                    </div>
+
 
                     <div :hidden="!hideChangeForm">
                         <form action="changeDate/" id="changeDate" method="POST">
@@ -110,14 +114,14 @@
                     <table>
                         <thead>
                           <tr>
-                            <th>Challenge</th>
+                            <th>Challenge Template Value</th>
                             <th>Flag</th>
                           </tr>
                         </thead>
                         <tbody>
                           {% for challenge in allChallengesInOrder %}
                           <tr>
-                            <td>{{ challenge.order }}</td>
+                            <td>{{ challenge.templateValue }}</td>
                             <td>{{ challenge.flag }}</td>
                           </tr>
                           {% endfor %}

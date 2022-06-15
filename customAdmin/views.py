@@ -10,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 from matplotlib import pyplot as plt
 import json
 
+import string
+import random
+
 # Create your views here.
 
 @login_required
@@ -65,7 +68,20 @@ def index(request):
     else: 
         return HttpResponseForbidden("403 Forbidden")
 
+@login_required
+def mix_flags(request):
+    if not request.user.is_superuser:
+        return HttpResponseForbidden("403 Forbidden")
 
+    excluded_challenges = [0, 2, 5, 13]
+    
+    challenges_to_change = Challenge.objects.exclude(templateValue__in=excluded_challenges)
+
+    for challenge in challenges_to_change:
+        challenge.flag = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+        challenge.save()
+    
+    return HttpResponseRedirect(reverse('customAdmin:index'))
 
 @login_required
 def changeDate(request):
