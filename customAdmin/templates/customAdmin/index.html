@@ -105,6 +105,27 @@
 
             </div>
 
+            <div>
+                <div>
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Challenge</th>
+                            <th>Flag</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for challenge in allChallengesInOrder %}
+                          <tr>
+                            <td>{{ challenge.order }}</td>
+                            <td>{{ challenge.flag }}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+
             {% include 'customAdmin/table.html' %}
         </div>
     </body>

@@ -89,7 +89,10 @@ def homepage(request):
                 admin = employee.admin
                 first_name = employee.first_name
                 last_name = employee.last_name
-                flag = Challenge.objects.get(templateValue=16).flag
+                if admin:
+                    flag = Challenge.objects.get(templateValue=14).flag
+                else:
+                    flag = Challenge.objects.get(templateValue=16).flag
                 return render(request, 'wolfIncorporated/homepage.html', {'admin': admin, 'first_name': first_name, 'last_name': last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage, 'serverRunning': serverRunning, 'flag': flag}) 
             except:
                 return (render(request, 'wolfIncorporated/homepage.html', {'first_name': request.user.first_name, 'last_name': request.user.last_name, 'employees': employees, 'everyone': everyone, 'emails': emails, 'cookie': cookieMessage, 'serverRunning': serverRunning, 'flag': flag}))

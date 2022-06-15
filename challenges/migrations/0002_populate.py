@@ -18,6 +18,7 @@ def populate_db(apps, schema_editor):
     hint_0_1 = Hint(challenge=challenge_0, hint="Browser Developer Tools")
     hint_0_1.save()
 
+    # ok to change
     challenge_1 = Challenge(flag="FBJKLDAS$@*()789fds", title="Level 1", order=1, hidden=False, description="I admit, that first one was terrible security. This one isn't nearly as terrible.", templateValue=1)
     challenge_1.save()
 
@@ -42,7 +43,7 @@ def populate_db(apps, schema_editor):
     hint_2_0.save()
 
 
-
+    # ok to change
     challenge_3 = Challenge(flag="@UK#Kb3ir3i2dsa", title="Level 3", order=3, hidden=False, description="Fine. Fine. Fine. I get it. Keeping it offsite would be a much better idea they told me. I'll do that.", templateValue=3)
     challenge_3.save()
    
@@ -51,7 +52,7 @@ def populate_db(apps, schema_editor):
     hint_3_0.save()
 
 
-
+    # ok to change
     challenge_4 = Challenge(flag="T/E))2n-_-0b!cj4--H*0?", title="Level 4", order=4, hidden=False, description="Do you not know who I am!? Leave me and my site alone! Offsite obviously didn't work. I'm using Javascript again.", templateValue=4)
     challenge_4.save()
 
@@ -81,10 +82,9 @@ def populate_db(apps, schema_editor):
     hint_5_4 = Hint(challenge=challenge_5, hint="Website URL Routing")
     hint_5_4.save()
 
-    
+    # ok to change
     challenge_6 = Challenge(flag="@U/*Db4(DV}wT{F`e", title="Level 6", order=6, hidden=False, description="Forgive me if I seem neglectful now. I have... other tasks at hand. I just quickly implemented a sign in form instead. Sign in, gives password. Seems a little redundant for me to remember a password but oh well.", templateValue=6)
     challenge_6.save()
-
 
 
     hint_6_0 = Hint(challenge=challenge_6, hint="HTML")
@@ -102,7 +102,7 @@ def populate_db(apps, schema_editor):
     hint_6_3 = Hint(challenge=challenge_6, hint="GET/POST Request/Response")
     hint_6_3.save()
 
-
+    # ok to change
     challenge_7 = Challenge(flag="/D3<]3v3b4Q3H,tDn", title="Level 7", order=7, hidden=False, description="Hmmm... I think you could actually be handy to me. Use White Box and find the flags and submit them to me. Thank you kindly.", templateValue=7)
     challenge_7.save()
 
@@ -159,6 +159,7 @@ def populate_db(apps, schema_editor):
     hint_8_7.save()
 
 
+    # Ok to change
     challenge_9 = Challenge(flag="er4bw{^a=Z,dGeyF=", title="Level 9", order=9, hidden=False, description="You have potential, kid. Imma let you in on a little secret.", difficultyIndicator="Moderate", templateValue=9)
     challenge_9.save()
 
@@ -193,7 +194,7 @@ def populate_db(apps, schema_editor):
     hint_9_9 = Hint(challenge=challenge_9, hint="The Cookie's path is significant, too")
     hint_9_9.save()
 
-
+    # ok to change
     challenge_10 = Challenge(flag="RARW10101b0RKDFJLS", title="Level 10", order=10, hidden=False, description="They think themselves so safe. Could you kindly get an admin's email and password for me?", difficultyIndicator="Moderate", templateValue=10)
     challenge_10.save()
 
@@ -203,19 +204,15 @@ def populate_db(apps, schema_editor):
     hint_10_1 = Hint(challenge=challenge_10, hint="Fetch Commands in Javascript")
     hint_10_1.save()
 
+
+    # ok to change
     challenge_11 = Challenge(flag="mYCaBbageS!", title="Brute Force Part 2", description="Contained in a previous challenge were more emails and passwords. Find the correct one and log in. This is the easiest of the hard challenges", order=14, difficultyIndicator = "l33t", optionalChallenge=True, templateValue=11)
     challenge_11.save()
-
-    ###
-    ###
-    # Challenges 11 forward, as well as lone wolf challenges, should NOT be changed, unless you test them throughoughly
-    ###
-    ###
-    ###
 
     hint_11_0 = Hint(challenge=challenge_11, hint="Brute Force Methods")
     hint_11_0.save()
 
+    # ok to change, this is found by db
     challenge_12 = Challenge(flag="YouAreAnAdminNow77@^</>", title="Cross Site Scripting", description="We need you to find a way to become an admin for the very man you were working for and end him. He is evil. You helped him. Our intel tells us there is a single way for this to be done. Good luck.", order=15, difficultyIndicator = "l33t", templateValue=12, optionalChallenge=True)
     challenge_12.save()
 
@@ -225,7 +222,7 @@ def populate_db(apps, schema_editor):
     hint_12_1 = Hint(challenge=challenge_12, hint="Find a way to make yourself an admin... Maybe Cross Site Scripting or Get Requests?")
     hint_12_1.save()
 
-
+    # do not change, this is the encryption one
     challenge_13 = Challenge(flag="congratulationsondecryptingthis!", title="Cryptology Challenge", description="Below is a paragraph that has been encrypted. Solve it", order=16, difficultyIndicator="l33t", optionalChallenge=True, templateValue=13)
     challenge_13.save()
 
@@ -243,6 +240,7 @@ def populate_db(apps, schema_editor):
     hint_13_3 = Hint(challenge=challenge_13, hint="Don't be afraid to guess. The decryption of the flag and text both are recognizable English, so as you start narrowing things down, it should become easier and easier")
     hint_13_3.save()
 
+    # In file, /wolfIncorporated/templates/wolfIncorporated/homepage.html
     challenge_loneWolf_0 = Challenge(flag="#CH**O#SEN_#^%ON--=E", title="Lone Wolf Part 1", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=11, difficultyIndicator = "Hard", challengeSeries = "LoneWolf", templateValue=14, optionalChallenge=True)
     challenge_loneWolf_0.save()
 
@@ -252,6 +250,7 @@ def populate_db(apps, schema_editor):
     hint_loneWolf_0_1 = Hint(challenge=challenge_loneWolf_0, hint="Weak Authentication validators")
     hint_loneWolf_0_1.save()
 
+    # ok to change
     challenge_loneWolf_2 = Challenge(flag="DO!ITSTRI#^KETH445ESE*RV^ERD#@OWN", title="Lone Wolf Part 2", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=12, difficultyIndicator = "Hard", challengeSeries = "LoneWolf", templateValue=16, optionalChallenge=True)
     challenge_loneWolf_2.save()
 
@@ -262,6 +261,7 @@ def populate_db(apps, schema_editor):
     hint_loneWolf_0_3 = Hint(challenge=challenge_loneWolf_2, hint="Maybe try using the console?")
     hint_loneWolf_0_3.save()
 
+    # ok to change
     challenge_loneWolf_3 = Challenge(flag="Y2OU!@MONSdsTER%^", title="Lone Wolf Part 3", description="Your challenge is to break into a website called Lone Wolf (link down below) and shut it down. End their company for me.", order=13, difficultyIndicator = "Hard", challengeSeries = "LoneWolf", templateValue=17, optionalChallenge=True)
     challenge_loneWolf_3.save()
 

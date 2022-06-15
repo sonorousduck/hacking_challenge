@@ -60,6 +60,7 @@ def index(request):
         'tableHeads': tableHeads,
         'allUsers': allUsers,
         'tableData': tableData,
+        'allChallengesInOrder': allChallengesInOrder,
         })
     else: 
         return HttpResponseForbidden("403 Forbidden")
