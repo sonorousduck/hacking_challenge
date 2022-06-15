@@ -4,7 +4,7 @@ from . import views
 
 app_name='whiteBoxHacking'
 
-# Remember everyone! The password for the 8th challenge is 1a2s3d4f5bg6h7j8k9l
+# Remember everyone! The password for the 8th challenge is {}
 urlpatterns = [
         path('', views.index, name='whiteBox'),
         path('views.py/', views.showViews, name='views'),

@@ -131,6 +131,12 @@ def unix(request):
             if len(args) == 1 and args[0] == '.env':
                 challenge7 = Challenge.objects.get(templateValue=7)
                 return FormatCodeResponse(f"<pre>Challenge 7 Flag: {challenge7.flag}</pre>", cmd)
+            elif len(args) == 1 and args[0] == 'urls.py':
+                challenge8 = Challenge.objects.get(templateValue=8)
+                urlpy = ''
+                with open(os.path.join(CWD, 'urls.py'), 'r') as f:
+                    urlpy = f.read()
+                return FormatCodeResponse(f"<pre>{urlpy.format(challenge8.flag)}</pre>", cmd)
             else:
                 args = filter(lambda s: not s.startswith('/') and '..' not in s, args)
                 result = subprocess.run([cmd, *args], **OPTS)
