@@ -50,7 +50,7 @@
           <div :hidden="isInvisible" id="hints" class="popup_hints">
             <span class="helper"></span>
             <div>
-              <div class="popupCloseButton" @click="getHints()">&times;</div>
+              <div class="popupCloseButton" @click=getHints()>&times;</div>
               <p><strong> Requires Knowledge of: </strong></p>
               <ul id="hintsList">
                 {% for hint in challenge.hint_set.all %}
@@ -73,7 +73,7 @@
             type="button"
             class="customButtom"
             id="submitButton"
-            @click="validateInput()"
+            @click=validateInput()
           >
             Submit
           </button>
@@ -81,12 +81,10 @@
             hidden
             id="challenge_id"
             name="challenge_id"
-            value="{{"
-            challenge.order
-            }}
+            value={{challenge.order}}
           />
-          <input hidden id="csrf_token" value="{{ csrf_token }}" />
-          <button type="button" id="hintButton" @click="getHints()">
+          <input hidden id="csrf_token" value={{ csrf_token }} />
+          <button type="button" id="hintButton" @click=getHints()>
             View Hint
           </button>
           <br />
