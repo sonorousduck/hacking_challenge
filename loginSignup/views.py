@@ -30,8 +30,6 @@ def signIn(request):
         return render(request, 'loginSignup/signinScreen.html', {'error_message': 'Incorrect Login'})
 
 
-
-
 def signUp(request):
     form = RegistrationForm()
 
@@ -47,21 +45,20 @@ def signUp(request):
                         return render(request, 'loginSignup/signUpScreen.html', {'form': form})
 
                     userCreated = User.objects.create_user(
-                            username=form.cleaned_data['username'],
-                            password=form.cleaned_data['password'],
-                            email=form.cleaned_data['email'],
-                            first_name=form.cleaned_data['firstName'],
-                            last_name = form.cleaned_data['lastName'],
-                            )
+                        username=form.cleaned_data['username'],
+                        password=form.cleaned_data['password'],
+                        email=form.cleaned_data['email'],
+                        first_name=form.cleaned_data['firstName'],
+                        last_name=form.cleaned_data['lastName'],
+                    )
 
                     challengesJSON = []
                     incorrectPerChallenge = []
                     JSONAchievements = json.dumps([])
 
-
                     try:
-                        openTime = AssignmentDates.objects.get(description="open")
-                       
+                        openTime = AssignmentDates.objects.get(
+                            description="open")
 
                         if (openTime.date + timedelta(days=3) > datetime.now().date()):
                             achievements = json.loads(JSONAchievements)
@@ -73,37 +70,34 @@ def signUp(request):
 
                     for i in range(Challenge.objects.all().count()):
                         if i != 0:
-                            challenge = {f'challenge{i}': f'{i}', 'hidden': 'true', 'completed': 'false'}
+                            challenge = {f'challenge{i + 1}': f'{i + 1}',
+                                         'hidden': 'true', 'completed': 'false'}
                         else:
-                            challenge = {f'challenge{i}': f'{i}', 'hidden': 'false', 'completed': 'false'}
-                        
-                        incorrectness = {f'challenge{i}': f'{i}', 'numberIncorrect': '0'} 
+                            challenge = {f'challenge{i + 1}': f'{i + 1}',
+                                         'hidden': 'false', 'completed': 'false'}
 
+                        incorrectness = {
+                            f'challenge{i + 1}': f'{i + 1}', 'numberIncorrect': '0'}
 
                         challengesJSON.append(challenge)
                         incorrectPerChallenge.append(incorrectness)
 
-
                     JSONchallenges = json.dumps(challengesJSON)
                     JSONIncorrect = json.dumps(incorrectPerChallenge)
-                    numberRequiredChallenges = Challenge.objects.all().filter(optionalChallenge=False).count()
+                    numberRequiredChallenges = Challenge.objects.all().filter(
+                        optionalChallenge=False).count()
 
-
-                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), numRequiredChallenges=numberRequiredChallenges, completedChallenges=0, challenges=JSONchallenges, incorrectPerChallenge=JSONIncorrect, user=userCreated, first_name=form.cleaned_data['firstName'], last_name=form.cleaned_data['lastName'], achievements=JSONAchievements, customText="Look at who is too cool for flavor text or something! Psh! (Ironically, this is your flavor text")
-
+                    customUser = CustomUser(numChallenges=Challenge.objects.all().count(), numRequiredChallenges=numberRequiredChallenges, completedChallenges=0, challenges=JSONchallenges, incorrectPerChallenge=JSONIncorrect, user=userCreated,
+                                            first_name=form.cleaned_data['firstName'], last_name=form.cleaned_data['lastName'], achievements=JSONAchievements, customText="Look at who is too cool for flavor text or something! Psh! (Ironically, this is your flavor text")
 
                     userCreated.save()
                     customUser.save()
-
 
                     login(request, userCreated)
                     return HttpResponseRedirect('../../')
                 else:
                     messages.error(request, message="Passwords do not match")
             else:
-                messages.error(request, message='Username is already taken. Please use a different username')                
+                messages.error(
+                    request, message='Username is already taken. Please use a different username')
     return render(request, 'loginSignup/signUpScreen.html', {'form': form})
-
-
-
-         

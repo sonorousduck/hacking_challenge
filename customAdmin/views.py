@@ -15,11 +15,10 @@ import random
 
 # Create your views here.
 
+
 @login_required
 def index(request):
     dates = AssignmentDates.objects.all()
-    
-
 
     if (request.user.is_superuser):
         allChallenges = Challenge.objects.all().order_by('-totalIncorrectGuesses')
@@ -27,7 +26,8 @@ def index(request):
 
         allChallengesInOrder = Challenge.objects.all().order_by('order')
 
-        allUsers = CustomUser.objects.values('first_name', 'last_name', 'percentComplete', 'challenges')
+        allUsers = CustomUser.objects.values(
+            'first_name', 'last_name', 'percentComplete', 'challenges')
 
         tableHeads = ['First Name', 'Last Name', 'Percent Complete']
         for i in range(len(allChallenges)):
@@ -41,7 +41,7 @@ def index(request):
             userData.append(user['last_name'])
             userData.append(user['percentComplete'])
             for challenge in allChallengesInOrder:
-                if challenges[challenge.order]['completed'] == 'true':
+                if challenges[challenge.order-1]['completed'] == 'true':
                     userData.append('X')
                 else:
                     userData.append(' ')
@@ -60,13 +60,14 @@ def index(request):
         plt.savefig('static/customAdmin/incorrectGuesses.png')
 
         return render(request, 'customAdmin/index.html', {'dates': dates, 'allChallenges': allChallenges,
-        'tableHeads': tableHeads,
-        'allUsers': allUsers,
-        'tableData': tableData,
-        'allChallengesInOrder': allChallengesInOrder,
-        })
-    else: 
+                                                          'tableHeads': tableHeads,
+                                                          'allUsers': allUsers,
+                                                          'tableData': tableData,
+                                                          'allChallengesInOrder': allChallengesInOrder,
+                                                          })
+    else:
         return HttpResponseForbidden("403 Forbidden")
+
 
 @login_required
 def mix_flags(request):
@@ -74,21 +75,23 @@ def mix_flags(request):
         return HttpResponseForbidden("403 Forbidden")
 
     excluded_challenges = [0, 2, 5, 13]
-    
-    challenges_to_change = Challenge.objects.exclude(templateValue__in=excluded_challenges)
+
+    challenges_to_change = Challenge.objects.exclude(
+        templateValue__in=excluded_challenges)
 
     for challenge in challenges_to_change:
-        challenge.flag = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+        challenge.flag = ''.join(random.choices(
+            string.ascii_letters + string.digits, k=10))
         challenge.save()
-    
+
     return HttpResponseRedirect(reverse('customAdmin:index'))
+
 
 @login_required
 def changeDate(request):
 
     if not request.user.is_superuser:
         return HttpResponseForbidden("403 Forbidden")
-
 
     startDate = request.POST['startDate']
     startTime = request.POST['startTime']
@@ -99,7 +102,7 @@ def changeDate(request):
     if startDate != '' or startTime != '':
         try:
             openDate = AssignmentDates.objects.get(description="open")
-            
+
             if startDate != '':
                 openDate.date = startDate
             if startTime != '':
@@ -114,31 +117,34 @@ def changeDate(request):
                 openDate = AssignmentDates(date=startDate, description="open")
 
             else:
-                openDate = AssignmentDates(date=startDate, time=startTime, description="open")
-            
+                openDate = AssignmentDates(
+                    date=startDate, time=startTime, description="open")
+
             openDate.save()
 
     if endDate != '' or endTime != '':
         try:
             closedDate = AssignmentDates.objects.get(description="closed")
-            
+
             if endDate != '':
                 closedDate.date = endDate
             if endTime != '':
                 closedDate.time = endTime
-            
+
             closedDate.save()
         except:
             if endDate == '':
-                closedDate = AssignmentDates(time=endTime, description="closed")
-            
+                closedDate = AssignmentDates(
+                    time=endTime, description="closed")
+
             elif endTime == '':
-                closedDate = AssignmentDates(date=endDate, description="closed")
+                closedDate = AssignmentDates(
+                    date=endDate, description="closed")
 
             else:
-                closedDate = AssignmentDates(date=endDate, time=endTime, description="closed")
-            
-            closedDate.save()
+                closedDate = AssignmentDates(
+                    date=endDate, time=endTime, description="closed")
 
+            closedDate.save()
 
     return HttpResponseRedirect(reverse('customAdmin:index'))

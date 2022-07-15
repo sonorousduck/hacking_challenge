@@ -2,47 +2,48 @@
 
 <html>
 
-    <head>
+<head>
 
-        {% load static %}
-        <title> All Challenges </title>
-        <meta charset="utf-8">
-        <script src="{% static 'homepage/node_modules/vue/dist/vue.global.prod.js' %}"></script>
-        <script defer src="{% static 'challenges/challengeBar.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-        <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
+    {% load static %}
+    <title> All Challenges </title>
+    <meta charset="utf-8">
+    <script src="{% static 'homepage/node_modules/vue/dist/vue.global.prod.js' %}"></script>
+    <script defer src="{% static 'challenges/challengeBar.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
 
-    </head> 
+</head>
 
 
-    <body>
-        <div id='challengeBar'>
-            <div v-if='loaded'>
-                <div class="navbar" id="myNavbar">
-                    <a href="/challenges/"> <i class="fa fa-arrow-left rightSpacing" aria-hidden="true"></i> Challenges </a>
-                </div>
+<body>
+    <div id='challengeBar'>
+        <div v-if='loaded'>
+            <div class="navbar" id="myNavbar">
+                <a href="/challenges/"> <i class="fa fa-arrow-left rightSpacing" aria-hidden="true"></i> Challenges </a>
             </div>
         </div>
+    </div>
 
-        <div>
-            {% if completedChallenges %}
-            <div id="challenges" class="challengeContainer">
-                <div class="titleDescription"> Completed Challenges </div>
-                {% for challenge in completedChallenges %}
-                <a class="linkText" href={% url 'challenges:challengeDetails' challenge.order|add:1 %}>
-                    <div class="completedCard newHover" v-bind:id="{{challenge.order}}">
-                        <div class="container">
-                            <div class="levelText"> Challenge {{ challenge.order }} </div>
-                        </div>
+    <div>
+        {% if completedChallenges %}
+        <div id="challenges" class="challengeContainer">
+            <div class="titleDescription"> Completed Challenges </div>
+            {% for challenge in completedChallenges %}
+            <a class="linkText" href={% url 'challenges:challengeDetails' challenge.order %}>
+                <div class="completedCard newHover" v-bind:id="{{challenge.order}}">
+                    <div class="container">
+                        <div class="levelText"> Challenge {{ challenge.order }} </div>
                     </div>
-                </a>
-                {% endfor %}
-            </div>
-    
-            {% else %}
-            <p> No completed challenges are available </p>
-            {% endif %}
+                </div>
+            </a>
+            {% endfor %}
         </div>
 
-    </body>
+        {% else %}
+        <p> No completed challenges are available </p>
+        {% endif %}
+    </div>
+
+</body>
+
 </html>

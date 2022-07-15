@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        {% load static %}
-        <meta charset="utf-8">
-        <script src="{% static 'homepage/node_modules/vue/dist/vue.global.prod.js' %}"></script>
-        <script type="module" defer src="{% static 'challenges/levelDescription.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'challenges/popupStyle.css' %}">
-        <link rel="stylesheet" href="{% static 'challenges/incorrectIndicator.css' %}">
-        <link rel="stylesheet" href="{% static 'challenges/challengeBar.css' %}">
-        <title> Challenge {{ challenge.order }} </title>
-        <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-        <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
 
-    </head>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <script src="{% static 'homepage/node_modules/vue/dist/vue.global.prod.js' %}"></script>
+    <script type="module" defer src="{% static 'challenges/levelDescription.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'challenges/popupStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'challenges/incorrectIndicator.css' %}">
+    <link rel="stylesheet" href="{% static 'challenges/challengeBar.css' %}">
+    <title> Challenge {{ challenge.order }} </title>
+    <link rel="stylesheet" href="{% static 'homepage/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'challenges/style.css' %}">
 
-    <body>
+</head>
 
-        {% include 'challenges/levelDescriptionTemplate.html' %}
+<body>
 
-        <div class="loginForm">
-            <form action="../adminLogin/" method="POST" autocomplete="off">
-                {% csrf_token %}
-                <input class="formEntry" type="text" name="username" placeholder="email">
-                <input class="formEntry" type="password" name="password" placeholder="password">
-                <button type="submit" class="new-button">Login</button>
-            </form>
+    {% include 'challenges/levelDescriptionTemplate.html' %}
+
+    <div class="loginForm">
+        <form action="../adminLogin/" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <input class="formEntry" type="text" name="username" placeholder="email" required>
+            <input class="formEntry" type="password" name="password" placeholder="password" required>
+            <button type="submit" class="new-button">Login</button>
+        </form>
+    </div>
+
+    <div class="small-text centered"> *Note. Upon getting the email and password, enter the information above to "log
+        in" </div>
+
+    <div class="loneWolfDiv">
+        <a class="loneWolfLink" href="../../WhiteBox/">
+            <img class="wolfLogo" src="{% static 'challenges/whitebox.png' %}" />
+            <br>
+            White Box
+        </a>
+        <div class="whiteBoxDetails"> Recent security flaws were found in this website. Use it to solve challenges 7-10
         </div>
 
-        <div class="small-text centered"> *Note. Upon getting the email and password, enter the information above to "log in" </div>
 
-        <div class="loneWolfDiv">
-            <a class="loneWolfLink" href="../../WhiteBox/"> 
-                <img class="wolfLogo" src="{% static 'challenges/whitebox.png' %}"/> 
-                <br>
-                White Box  
-            </a>
-            <div class="whiteBoxDetails"> Recent security flaws were found in this website. Use it to solve challenges 7-10
-            </div>
-
-
-    </body>
+</body>
 
 
 </html>
